@@ -1,20 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
 
     [SerializeField] CharacterController charController;
     [SerializeField] private LayerMask ignoreMask;
+    [SerializeField] private Transform cameraPivotTransform;
 
     [SerializeField] private int HP;
-    [SerializeField] private int speed;
-    [SerializeField] private int sprintMod;
+    [SerializeField] private float speed;
+    [SerializeField] private float sprintMod;
+    [SerializeField] private float crouchMod;
     [SerializeField] private int jumpMax;
     [SerializeField] private int jumpSpeed;
     [SerializeField] private int gravity;
+    
+    [SerializeField] private float crouchTime;
+    [SerializeField] private float crouchHeight;
+    [SerializeField] private float originalHeight;
+    [SerializeField] private float newHeight;
 
+    [SerializeField] private float originalAngle;
+    [SerializeField] private float leanAngle;
+    [SerializeField] private float leanTime;
+    
     [SerializeField] private float damageFlashDuration;
 
 
@@ -24,18 +36,25 @@ public class PlayerController : MonoBehaviour, IDamage
     
     private Vector3 _moveDir;
     private Vector3 _playerVelocity;
+    private float _currentVelocity;
 
     private int _jumpCount;
 
     private bool _isSprinting;
     private bool _isShooting;
-    private Camera mainCam;
+    private bool _isCrouching;
+    
+    private Camera _mainCam;
+
     
     // Start is called before the first frame update
     void Start()
     {
         charController = GetComponent<CharacterController>();
-        mainCam = Camera.main;
+        originalAngle = cameraPivotTransform.localRotation.z;
+        originalHeight = charController.height;
+        newHeight = originalHeight;
+        _mainCam = Camera.main;
     }
 
     // Update is called once per frame
@@ -45,6 +64,8 @@ public class PlayerController : MonoBehaviour, IDamage
         
         movement();
         sprint();
+        crouch();
+        leanCameraPivot();
     }
 
     void movement()
@@ -76,15 +97,61 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void sprint()
     {
-        if (Input.GetButtonDown("Sprint"))
+        
+        if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
             speed *= sprintMod;
             _isSprinting = true;
-        } else if (Input.GetButtonUp("Sprint"))
+        } else if (Input.GetButtonUp("Sprint") && !_isCrouching)
         {
             speed /= sprintMod;
+            
             _isSprinting = false;
         }
+    }
+
+    void crouch()
+    {
+        if (Input.GetButtonDown("Crouch") && !_isSprinting)
+        {
+            speed *= crouchMod;
+            newHeight = crouchHeight;
+            _isCrouching = true;
+        }
+        else if (Input.GetButtonUp("Crouch") && !_isSprinting)
+        {
+            speed /= crouchMod;
+            newHeight = originalHeight;
+            _isCrouching = false;
+        }
+        
+        
+        // updates the player character controller height to be the original height or crouch height, depending on if the crouch input is held
+        charController.height = Mathf.SmoothDamp(charController.height, newHeight, ref _currentVelocity,crouchTime);
+
+    }
+
+    void leanCameraPivot()
+    {
+        if (Input.GetButton("LeanL"))
+        {
+            handleLean(leanAngle);
+        } else if (Input.GetButton("LeanR"))
+        {
+            handleLean(-leanAngle);
+        }
+        else
+        {
+            handleLean(originalAngle);
+        }
+    }
+
+    void handleLean(float angle)
+    {
+        Vector3 currentEulerAngles = _mainCam.transform.localEulerAngles;
+
+        cameraPivotTransform.localRotation = Quaternion.Lerp(cameraPivotTransform.localRotation,
+            Quaternion.Euler(0, 0, angle), Time.deltaTime * leanTime);
     }
 
     IEnumerator shoot()
@@ -95,7 +162,7 @@ public class PlayerController : MonoBehaviour, IDamage
         RaycastHit hit;
         
         // fire raycast in camera forward by shootDist variable and return info from hit
-        if (Physics.Raycast(mainCam.transform.position, mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
+        if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
         {
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
