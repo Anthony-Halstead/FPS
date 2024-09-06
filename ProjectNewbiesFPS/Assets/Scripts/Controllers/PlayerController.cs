@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private float leanTime;
     [SerializeField] private float swayAngle;
     [SerializeField] private float swayTime;
+    [SerializeField] private bool toggleSwayFwdBck;
+    [SerializeField] private bool toggleSwayLeftRight;
     
     [Header("Player Stats - Shooting")]
     [SerializeField] private int shootDamage;
@@ -175,23 +177,30 @@ public class PlayerController : MonoBehaviour, IDamage
         // check for game option to disable sway effects
         // check if player is leaning and return
         if (_isLeaning) return;
-        
-        if (horizInput > 0.25f)
+
+        if (toggleSwayLeftRight)
         {
-            handleLean(0,0,-swayAngle, swayTime);
-        } else if (horizInput < -0.25f)
-        {
-            handleLean(0,0,swayAngle, swayTime);
+            if (horizInput > 0.25f)
+            {
+                handleLean(0,0,-swayAngle, swayTime);
+            } else if (horizInput < -0.25f)
+            {
+                handleLean(0,0,swayAngle, swayTime);
+            }
         }
 
-        if (vertInput > 0.25f)
+        if (toggleSwayFwdBck)
         {
-            handleLean(swayAngle,0,0,swayTime);
+            if (vertInput > 0.25f)
+            {
+                handleLean(swayAngle,0,0,swayTime);
+            }
+            else if (vertInput < -0.25f)
+            {
+                handleLean(-swayAngle,0,0,swayTime); 
+            }
         }
-        else if (vertInput < -0.25f)
-        {
-            handleLean(-swayAngle,0,0,swayTime); 
-        }
+ 
     }
 
     // helper function for doing leaning calculations

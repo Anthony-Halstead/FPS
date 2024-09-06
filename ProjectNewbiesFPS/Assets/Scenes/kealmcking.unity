@@ -387,6 +387,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4633859767327297079, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
+      propertyPath: toggleSwayLeftRight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
