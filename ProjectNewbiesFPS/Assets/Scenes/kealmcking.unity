@@ -388,12 +388,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4633859767327297079, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
-      propertyPath: leanTime
+      propertyPath: swayTime
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4633859767327297079, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
+      propertyPath: swayAngle
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633859767327297079, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
       propertyPath: crouchTime
-      value: 0.5
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

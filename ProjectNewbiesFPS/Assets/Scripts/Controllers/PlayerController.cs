@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
 
+    [Header("References")]
     [SerializeField] CharacterController charController;
     [SerializeField] private LayerMask ignoreMask;
     [SerializeField] private Transform cameraPivotTransform;
 
+    [Header("Player Stats - General")]
     [SerializeField] private int HP;
     [SerializeField] private float speed;
     [SerializeField] private float sprintMod;
@@ -18,21 +22,27 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private int jumpSpeed;
     [SerializeField] private int gravity;
     
+    [Header("Player Stats - Crouching")]
     [SerializeField] private float crouchTime;
     [SerializeField] private float crouchHeight;
     [SerializeField] private float originalHeight;
     [SerializeField] private float newHeight;
 
+    [Header("Player Stats - Lean/Sway")]
     [SerializeField] private float originalAngle;
     [SerializeField] private float leanAngle;
     [SerializeField] private float leanTime;
+    [SerializeField] private float swayAngle;
+    [SerializeField] private float swayTime;
     
-    [SerializeField] private float damageFlashDuration;
-
-
+    [Header("Player Stats - Shooting")]
     [SerializeField] private int shootDamage;
     [SerializeField] private int shootDist;
     [SerializeField] private float shootRate;
+    
+    [Header("Damage Effects")]
+    [SerializeField] private float damageFlashDuration;
+
     
     private Vector3 _moveDir;
     private Vector3 _playerVelocity;
@@ -43,8 +53,12 @@ public class PlayerController : MonoBehaviour, IDamage
     private bool _isSprinting;
     private bool _isShooting;
     private bool _isCrouching;
+    private bool _isLeaning;
     
     private Camera _mainCam;
+
+    private float horizInput;
+    private float vertInput;
 
     
     // Start is called before the first frame update
@@ -61,10 +75,13 @@ public class PlayerController : MonoBehaviour, IDamage
     void Update()
     {
         //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
+        horizInput = Input.GetAxis("Horizontal");
+        vertInput = Input.GetAxis("Vertical");
         
         movement();
         sprint();
         crouch();
+        headSway();
         leanCameraPivot();
     }
 
@@ -76,8 +93,8 @@ public class PlayerController : MonoBehaviour, IDamage
             _jumpCount = 0;
         }
         
-        _moveDir = Input.GetAxis("Horizontal") * transform.right +
-                   Input.GetAxis("Vertical") * transform.forward;
+        _moveDir = horizInput * transform.right +
+                   vertInput * transform.forward;
         charController.Move(_moveDir * (speed * Time.deltaTime));
 
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
@@ -95,6 +112,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    // handles player sprinting
     void sprint()
     {
         
@@ -110,6 +128,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    // handles player crouching
     void crouch()
     {
         if (Input.GetButtonDown("Crouch") && !_isSprinting)
@@ -131,31 +150,61 @@ public class PlayerController : MonoBehaviour, IDamage
 
     }
 
+    // handles player leaning via camera pivot and lean buttons input
     void leanCameraPivot()
     {
         if (Input.GetButton("LeanL"))
         {
-            handleLean(leanAngle);
+            handleLean(0,0,leanAngle, leanTime);
+            _isLeaning = true;
         } else if (Input.GetButton("LeanR"))
         {
-            handleLean(-leanAngle);
+            handleLean(0,0,-leanAngle, leanTime);
+            _isLeaning = true;
         }
         else
         {
-            handleLean(originalAngle);
+            handleLean(0,0,originalAngle, leanTime);
+            _isLeaning = false;
+        }
+    }
+    
+    // sways player head based on movement input
+    void headSway()
+    {
+        // check for game option to disable sway effects
+        // check if player is leaning and return
+        if (_isLeaning) return;
+        
+        if (horizInput > 0.25f)
+        {
+            handleLean(0,0,-swayAngle, swayTime);
+        } else if (horizInput < -0.25f)
+        {
+            handleLean(0,0,swayAngle, swayTime);
+        }
+
+        if (vertInput > 0.25f)
+        {
+            handleLean(swayAngle,0,0,swayTime);
+        }
+        else if (vertInput < -0.25f)
+        {
+            handleLean(-swayAngle,0,0,swayTime); 
         }
     }
 
-    void handleLean(float angle)
+    // helper function for doing leaning calculations
+    void handleLean(float _xAngle, float _yAngle, float _zAngle, float _leanTime)
     {
-        Vector3 currentEulerAngles = _mainCam.transform.localEulerAngles;
-
-        cameraPivotTransform.localRotation = Quaternion.Lerp(cameraPivotTransform.localRotation,
-            Quaternion.Euler(0, 0, angle), Time.deltaTime * leanTime);
+        cameraPivotTransform.localRotation = Quaternion.Slerp(cameraPivotTransform.localRotation,
+            Quaternion.Euler(_xAngle, _yAngle, _zAngle), Time.deltaTime * _leanTime);
     }
+
 
     IEnumerator shoot()
     {
+        Debug.Log("Shot");
         _isShooting = true;
 
         // for returning damage on what was hit

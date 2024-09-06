@@ -93,17 +93,19 @@ MonoBehaviour:
   jumpMax: 1
   jumpSpeed: 9
   gravity: 28
-  crouchTime: 0.5
+  crouchTime: 0.1
   crouchHeight: 0.9
   originalHeight: 0
   newHeight: 0
   originalAngle: 0
   leanAngle: 25
   leanTime: 2
-  damageFlashDuration: 0.1
+  swayAngle: 7.5
+  swayTime: 2
   shootDamage: 2
   shootDist: 150
   shootRate: 0.5
+  damageFlashDuration: 0.1
 --- !u!143 &1968836186271199824
 CharacterController:
   m_ObjectHideFlags: 0
