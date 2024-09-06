@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         model = GetComponentInChildren<Renderer>();
         agent = GetComponent<NavMeshAgent>();
         colorOriginal = model.material.color;
-        GameManager.instance.updateGameGoal(1);
+        GameManager.instance.WinGame(1);
     }
 
     // Update is called once per frame
@@ -56,7 +56,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         HP -= amount;
         if (HP <= 0)
         {
-            GameManager.instance.updateGameGoal(-1);
+            GameManager.instance.WinGame(-1);
             Destroy(gameObject);
         }
     }
