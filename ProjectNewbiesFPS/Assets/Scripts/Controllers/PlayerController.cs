@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("Player Stats - General")]
     [SerializeField] private int HP;
     [SerializeField] private float speed;
+    [SerializeField] private float originalSpeed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float crouchMod;
     [SerializeField] private int jumpMax;
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour, IDamage
         charController = GetComponent<CharacterController>();
         originalAngle = cameraPivotTransform.localRotation.z;
         originalHeight = charController.height;
+        originalSpeed = speed;
         newHeight = originalHeight;
         _mainCam = Camera.main;
     }
@@ -124,8 +126,7 @@ public class PlayerController : MonoBehaviour, IDamage
             _isSprinting = true;
         } else if (Input.GetButtonUp("Sprint") && !_isCrouching)
         {
-            speed /= sprintMod;
-            
+            speed = originalSpeed;
             _isSprinting = false;
         }
     }
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
         else if (Input.GetButtonUp("Crouch") && !_isSprinting)
         {
-            speed /= crouchMod;
+            speed = originalSpeed;
             newHeight = originalHeight;
             _isCrouching = false;
         }
@@ -206,8 +207,15 @@ public class PlayerController : MonoBehaviour, IDamage
     // helper function for doing leaning calculations
     void handleLean(float _xAngle, float _yAngle, float _zAngle, float _leanTime)
     {
-        cameraPivotTransform.localRotation = Quaternion.Slerp(cameraPivotTransform.localRotation,
+        cameraPivotTransform.localRotation = Quaternion.Lerp(cameraPivotTransform.localRotation,
             Quaternion.Euler(_xAngle, _yAngle, _zAngle), Time.deltaTime * _leanTime);
+    }
+
+    void headBob()
+    {
+        // if player is moving
+            // on a timer, smoothly move head up then down on one side
+            // when that side has been complete, now do the same on the opposite side
     }
 
 
