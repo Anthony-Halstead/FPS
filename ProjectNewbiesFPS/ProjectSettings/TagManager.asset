@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BulletPowerUp
+  - CoinPowerUp
+  - HealthPowerUp
+  - SpeedPowerUp
+  - RocketPowerUp
+  - StarPowerUp
   layers:
   - Default
   - TransparentFX

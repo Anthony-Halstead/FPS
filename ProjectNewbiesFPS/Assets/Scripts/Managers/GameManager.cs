@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
 
     public GameObject damagePanel;
+    public GameObject healthBar;
 
-   // public GameObject player;
-   // public PlayerController playerScript;
+    // public GameObject player;
+    // public PlayerController playerScript;
 
+    int enemyCount;
     float timeScaleOG;
 
     public bool isPaused;
@@ -66,9 +68,16 @@ public class GameManager : MonoBehaviour
 
     public void WinGame(int amount)
     {
-        statePause();
-        menuActive = menuWin;
-        menuWin.SetActive(isPaused);
+        enemyCount += amount;
+
+        if (enemyCount <= 0)
+        {
+
+
+            statePause();
+            menuActive = menuWin;
+            menuWin.SetActive(isPaused);
+        }
     }
 
     public void LoseGame()
@@ -77,4 +86,6 @@ public class GameManager : MonoBehaviour
         menuActive = menuLose;
         menuLose.SetActive(true);
     }
+
+
 }
