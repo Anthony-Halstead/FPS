@@ -86,7 +86,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 7.5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 5291380788661917926}
   - component: {fileID: 2154336726631149478}
   - component: {fileID: 5649062129536835447}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -218,18 +218,21 @@ MonoBehaviour:
   cameraPivotTransform: {fileID: 5526848235105782140}
   HP: 10
   speed: 3
+  originalSpeed: 0
   sprintMod: 2
   crouchMod: 0.5
   jumpMax: 1
   jumpSpeed: 9
   gravity: 28
   crouchTime: 0.1
-  crouchHeight: 0.9
+  crouchHeight: 0.65
   originalHeight: 0
   newHeight: 0
   originalAngle: 0
-  leanAngle: 25
-  leanTime: 2
+  leanAngle: 20
+  leanTime: 5
+  leanMovingThreshold: 0.5
+  leanPos: {x: 0.5, y: 0, z: 0}
   swayAngle: 7.5
   swayTime: 2
   toggleSwayFwdBck: 0
@@ -420,7 +423,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -428,7 +431,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

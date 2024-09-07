@@ -7,7 +7,9 @@ using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
-
+    
+    #region Variables
+    
     [Header("References")]
     [SerializeField] CharacterController charController;
     [SerializeField] private LayerMask ignoreMask;
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private float originalAngle;
     [SerializeField] private float leanAngle;
     [SerializeField] private float leanTime;
+    [SerializeField] private float leanMovingThreshold;
+    [SerializeField] private Vector3 leanPos;
     [SerializeField] private float swayAngle;
     [SerializeField] private float swayTime;
     [SerializeField] private bool toggleSwayFwdBck;
@@ -45,7 +49,6 @@ public class PlayerController : MonoBehaviour, IDamage
     
     [Header("Damage Effects")]
     [SerializeField] private float damageFlashDuration;
-
     
     private Vector3 _moveDir;
     private Vector3 _playerVelocity;
@@ -62,7 +65,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
     private float horizInput;
     private float vertInput;
-
+    
+    #endregion
     
     // Start is called before the first frame update
     void Start()
@@ -88,6 +92,9 @@ public class PlayerController : MonoBehaviour, IDamage
         headSway();
         leanCameraPivot();
     }
+    
+
+    #region Movement
 
     void movement()
     {
@@ -153,22 +160,37 @@ public class PlayerController : MonoBehaviour, IDamage
 
     }
 
+    #endregion
+
+    #region Head/Camera Movement
     // handles player leaning via camera pivot and lean buttons input
     void leanCameraPivot()
     {
-        if (Input.GetButton("LeanL"))
+        bool isMoving = Mathf.Abs(horizInput) > leanMovingThreshold || Mathf.Abs(vertInput) > leanMovingThreshold;
+        
+        
+        if (isMoving && !_isCrouching)
         {
-            handleLean(0,0,leanAngle, leanTime);
-            _isLeaning = true;
-        } else if (Input.GetButton("LeanR"))
-        {
-            handleLean(0,0,-leanAngle, leanTime);
-            _isLeaning = true;
+            handleLean(0,0,originalAngle, leanTime, Vector3.zero);
+            _isLeaning = false;
         }
         else
         {
-            handleLean(0,0,originalAngle, leanTime);
-            _isLeaning = false;
+            if (Input.GetButton("LeanL"))
+            {
+                
+                handleLean(0,0,leanAngle, leanTime, -leanPos);
+                _isLeaning = true;
+            } else if (Input.GetButton("LeanR"))
+            {
+                handleLean(0,0,-leanAngle, leanTime, leanPos);
+                _isLeaning = true;
+            }
+            else
+            {
+                handleLean(0,0,originalAngle, leanTime, Vector3.zero);
+                _isLeaning = false;
+            }
         }
     }
     
@@ -183,10 +205,10 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (horizInput > 0.25f)
             {
-                handleLean(0,0,-swayAngle, swayTime);
+                handleLean(0,0,-swayAngle, swayTime, Vector3.zero);
             } else if (horizInput < -0.25f)
             {
-                handleLean(0,0,swayAngle, swayTime);
+                handleLean(0,0,swayAngle, swayTime, Vector3.zero);
             }
         }
 
@@ -194,21 +216,23 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (vertInput > 0.25f)
             {
-                handleLean(swayAngle,0,0,swayTime);
+                handleLean(swayAngle,0,0,swayTime, Vector3.zero);
             }
             else if (vertInput < -0.25f)
             {
-                handleLean(-swayAngle,0,0,swayTime); 
+                handleLean(-swayAngle,0,0,swayTime, Vector3.zero); 
             }
         }
  
     }
 
     // helper function for doing leaning calculations
-    void handleLean(float _xAngle, float _yAngle, float _zAngle, float _leanTime)
+    void handleLean(float _xAngle, float _yAngle, float _zAngle, float _leanTime, Vector3 _leanPos)
     {
         cameraPivotTransform.localRotation = Quaternion.Lerp(cameraPivotTransform.localRotation,
             Quaternion.Euler(_xAngle, _yAngle, _zAngle), Time.deltaTime * _leanTime);
+        cameraPivotTransform.localPosition =
+            Vector3.Lerp(cameraPivotTransform.localPosition, _leanPos, Time.deltaTime * leanTime);
     }
 
     void headBob()
@@ -217,11 +241,29 @@ public class PlayerController : MonoBehaviour, IDamage
             // on a timer, smoothly move head up then down on one side
             // when that side has been complete, now do the same on the opposite side
     }
+    
+    #endregion
+    
+    #region Interactables    
+    void grappleEnemy()
+    {
+        // Enter Grapple State
+                
+        // If Key 1, knock out.
+        // Else if Key 2, Kill.
+    }
 
-
+    void climbLadder()
+    {
+        // Enter climbing state
+        // When player reaches x height, remove player from ladder climb state
+    }
+    
+    #endregion
+    
+    #region Shooting And Damage
     IEnumerator shoot()
     {
-        Debug.Log("Shot");
         _isShooting = true;
 
         // for returning damage on what was hit
@@ -259,4 +301,5 @@ public class PlayerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(damageFlashDuration);
         //GameManager.instance.damagePanel.SetActive(false);
     }
+    #endregion
 }
