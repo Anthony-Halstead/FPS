@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
-
+    
+    #region Variables
+    
     [Header("References")]
     [SerializeField] CharacterController charController;
     [SerializeField] private LayerMask ignoreMask;
@@ -62,7 +63,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
     private float horizInput;
     private float vertInput;
-
+    
+    #endregion
     
     // Start is called before the first frame update
     void Start()
@@ -88,6 +90,9 @@ public class PlayerController : MonoBehaviour, IDamage
         headSway();
         leanCameraPivot();
     }
+    
+
+    #region Movement
 
     void movement()
     {
@@ -153,6 +158,9 @@ public class PlayerController : MonoBehaviour, IDamage
 
     }
 
+    #endregion
+
+    #region Head/Camera Movement
     // handles player leaning via camera pivot and lean buttons input
     void leanCameraPivot()
     {
@@ -217,11 +225,29 @@ public class PlayerController : MonoBehaviour, IDamage
             // on a timer, smoothly move head up then down on one side
             // when that side has been complete, now do the same on the opposite side
     }
+    
+    #endregion
+    
+    #region Interactables    
+    void grappleEnemy()
+    {
+        // Enter Grapple State
+                
+        // If Key 1, knock out.
+        // Else if Key 2, Kill.
+    }
 
-
+    void climbLadder()
+    {
+        // Enter climbing state
+        // When player reaches x height, remove player from ladder climb state
+    }
+    
+    #endregion
+    
+    #region Shooting And Damage
     IEnumerator shoot()
     {
-        Debug.Log("Shot");
         _isShooting = true;
 
         // for returning damage on what was hit
@@ -259,4 +285,5 @@ public class PlayerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(damageFlashDuration);
         //GameManager.instance.damagePanel.SetActive(false);
     }
+    #endregion
 }
