@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject damagePanel;
     public GameObject healthBar;
 
-    // public GameObject player;
-    // public PlayerController playerScript;
+    public GameObject player;
+    public PlayerController playerScript;
 
     int enemyCount;
     float timeScaleOG;
@@ -32,8 +32,8 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         timeScaleOG = Time.timeScale;
-       // player = GameObject.FindWithTag("Player");
-       // playerScript = player.GetComponent<PlayerController>();
+        player = GameObject.FindWithTag("Player");
+        playerScript = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
