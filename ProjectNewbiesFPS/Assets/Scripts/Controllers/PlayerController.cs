@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private float originalSpeed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float crouchMod;
+    [SerializeField] private int visibility;
     [SerializeField] private int jumpMax;
     [SerializeField] private int jumpSpeed;
     [SerializeField] private int gravity;
@@ -91,6 +92,11 @@ public class PlayerController : MonoBehaviour, IDamage
         crouch();
         headSway();
         leanCameraPivot();
+    }
+
+    public int getPlayerVisibility()
+    {
+        return visibility;
     }
     
 
