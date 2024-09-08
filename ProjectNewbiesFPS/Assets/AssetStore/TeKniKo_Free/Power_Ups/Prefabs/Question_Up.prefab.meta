@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 836d7ac5b25afc746ac6cd6b74c295d0
+guid: 665cc4af457cf3340bdc625c6b87a9a3
 PrefabImporter:
   externalObjects: {}
   userData: 
@@ -10,5 +10,5 @@ AssetOrigin:
   productId: 217666
   packageName: Ten Power-Ups
   packageVersion: 1.0
-  assetPath: Assets/Prefabs/Props/Rocket_Up.prefab
+  assetPath: Assets/TeKniKo_Free/Power_Ups/Prefabs/Question_Up.prefab
   uploadId: 492303

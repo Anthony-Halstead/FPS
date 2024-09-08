@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject characterUI;
+
+    public GameObject bulletPowerUp;
+    public GameObject rocketPowerUp;
+    public GameObject speedPowerUp;
+    public GameObject starPowerUp;
 
     public GameObject damagePanel;
     public GameObject healthBar;
@@ -54,6 +60,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        characterUI.SetActive(false);
     }
 
     public void stateUnpause()
@@ -64,6 +71,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPaused);
         menuActive = null;
+        characterUI.SetActive(true);
     }
 
     public void WinGame(int amount)

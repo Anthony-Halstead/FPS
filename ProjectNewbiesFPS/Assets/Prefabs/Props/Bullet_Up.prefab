@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 2098119158785457648}
   - component: {fileID: 3076486136958693973}
   - component: {fileID: 960718757264017055}
-  - component: {fileID: -2604799471925528234}
-  - component: {fileID: -3574035360527082843}
+  - component: {fileID: -7877696488112975632}
+  - component: {fileID: -7546261396915980723}
   m_Layer: 0
   m_Name: Bullet_Up
-  m_TagString: BulletPowerUp
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,20 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-2604799471925528234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1609426563364382538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32292e272046c9b439f69dafe99ce068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1230695886220546230, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
---- !u!114 &-3574035360527082843
+--- !u!114 &-7877696488112975632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,3 +102,25 @@ MonoBehaviour:
   bounceSpeed: 8
   bounceAmplitude: 0.05
   rotationSpeed: 90
+--- !u!114 &-7546261396915980723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609426563364382538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32292e272046c9b439f69dafe99ce068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  controller: {fileID: 0}
+  bulletPowerUp: 1
+  rocketPowerUp: 0
+  speedPowerUp: 0
+  starPowerUp: 0
+  bulletPowerUpAmount: 20
+  rocketPowerUpAmount: 0
+  speedPowerUpAmount: 0
+  starPowerUpAmount: 0

@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: 836d7ac5b25afc746ac6cd6b74c295d0
-PrefabImporter:
+guid: ad89b3af43659784f8fcc71fce8a2f15
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -10,5 +11,5 @@ AssetOrigin:
   productId: 217666
   packageName: Ten Power-Ups
   packageVersion: 1.0
-  assetPath: Assets/Prefabs/Props/Rocket_Up.prefab
+  assetPath: Assets/TeKniKo_Free/Power_Ups/Materials/MAT_Shader_PowerUp.mat
   uploadId: 492303
