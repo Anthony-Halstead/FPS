@@ -10,6 +10,9 @@ TagManager:
   - SpeedPowerUp
   - RocketPowerUp
   - StarPowerUp
+  - FxTemporaire
+  - Enemy
+  - Projectiles
   layers:
   - Default
   - TransparentFX

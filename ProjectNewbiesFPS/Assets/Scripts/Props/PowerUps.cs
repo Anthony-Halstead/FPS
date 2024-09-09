@@ -13,9 +13,10 @@ public class PowerUps : MonoBehaviour, IPowerUps
     [SerializeField] bool starPowerUp;
     [SerializeField] bool healthPowerUp;
     [SerializeField] bool coin;
+    
 
     [SerializeField] float powerUpTime;
-    float originalSpeed;
+    float originalSpeed = 3;
 
     public int bulletPowerUpAmount;
     public int rocketPowerUpAmount;
@@ -27,9 +28,8 @@ public class PowerUps : MonoBehaviour, IPowerUps
     // Start is called before the first frame update
     void Start()
     {
-        originalSpeed = controller.speed;
-        player = GameObject.FindWithTag("Player");
-        controller = GetComponent<PlayerController>();
+        
+        
     }
 
     // Update is called once per frame
@@ -44,12 +44,14 @@ public class PowerUps : MonoBehaviour, IPowerUps
         {
             Destroy(gameObject);
             GameManager.instance.bulletPowerUp.SetActive(true);
+            GameManager.instance.projectilesScript.magazineSize += bulletPowerUpAmount;
             
         } 
         else if(other.CompareTag("Player") && rocketPowerUp)
         {
             Destroy(gameObject);
             GameManager.instance.rocketPowerUp.SetActive(true);
+            GameManager.instance.enemyAIScript.takeDamage(rocketPowerUpAmount);
         }
         else if(other.CompareTag("Player") && speedPowerUp)
         {
@@ -65,25 +67,25 @@ public class PowerUps : MonoBehaviour, IPowerUps
         }
         else if(other.CompareTag("Player") && healthPowerUp)
         {
-            if (controller.HP + healthPowerUpAmount < 10)
-            {
+            
                 Destroy(gameObject);
-                controller.HP += healthPowerUpAmount;
-                GameManager.instance.healthBar.fillAmount = controller.HP / 10;
-            }
+            GameManager.instance.playerScript.HP += healthPowerUpAmount;
+                
+                GameManager.instance.healthBar.fillAmount = GameManager.instance.playerScript.HP / 10;
+            
         }
         else if(other.CompareTag("Player") && coin)
         {
             Destroy(gameObject);
-            controller.money += coinAmount;
-            GameManager.instance.moenyText.text = "Money: " + controller.money.ToString();
+            GameManager.instance.playerScript.money += coinAmount;
+            GameManager.instance.moenyText.text = "Money: " + GameManager.instance.playerScript.money.ToString();
         }
     }
 
     IEnumerator speedPowerUpTime()
     {
-        controller.speed *= speedPowerUpAmount;
+        GameManager.instance.playerScript.speed *= speedPowerUpAmount;
         yield return new WaitForSeconds(powerUpTime);
-        controller.speed = originalSpeed;
+        GameManager.instance.playerScript.speed = originalSpeed;
     }
 }

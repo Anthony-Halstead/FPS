@@ -300,15 +300,15 @@ public class PlayerController : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             GameManager.instance.healthBar.fillAmount = HP / 10;
-            //GameManager.instance.youLose();
+            GameManager.instance.LoseGame();
         }
     }
 
     IEnumerator damageFlash()
     {
-        //GameManager.instance.damagePanel.SetActive(true);
+        GameManager.instance.damagePanel.SetActive(true);
         yield return new WaitForSeconds(damageFlashDuration);
-        //GameManager.instance.damagePanel.SetActive(false);
+        GameManager.instance.damagePanel.SetActive(false);
     }
     #endregion
 }

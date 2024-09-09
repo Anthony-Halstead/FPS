@@ -25,4 +25,27 @@ public class ButtonFunctions : MonoBehaviour
 
 #endif
     }
+
+    public void BuyHealth()
+    {
+        if(GameManager.instance.playerScript.money >= 20)
+        {
+            GameManager.instance.playerScript.money -= 20;
+            GameManager.instance.playerScript.HP += 20;
+        }
+    }
+
+    public void BuyMagazineUpgrade()
+    {
+        if(GameManager.instance.playerScript.money >= 30)
+        {
+            GameManager.instance.playerScript.money -= 30;
+            GameManager.instance.projectilesScript.magazineSize += 30;
+        }
+    }
+
+    public void Cancel()
+    {
+        GameManager.instance.BuyMenu();
+    }
 }

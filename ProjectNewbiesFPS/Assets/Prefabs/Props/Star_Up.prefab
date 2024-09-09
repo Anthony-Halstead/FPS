@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5275635447043929711}
   - component: {fileID: 3557379628059649240}
   - component: {fileID: -3514405731702176339}
+  - component: {fileID: 7959068384956589828}
   m_Layer: 0
   m_Name: Star_Up
   m_TagString: Untagged
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -114,13 +115,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32292e272046c9b439f69dafe99ce068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  controller: {fileID: 0}
   bulletPowerUp: 0
   rocketPowerUp: 0
   speedPowerUp: 0
   starPowerUp: 1
+  healthPowerUp: 0
+  coin: 0
+  powerUpTime: 0
   bulletPowerUpAmount: 0
   rocketPowerUpAmount: 0
   speedPowerUpAmount: 0
   starPowerUpAmount: 50
+  healthPowerUpAmount: 0
+  coinAmount: 0
+--- !u!135 &7959068384956589828
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923972992805410746}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.1081524
+  m_Center: {x: 0.00086939335, y: 0.017825961, z: 0}
