@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject characterUI;
+    public TextMeshProUGUI moenyText;
 
     public GameObject bulletPowerUp;
     public GameObject rocketPowerUp;
@@ -18,7 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject starPowerUp;
 
     public GameObject damagePanel;
-    public GameObject healthBar;
+    public Image healthBar;
 
     public GameObject player;
     public PlayerController playerScript;
