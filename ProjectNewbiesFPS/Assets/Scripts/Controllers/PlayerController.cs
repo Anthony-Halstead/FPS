@@ -16,8 +16,9 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private Transform cameraPivotTransform;
 
     [Header("Player Stats - General")]
-    [SerializeField] private int HP;
-    [SerializeField] private float speed;
+    public int HP;
+    public float speed;
+    public int money;
     [SerializeField] private float originalSpeed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float crouchMod;
@@ -78,6 +79,7 @@ public class PlayerController : MonoBehaviour, IDamage
         originalSpeed = speed;
         newHeight = originalHeight;
         _mainCam = Camera.main;
+        money = 0;
     }
 
     // Update is called once per frame
@@ -297,6 +299,7 @@ public class PlayerController : MonoBehaviour, IDamage
         
         if (HP <= 0)
         {
+            GameManager.instance.healthBar.fillAmount = HP / 10;
             //GameManager.instance.youLose();
         }
     }
