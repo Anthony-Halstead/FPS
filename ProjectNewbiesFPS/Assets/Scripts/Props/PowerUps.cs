@@ -7,11 +7,6 @@ using UnityEngine.UI;
 
 public class PowerUps : MonoBehaviour, IPowerUps
 {
-    public GameObject player;
-     public PlayerController controller;
-
-    
-
     [SerializeField] bool bulletPowerUp;
     [SerializeField] bool rocketPowerUp;
     [SerializeField] bool speedPowerUp;
