@@ -296,10 +296,10 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         HP -= amount;
         StartCoroutine(damageFlash());
-        
+        GameManager.instance.healthBar.fillAmount = HP / 10;
         if (HP <= 0)
         {
-            GameManager.instance.healthBar.fillAmount = HP / 10;
+            
             GameManager.instance.LoseGame();
         }
     }

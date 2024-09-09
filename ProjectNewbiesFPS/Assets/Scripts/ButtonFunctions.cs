@@ -8,6 +8,7 @@ public class ButtonFunctions : MonoBehaviour
     public void resume()
     {
         GameManager.instance.stateUnpause();
+        GameManager.instance.ToggleEnemyHealthBar();
     }
 
     public void restart()
@@ -32,6 +33,7 @@ public class ButtonFunctions : MonoBehaviour
         {
             GameManager.instance.playerScript.money -= 20;
             GameManager.instance.playerScript.HP += 20;
+            GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
         }
     }
 
@@ -41,11 +43,18 @@ public class ButtonFunctions : MonoBehaviour
         {
             GameManager.instance.playerScript.money -= 30;
             GameManager.instance.projectilesScript.magazineSize += 30;
+            GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
         }
     }
 
     public void Cancel()
     {
         GameManager.instance.BuyMenu();
+        
+    }
+
+    public void OptionsButton()
+    {
+        GameManager.instance.Options();
     }
 }

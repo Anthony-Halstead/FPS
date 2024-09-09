@@ -127,7 +127,7 @@ MonoBehaviour:
   speedPowerUpAmount: 0
   starPowerUpAmount: 0
   healthPowerUpAmount: 0
-  coinAmount: 1
+  coinAmount: 10
 --- !u!135 &2170497470764641014
 SphereCollider:
   m_ObjectHideFlags: 0

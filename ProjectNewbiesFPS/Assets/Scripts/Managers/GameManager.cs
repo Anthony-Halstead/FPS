@@ -15,8 +15,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject buyMenu;
+    [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject characterUI;
+    [SerializeField] Toggle enemyHealthBarToggle;
+    [SerializeField] GameObject enemyHealthBarVisibility;
+
+    public TextMeshProUGUI storeMoneyText;
     public TextMeshProUGUI moenyText;
+    public TextMeshProUGUI ammoText;
+
+
+     
 
 
     //References for Power Ups
@@ -28,6 +37,7 @@ public class GameManager : MonoBehaviour
     //References for taking damage
     public GameObject damagePanel;
     public Image healthBar;
+    public Image enemyHealthBar;
 
     //Player and script references
     public GameObject player;
@@ -35,7 +45,7 @@ public class GameManager : MonoBehaviour
     public GameObject projectiles;
     public Projectiles projectilesScript;
     public GameObject enemyAI;
-    public EnemyAI enemyAIScript;
+    public enemyAI enemyAIScript;
 
     //Enemy Reference
     int enemyCount;
@@ -51,10 +61,10 @@ public class GameManager : MonoBehaviour
         //Setting Instance, original time and player references
         instance = this;
         timeScaleOG = Time.timeScale;
-        //player = GameObject.FindWithTag("Player");
-        //playerScript = player.GetComponent<PlayerController>();
-        //enemyAI = GameObject.FindWithTag("Enemy");
-        //enemyAIScript = enemyAI.GetComponent<EnemyAI>();
+        player = GameObject.FindWithTag("Player");
+        playerScript = player.GetComponent<PlayerController>();
+        enemyAI = GameObject.FindWithTag("Enemy");
+        enemyAIScript = enemyAI.GetComponent<enemyAI>();
         //projectiles = GameObject.FindWithTag("Projectiles");
         //projectilesScript = projectiles.GetComponent<Projectiles>();
     }
@@ -89,8 +99,10 @@ public class GameManager : MonoBehaviour
                 statePause();
                 menuActive = buyMenu;
                 menuActive.SetActive(true);
+                storeMoneyText.text = "Money: " + playerScript.money;
             }
             
+           // ammoText.text = "" + playerScript
 
         }
     }
@@ -146,6 +158,25 @@ public class GameManager : MonoBehaviour
         if (menuActive == buyMenu)
         {
             stateUnpause();
+        }
+    }
+
+    public void Options()
+    {
+        optionsMenu.SetActive(true);
+        menuActive = optionsMenu;
+        menuPause.SetActive(false);
+    }
+
+   public void ToggleEnemyHealthBar()
+    {
+        if(enemyHealthBarToggle.isOn)
+        {
+            enemyHealthBarVisibility.SetActive(true);
+        }
+        else
+        {
+            enemyHealthBarVisibility.SetActive(false);
         }
     }
 

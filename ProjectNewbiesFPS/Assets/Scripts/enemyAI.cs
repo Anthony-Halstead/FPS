@@ -20,13 +20,13 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(GameManager.instance.player.transform.position);
+       agent.SetDestination(GameManager.instance.player.transform.position);
     }
 
     public void takeDamage(int amount)
     {
         HP -= amount;
-
+        GameManager.instance.enemyHealthBar.fillAmount = HP / 3;
         StartCoroutine(flashColor());
 
         if (HP <= 0)
