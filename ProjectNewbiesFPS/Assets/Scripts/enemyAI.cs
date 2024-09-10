@@ -62,9 +62,6 @@ public class enemyAI : MonoBehaviour, IDamage
                 break;
             //case EnemyState.shooting:
                 //break;
-            case EnemyState.investigating:
-                investigatingState(); 
-                break;
             case EnemyState.searching:
                 searchingState(); 
                 break;
@@ -174,7 +171,7 @@ public class enemyAI : MonoBehaviour, IDamage
         }
     }
 
-    void investigatingState()
+    void searchingState()
     {
         if (isPlayerVisible())
         {
@@ -182,12 +179,10 @@ public class enemyAI : MonoBehaviour, IDamage
         }
     }
 
-    void searchingState()
+    void attackState()
     {
-        if (isPlayerVisible())
-        {
-            _enemyState = EnemyState.chasing;
-        }
+        // bang bang shoot the player if some bools are active or whatever
+        // TODO: later tonight, make this work
     }
 
     void faceTarget()
