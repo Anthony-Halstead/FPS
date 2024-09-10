@@ -27,25 +27,25 @@ public class ButtonFunctions : MonoBehaviour
 #endif
     }
 
-    public void BuyHealth()
-    {
-        if(GameManager.instance.playerScript.money >= 20)
-        {
-            GameManager.instance.playerScript.money -= 20;
-            GameManager.instance.playerScript.HP += 20;
-            GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
-        }
-    }
+    //public void BuyHealth()
+    //{
+    //    if(GameManager.instance.playerScript.money >= 20)
+    //    {
+    //        GameManager.instance.playerScript.money -= 20;
+    //        GameManager.instance.playerScript.HP += 20;
+    //        GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
+    //    }
+    //}
 
-    public void BuyMagazineUpgrade()
-    {
-        if(GameManager.instance.playerScript.money >= 30)
-        {
-            GameManager.instance.playerScript.money -= 30;
-            GameManager.instance.projectilesScript.magazineSize += 30;
-            GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
-        }
-    }
+    //public void BuyMagazineUpgrade()
+    //{
+    //    if(GameManager.instance.playerScript.money >= 30)
+    //    {
+    //        GameManager.instance.playerScript.money -= 30;
+    //       
+    //        GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
+    //    }
+    //}
 
     public void Cancel()
     {
@@ -56,5 +56,10 @@ public class ButtonFunctions : MonoBehaviour
     public void OptionsButton()
     {
         GameManager.instance.Options();
+    }
+
+    public void OrderConfirm()
+    {
+        GameManager.instance.StoreOrder();
     }
 }

@@ -31,6 +31,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
+            GameManager.instance.playerScript.money += 5;
             Destroy(gameObject);
         }
     }

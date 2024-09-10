@@ -17,8 +17,9 @@ public class PlayerController : MonoBehaviour, IDamage
 
     [Header("Player Stats - General")]
     public int HP;
+    public int HPMax;
     public float speed;
-    public int money;
+    public int money = 50;
     [SerializeField] private float originalSpeed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float crouchMod;
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     private int _jumpCount;
 
-    private bool _isSprinting;
+    public bool _isSprinting;
     private bool _isShooting;
     private bool _isCrouching;
     private bool _isLeaning;

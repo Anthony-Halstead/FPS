@@ -9,9 +9,11 @@ public class PowerUps : MonoBehaviour, IPowerUps
 {
     [SerializeField] bool bulletPowerUp;
     [SerializeField] bool rocketPowerUp;
-    [SerializeField] bool speedPowerUp;
+    [SerializeField] bool shootRateUpgrade;
     [SerializeField] bool starPowerUp;
     [SerializeField] bool healthPowerUp;
+    [SerializeField] bool healthUpgrade;
+    [SerializeField] bool magazineUpgrade;
     [SerializeField] bool coin;
     
 
@@ -20,9 +22,11 @@ public class PowerUps : MonoBehaviour, IPowerUps
 
     public int bulletPowerUpAmount;
     public int rocketPowerUpAmount;
-    public int speedPowerUpAmount;
+    public int shootRateUpgradeAmount;
     public int starPowerUpAmount;
     public int healthPowerUpAmount;
+    public int healthUpgradeUpAmount;
+    public int magezineUpgradeUpAmount;
     public int coinAmount;
 
     // Start is called before the first frame update
@@ -35,57 +39,76 @@ public class PowerUps : MonoBehaviour, IPowerUps
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && bulletPowerUp)
         {
-            Destroy(gameObject);
-            GameManager.instance.bulletPowerUp.SetActive(true);
+            //GameManager.instance.bulletPowerUp.SetActive(true);
             GameManager.instance.projectilesScript.magazineSize += bulletPowerUpAmount;
-            
-        } 
-        else if(other.CompareTag("Player") && rocketPowerUp)
-        {
             Destroy(gameObject);
-            GameManager.instance.rocketPowerUp.SetActive(true);
+
+
+        }
+        else if (other.CompareTag("Player") && rocketPowerUp)
+        {
+           // GameManager.instance.rocketPowerUp.SetActive(true);
             GameManager.instance.enemyAIScript.takeDamage(rocketPowerUpAmount);
-        }
-        else if(other.CompareTag("Player") && speedPowerUp)
-        {
             Destroy(gameObject);
-            GameManager.instance.speedPowerUp.SetActive(true);
-            StartCoroutine(speedPowerUpTime());
 
         }
-        else if(other.CompareTag("Player") &&  starPowerUp)
+        else if (other.CompareTag("Player") && starPowerUp)
         {
+           // GameManager.instance.starPowerUp.SetActive(true);
             Destroy(gameObject);
-            GameManager.instance.starPowerUp.SetActive(true);
+
         }
-        else if(other.CompareTag("Player") && healthPowerUp)
+        else if (other.CompareTag("Player") && healthPowerUp)
         {
-            
-                Destroy(gameObject);
             GameManager.instance.playerScript.HP += healthPowerUpAmount;
-                
-                GameManager.instance.healthBar.fillAmount = GameManager.instance.playerScript.HP / 10;
-            
-        }
-        else if(other.CompareTag("Player") && coin)
-        {
+
+            GameManager.instance.healthBar.fillAmount = GameManager.instance.playerScript.HP / GameManager.instance.playerScript.HPMax;
             Destroy(gameObject);
-            GameManager.instance.playerScript.money += coinAmount;
-            GameManager.instance.moenyText.text = "Money: " + GameManager.instance.playerScript.money.ToString();
+
+
         }
+        else if (other.CompareTag("Player") && shootRateUpgrade)
+        {
+            
+            
+            Destroy(gameObject);
+
+
+        }
+        else if(other.CompareTag("Player") && healthUpgrade)
+        {
+            GameManager.instance.playerScript.HPMax += healthUpgradeUpAmount;
+            GameManager.instance.healthBar.fillAmount = GameManager.instance.playerScript.HP / GameManager.instance.playerScript.HPMax;
+            Destroy(gameObject);
+        }
+        else if(other.CompareTag("Player") && magazineUpgrade)
+        {
+            GameManager.instance.projectilesScript.magazineSize += 30;
+            Destroy(gameObject);
+        }
+        //else if(other.CompareTag("Player") && coin)
+        //{
+        //    GameManager.instance.playerScript.money += coinAmount;
+        //    GameManager.instance.moenyText.text = "Money: " + GameManager.instance.playerScript.money.ToString();
+        //    Destroy(gameObject);
+            
+        //}
     }
 
-    IEnumerator speedPowerUpTime()
-    {
-        GameManager.instance.playerScript.speed *= speedPowerUpAmount;
-        yield return new WaitForSeconds(powerUpTime);
-        GameManager.instance.playerScript.speed = originalSpeed;
-    }
+    //IEnumerator speedPowerUpTime()
+    //{
+    //    Debug.Log("Coroutuine Started");
+    //    GameManager.instance.playerScript.speed += speedPowerUpAmount;
+    //    yield return new WaitForSeconds(powerUpTime);
+    //    Debug.Log("Coroutine Ended");
+    //    GameManager.instance.playerScript.speed = originalSpeed;
+    //    GameManager.instance.speedPowerUp.SetActive(false);
+    //}
 }

@@ -17,22 +17,32 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject buyMenu;
     [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject characterUI;
+
+    [SerializeField] GameObject healthUpgrade;
+    [SerializeField] GameObject magazineUpgrade;
+    [SerializeField] GameObject shootRateUpgrade;
+
+
+    [SerializeField] GameObject dropBox;
+
+    [SerializeField] Transform dropBoxSpawnPos;
+    [SerializeField] Transform upgradeBoughtSpawnPos;
+
+    [SerializeField] Toggle healthUpgrageToggle;
+    [SerializeField] Toggle magazineUpgrageToggle;
     [SerializeField] Toggle enemyHealthBarToggle;
+
+
     [SerializeField] GameObject enemyHealthBarVisibility;
 
     public TextMeshProUGUI storeMoneyText;
-    public TextMeshProUGUI moenyText;
+    public TextMeshProUGUI moneyText;
     public TextMeshProUGUI ammoText;
 
 
-     
-
-
-    //References for Power Ups
-    public GameObject bulletPowerUp;
-    public GameObject rocketPowerUp;
-    public GameObject speedPowerUp;
-    public GameObject starPowerUp;
+    [SerializeField] int healthUpgradeCost;
+    [SerializeField] int magezineUpgradeCost;
+   
 
     //References for taking damage
     public GameObject damagePanel;
@@ -47,6 +57,9 @@ public class GameManager : MonoBehaviour
     public GameObject enemyAI;
     public enemyAI enemyAIScript;
 
+    bool healthUpgradeBought;
+    bool magazineUpgradeBought;
+
     //Enemy Reference
     int enemyCount;
 
@@ -55,6 +68,8 @@ public class GameManager : MonoBehaviour
 
     //bool for if game is paused
     public bool isPaused;
+
+    bool isGrounded;
     // Start is called before the first frame update
     void Awake()
     {
@@ -63,10 +78,12 @@ public class GameManager : MonoBehaviour
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        enemyAI = GameObject.FindWithTag("Enemy");
-        enemyAIScript = enemyAI.GetComponent<enemyAI>();
+        //enemyAI = GameObject.FindWithTag("Enemy");
+        //enemyAIScript = enemyAI.GetComponent<enemyAI>();
         //projectiles = GameObject.FindWithTag("Projectiles");
         //projectilesScript = projectiles.GetComponent<Projectiles>();
+        //moneyText.text = "" + playerScript.money;
+        //storeMoneyText.text = "" + playerScript.money;
     }
 
     // Update is called once per frame
@@ -180,4 +197,65 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StoreOrder()
+    {
+        if (GameManager.instance.playerScript.money >= healthUpgradeCost)
+        {
+            if (healthUpgrageToggle.isOn)
+            {
+                Debug.Log("Health Chosen");
+                 GameManager.instance.playerScript.money -= healthUpgradeCost;
+                 //GameManager.instance.playerScript.HP += 20;
+                 GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
+                healthUpgradeBought = true;
+                healthUpgrageToggle.isOn = false;
+             }
+
+        }
+        else if(GameManager.instance.playerScript.money >= magezineUpgradeCost)
+        {
+            if (magazineUpgrageToggle.isOn)
+            {
+                Debug.Log("Magazine Chosen");
+                GameManager.instance.playerScript.money -= magezineUpgradeCost;
+                //GameManager.instance.playerScript.HP += 20;
+                GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
+                magazineUpgradeBought = true;
+                magazineUpgrageToggle.isOn = false;
+            }
+        }
+        DropBox();
+    }
+
+
+   public void DropBox()
+    {
+        stateUnpause();
+        if (healthUpgradeBought || magazineUpgradeBought)
+        {
+            Instantiate(dropBox, Vector3.up + Vector3.forward, Quaternion.identity);
+            
+        }
+    }
+
+   public void InstantiateUpgrades()
+    {
+        
+        if (healthUpgradeBought)
+        {
+            Instantiate(healthUpgrade, Vector3.forward, Quaternion.identity);
+
+            healthUpgradeBought = false;
+
+        }
+        else if (magazineUpgradeBought)
+        {
+            Instantiate(magazineUpgrade, Vector3.forward, Quaternion.identity);
+
+            magazineUpgradeBought = false;
+        }
+    }
+
 }
+
+

@@ -120,6 +120,8 @@ MonoBehaviour:
   speedPowerUp: 0
   starPowerUp: 0
   healthPowerUp: 1
+  healthUpgrade: 0
+  magazineUpgrade: 0
   coin: 0
   powerUpTime: 0
   bulletPowerUpAmount: 0
@@ -127,6 +129,8 @@ MonoBehaviour:
   speedPowerUpAmount: 0
   starPowerUpAmount: 0
   healthPowerUpAmount: 5
+  healthUpgradeUpAmount: 0
+  magezineUpgradeUpAmount: 0
   coinAmount: 0
 --- !u!135 &2599053252764419255
 SphereCollider:
