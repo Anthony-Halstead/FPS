@@ -115,19 +115,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32292e272046c9b439f69dafe99ce068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPowerUp: 0
-  rocketPowerUp: 0
-  speedPowerUp: 0
-  starPowerUp: 1
-  healthPowerUp: 0
-  coin: 0
+  killEnemiesUpgrade: 0
+  shootRateUpgrade: 0
+  doubleDamageUpgrade: 1
+  healthUpgrade: 0
+  magazineUpgrade: 0
   powerUpTime: 0
-  bulletPowerUpAmount: 0
-  rocketPowerUpAmount: 0
-  speedPowerUpAmount: 0
-  starPowerUpAmount: 50
-  healthPowerUpAmount: 0
-  coinAmount: 0
+  killEnemiesUpgradeAmount: 0
+  shootRateUpgradeAmount: 0
+  doubleDamageUpgradeAmount: 2
+  healthUpgradeUpAmount: 0
+  magezineUpgradeUpAmount: 0
 --- !u!135 &7959068384956589828
 SphereCollider:
   m_ObjectHideFlags: 0

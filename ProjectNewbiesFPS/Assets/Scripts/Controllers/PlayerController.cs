@@ -46,9 +46,9 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private bool toggleSwayLeftRight;
     
     [Header("Player Stats - Shooting")]
-    [SerializeField] private int shootDamage;
+    public int shootDamage;
     [SerializeField] private int shootDist;
-    [SerializeField] private float shootRate;
+    public float shootRate;
     
     [Header("Damage Effects")]
     [SerializeField] private float damageFlashDuration;

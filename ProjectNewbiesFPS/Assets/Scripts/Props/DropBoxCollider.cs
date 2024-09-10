@@ -25,7 +25,7 @@ public class DropBoxCollider : MonoBehaviour
 
             GameManager.instance.InstantiateUpgrades();
 
-            
+            Destroy(gameObject);
 
         }
     }

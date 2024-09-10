@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject healthUpgrade;
     [SerializeField] GameObject magazineUpgrade;
     [SerializeField] GameObject shootRateUpgrade;
+    [SerializeField] GameObject doubleDamageUpgrade;
+    [SerializeField] GameObject killEnemiesUpgrade;
 
 
     [SerializeField] GameObject dropBox;
@@ -30,6 +32,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Toggle healthUpgrageToggle;
     [SerializeField] Toggle magazineUpgrageToggle;
+    [SerializeField] Toggle shootRateUpgrageToggle;
+    [SerializeField] Toggle doubleDamageUpgrageToggle;
+    [SerializeField] Toggle killEnemiesUpgrageToggle;
+
+
     [SerializeField] Toggle enemyHealthBarToggle;
 
 
@@ -42,7 +49,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int healthUpgradeCost;
     [SerializeField] int magezineUpgradeCost;
-   
+    [SerializeField] int shootRateUpgradeCost;
+    [SerializeField] int doubleDamageUpgradeCost;
+    [SerializeField] int killEnemiesUpgradeCost;
+
 
     //References for taking damage
     public GameObject damagePanel;
@@ -59,6 +69,9 @@ public class GameManager : MonoBehaviour
 
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
+    bool shootRateUpgradeBought;
+    bool doubleDamageUpgradeBought;
+    bool killEnemiesUpgradeBought;
 
     //Enemy Reference
     int enemyCount;
@@ -78,30 +91,35 @@ public class GameManager : MonoBehaviour
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        //enemyAI = GameObject.FindWithTag("Enemy");
-        //enemyAIScript = enemyAI.GetComponent<enemyAI>();
-        //projectiles = GameObject.FindWithTag("Projectiles");
-        //projectilesScript = projectiles.GetComponent<Projectiles>();
-        //moneyText.text = "" + playerScript.money;
-        //storeMoneyText.text = "" + playerScript.money;
+        enemyAI = GameObject.FindWithTag("Enemy");
+        enemyAIScript = enemyAI.GetComponent<enemyAI>();
+        projectiles = GameObject.FindWithTag("Projectiles");
+        projectilesScript = projectiles.GetComponent<Projectiles>();
+        moneyText.text = "" + playerScript.money;
+        storeMoneyText.text = "" + playerScript.money;
+         healthUpgrageToggle.isOn = false;
+         magazineUpgrageToggle.isOn = false;
+         shootRateUpgrageToggle.isOn = false;
+         doubleDamageUpgrageToggle.isOn = false;
+         killEnemiesUpgrageToggle.isOn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Finding out if menu is paused at any moment
-        if (Input.GetButtonDown("Cancel")) 
+        if (Input.GetButtonDown("Cancel"))
         {
             Debug.Log("Pause");
             //pausing the game
-            if(menuActive == null)
+            if (menuActive == null)
             {
                 statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(isPaused);
             }
             //Unpausing the game
-            else if(menuActive == menuPause)
+            else if (menuActive == menuPause)
             {
                 stateUnpause();
             }
@@ -116,12 +134,13 @@ public class GameManager : MonoBehaviour
                 statePause();
                 menuActive = buyMenu;
                 menuActive.SetActive(true);
-                storeMoneyText.text = "Money: " + playerScript.money;
+                storeMoneyText.text = "$" + playerScript.money;
             }
+
             
-           // ammoText.text = "" + playerScript
 
         }
+        ammoText.text = "" + projectilesScript.magazineSize;
     }
 
     //Pausing Game Method
@@ -157,17 +176,17 @@ public class GameManager : MonoBehaviour
 
             statePause();
             menuActive = menuWin;
-            menuWin.SetActive(isPaused);
+            menuWin.SetActive(true);
         }
     }
 
     //Losing Game Method
     public void LoseGame()
     {
-            statePause();
-            menuActive = menuLose;
-            menuLose.SetActive(true);
-        
+        statePause();
+        menuActive = menuLose;
+        menuLose.SetActive(true);
+
     }
 
     public void BuyMenu()
@@ -185,9 +204,9 @@ public class GameManager : MonoBehaviour
         menuPause.SetActive(false);
     }
 
-   public void ToggleEnemyHealthBar()
+    public void ToggleEnemyHealthBar()
     {
-        if(enemyHealthBarToggle.isOn)
+        if (enemyHealthBarToggle.isOn)
         {
             enemyHealthBarVisibility.SetActive(true);
         }
@@ -204,34 +223,70 @@ public class GameManager : MonoBehaviour
             if (healthUpgrageToggle.isOn)
             {
                 Debug.Log("Health Chosen");
-                 GameManager.instance.playerScript.money -= healthUpgradeCost;
-                 //GameManager.instance.playerScript.HP += 20;
-                 GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
+                GameManager.instance.playerScript.money -= healthUpgradeCost;
+                
+                GameManager.instance.storeMoneyText.text = "$" + GameManager.instance.playerScript.money;
                 healthUpgradeBought = true;
                 healthUpgrageToggle.isOn = false;
-             }
+            }
 
         }
-        else if(GameManager.instance.playerScript.money >= magezineUpgradeCost)
+        if (GameManager.instance.playerScript.money >= magezineUpgradeCost)
         {
             if (magazineUpgrageToggle.isOn)
             {
                 Debug.Log("Magazine Chosen");
                 GameManager.instance.playerScript.money -= magezineUpgradeCost;
-                //GameManager.instance.playerScript.HP += 20;
-                GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
+
+                GameManager.instance.storeMoneyText.text = "$" + GameManager.instance.playerScript.money;
                 magazineUpgradeBought = true;
                 magazineUpgrageToggle.isOn = false;
+            }
+        }
+         if (GameManager.instance.playerScript.money >= shootRateUpgradeCost)
+        {
+            if (shootRateUpgrageToggle.isOn)
+            {
+                Debug.Log("Shoot Rate Chosen");
+                GameManager.instance.playerScript.money -= shootRateUpgradeCost;
+
+                GameManager.instance.storeMoneyText.text = "$" + GameManager.instance.playerScript.money;
+                shootRateUpgradeBought = true;
+                shootRateUpgrageToggle.isOn = false;
+            }
+        }
+         if (GameManager.instance.playerScript.money >= doubleDamageUpgradeCost)
+        {
+            if (doubleDamageUpgrageToggle.isOn)
+            {
+                Debug.Log("Double Damage Chosen");
+                GameManager.instance.playerScript.money -= doubleDamageUpgradeCost;
+
+                GameManager.instance.storeMoneyText.text = "$" + GameManager.instance.playerScript.money;
+                doubleDamageUpgradeBought = true;
+                doubleDamageUpgrageToggle.isOn = false;
+            }
+        }
+         if (GameManager.instance.playerScript.money >= killEnemiesUpgradeCost)
+        {
+            if (killEnemiesUpgrageToggle.isOn)
+            {
+                Debug.Log("Kill Enemies Chosen");
+                GameManager.instance.playerScript.money -= killEnemiesUpgradeCost;
+
+                GameManager.instance.storeMoneyText.text = "$" + GameManager.instance.playerScript.money;
+                killEnemiesUpgradeBought = true;
+                killEnemiesUpgrageToggle.isOn = false;
             }
         }
         DropBox();
     }
 
 
-   public void DropBox()
+    public void DropBox()
     {
         stateUnpause();
-        if (healthUpgradeBought || magazineUpgradeBought)
+        if (healthUpgradeBought || magazineUpgradeBought || shootRateUpgradeBought || doubleDamageUpgradeBought || killEnemiesUpgradeBought)
         {
             Instantiate(dropBox, Vector3.up + Vector3.forward, Quaternion.identity);
             
@@ -253,6 +308,24 @@ public class GameManager : MonoBehaviour
             Instantiate(magazineUpgrade, Vector3.forward, Quaternion.identity);
 
             magazineUpgradeBought = false;
+        }
+        else if (shootRateUpgradeBought)
+        {
+            Instantiate(shootRateUpgrade, Vector3.forward, Quaternion.identity);
+
+            shootRateUpgradeBought = false;
+        }
+        else if (doubleDamageUpgradeBought)
+        {
+            Instantiate(doubleDamageUpgrade, Vector3.forward, Quaternion.identity);
+
+            doubleDamageUpgradeBought = false;
+        }
+        else if (killEnemiesUpgradeBought)
+        {
+            Instantiate(killEnemiesUpgrade, Vector3.forward, Quaternion.identity);
+
+            killEnemiesUpgradeBought = false;
         }
     }
 
