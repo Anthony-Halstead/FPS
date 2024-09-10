@@ -55,7 +55,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
         else if (other.CompareTag("Player") && rocketPowerUp)
         {
            // GameManager.instance.rocketPowerUp.SetActive(true);
-            GameManager.instance.enemyAIScript.takeDamage(rocketPowerUpAmount);
+            GameManager.instance.enemyAIScript.takeDamage(rocketPowerUpAmount, Vector3.zero);
             Destroy(gameObject);
 
         }

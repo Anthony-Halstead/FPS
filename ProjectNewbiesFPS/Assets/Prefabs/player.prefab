@@ -214,13 +214,16 @@ MonoBehaviour:
   charController: {fileID: 0}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   cameraPivotTransform: {fileID: 5526848235105782140}
   HP: 10
+  HPMax: 0
   speed: 3
+  money: 50
   originalSpeed: 0
   sprintMod: 2
   crouchMod: 0.5
+  visibility: 0
   jumpMax: 1
   jumpSpeed: 9
   gravity: 28
@@ -241,6 +244,7 @@ MonoBehaviour:
   shootDist: 150
   shootRate: 0.5
   damageFlashDuration: 0.1
+  _isSprinting: 0
 --- !u!143 &1968836186271199824
 CharacterController:
   m_ObjectHideFlags: 0

@@ -39,7 +39,7 @@ public class Projectiles : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         readyToShoot = true;
-
+        fpsCam = Camera.main;
     }
 
     // Update is called once per frame

@@ -4,25 +4,17 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BulletPowerUp
-  - CoinPowerUp
-  - HealthPowerUp
-  - SpeedPowerUp
-  - RocketPowerUp
-  - StarPowerUp
-  - FxTemporaire
   - Enemy
   - Projectiles
-  - Floor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Interactable
-  - Floor
+  - Enemy
+  - Debug
   - 
   - 
   - 
