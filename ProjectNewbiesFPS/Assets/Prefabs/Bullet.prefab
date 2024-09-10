@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 528606731564212695}
   - component: {fileID: 8209232605716499601}
   - component: {fileID: 6222896649392530893}
-  - component: {fileID: 4553679032397798875}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Projectiles
@@ -31,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -55.359, y: -13.757884, z: -42.10644}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,7 +106,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6222896649392530893
 Rigidbody:
@@ -136,30 +135,3 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &4553679032397798875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8737397164380214915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54e81527500af7e44b90ed519a09a0a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 8737397164380214915}
-  shootForce: 100
-  grenadeBounce: 0
-  shootRate: 1
-  spread: 0
-  reloadTime: 1.5
-  timeBetweenShots: 0.5
-  magazineSize: 100
-  bulletsPerTap: 1
-  allowButtonHold: 0
-  fpsCam: {fileID: 0}
-  attackPoint: {fileID: 0}
-  muzzleFlash: {fileID: 0}
-  ammunitionDisplay: {fileID: 0}
-  allowInvoke: 1

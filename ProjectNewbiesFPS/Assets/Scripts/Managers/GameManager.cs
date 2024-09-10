@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public PlayerController playerScript;
     public GameObject projectiles;
-    public Projectiles projectilesScript;
     public GameObject enemyAI;
     public enemyAI enemyAIScript;
 

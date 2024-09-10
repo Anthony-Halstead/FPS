@@ -49,7 +49,19 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private int shootDamage;
     [SerializeField] private int shootDist;
     [SerializeField] private float shootRate;
-    
+    [SerializeField] public int magazineSize;
+
+    [Header("Projectile Settings")]
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject grenadePrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float bulletForce;
+    [SerializeField] private float grenadeForce;
+
+    [Header("Shooting Effects")]
+    [SerializeField] private GameObject muzzleFlashPrefab;
+    [SerializeField] private Transform muzzleFlashSpawnPoint;
+
     [Header("Damage Effects")]
     [SerializeField] private float damageFlashDuration;
     
@@ -287,8 +299,22 @@ public class PlayerController : MonoBehaviour, IDamage
             {
                 dmg.takeDamage(shootDamage, transform.position);
             }
+
         }
-        
+        // Instantiate bullet
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+        if (bulletRb != null)
+        {
+            bulletRb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
+        }
+        Destroy(bullet, 1f);
+
+        // Instantiate muzzle flash
+        GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+        Destroy(muzzleFlash, 0.1f);
+
         yield return new WaitForSeconds(shootRate);
         _isShooting = false;
     }
@@ -310,6 +336,16 @@ public class PlayerController : MonoBehaviour, IDamage
         GameManager.instance.damagePanel.SetActive(true);
         yield return new WaitForSeconds(damageFlashDuration);
         GameManager.instance.damagePanel.SetActive(false);
+    }
+    void ThrowGrenade()
+    {
+        // Instantiate grenade
+        GameObject grenade = Instantiate(grenadePrefab, firePoint.position, firePoint.rotation);
+        Rigidbody grenadeRb = grenade.GetComponent<Rigidbody>();
+        if (grenadeRb != null)
+        {
+            grenadeRb.AddForce(firePoint.forward * grenadeForce, ForceMode.Impulse);
+        }
     }
     #endregion
 }

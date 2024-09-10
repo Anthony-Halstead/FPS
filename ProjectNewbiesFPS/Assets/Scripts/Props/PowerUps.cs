@@ -47,7 +47,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
         if (other.CompareTag("Player") && bulletPowerUp)
         {
             //GameManager.instance.bulletPowerUp.SetActive(true);
-            GameManager.instance.projectilesScript.magazineSize += bulletPowerUpAmount;
+            GameManager.instance.playerScript.magazineSize += bulletPowerUpAmount;
             Destroy(gameObject);
 
 
@@ -90,7 +90,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
         }
         else if(other.CompareTag("Player") && magazineUpgrade)
         {
-            GameManager.instance.projectilesScript.magazineSize += 30;
+            GameManager.instance.playerScript.magazineSize += 30;
             Destroy(gameObject);
         }
         //else if(other.CompareTag("Player") && coin)
