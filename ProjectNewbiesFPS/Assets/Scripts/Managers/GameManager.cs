@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         enemyAI = GameObject.FindWithTag("Enemy");
         enemyAIScript = enemyAI.GetComponent<enemyAI>();
         projectiles = GameObject.FindWithTag("Projectiles");
-        projectilesScript = projectiles.GetComponent<Projectiles>();
+       // projectilesScript = projectiles.GetComponent<Projectiles>();
         moneyText.text = "" + playerScript.money;
         storeMoneyText.text = "" + playerScript.money;
          healthUpgrageToggle.isOn = false;
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
             
 
         }
-        ammoText.text = "" + projectilesScript.magazineSize;
+      //  ammoText.text = "" + projectilesScript.magazineSize;
     }
 
     //Pausing Game Method

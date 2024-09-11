@@ -65,7 +65,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
         if (other.CompareTag("Player") && killEnemiesUpgrade)
         {
             
-            GameManager.instance.enemyAIScript.takeDamage(killEnemiesUpgradeAmount);
+           // GameManager.instance.enemyAIScript.takeDamage(killEnemiesUpgradeAmount);
             Destroy(gameObject);
 
         }

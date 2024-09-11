@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private int shootDist;
     public float shootRate;
     
-    [SerializeField] private float shootRate;
+  //  [SerializeField] private float shootRate;
     [SerializeField] public int magazineSize;
 
     [Header("Projectile Settings")]
