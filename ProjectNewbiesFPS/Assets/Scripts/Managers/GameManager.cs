@@ -210,6 +210,7 @@ public class GameManager : MonoBehaviour
         statePause();
         menuActive = menuLose;
         menuLose.SetActive(true);
+        damagePanel.SetActive(false);
 
     }
 
