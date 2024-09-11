@@ -263,12 +263,14 @@ public class enemyAI : Spawnable, IDamage
         playerDetected = true;
         
         HP -= amount;
+        healthBar.fillAmount = (float)HP / 5;
 
         lastSeenPlayerPos = shooterPos;
 
         agent.SetDestination(lastSeenPlayerPos);
         if (HP <= 0)
         {
+            healthBar.fillAmount = (float)HP;
             GameManager.instance.playerScript.money += 5;
             Destroy(gameObject);
         }
