@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ddfd02daabc5d6945965728eef990024
+timeCreated: 1487525994
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 83508
+  packageName: PBR Barrels
+  packageVersion: 1.0
+  assetPath: Assets/Barrels/Prefabs/Flamable_3.prefab
+  uploadId: 163113
