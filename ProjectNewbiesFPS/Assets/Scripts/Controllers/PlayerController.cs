@@ -72,9 +72,9 @@ public class PlayerController : MonoBehaviour, IDamage
     private int _jumpCount;
 
     public bool _isSprinting;
-    private bool _isShooting;
-    private bool _isCrouching;
-    private bool _isLeaning;
+    public bool _isShooting;
+    public bool _isCrouching;
+    public bool _isLeaning;
     
     private Camera _mainCam;
 
