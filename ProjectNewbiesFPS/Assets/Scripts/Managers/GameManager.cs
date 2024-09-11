@@ -318,7 +318,7 @@ public class GameManager : MonoBehaviour
         stateUnpause();
         if (healthUpgradeBought || magazineUpgradeBought || shootRateUpgradeBought || doubleDamageUpgradeBought || killEnemiesUpgradeBought)
         {
-            Instantiate(dropBox, Vector3.up + Vector3.forward, Quaternion.identity);
+            Instantiate(dropBox, player.transform.position + new Vector3(0,6,4), player.transform.localRotation );
             
         }
     }
