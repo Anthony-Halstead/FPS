@@ -15,6 +15,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] private int HP;
     [SerializeField] private int faceTargetSpeed;
     [SerializeField] private int searchRadius;
+    [SerializeField] private float searchLength;
 
     [SerializeField] private GameObject bullet;
     [SerializeField] private float shootRate;
@@ -36,7 +37,7 @@ public class enemyAI : MonoBehaviour, IDamage
     enum EnemyState {idle, chasing, searching, shooting}
     [SerializeField] private EnemyState _enemyState = EnemyState.idle;
     
-    bool randomPositionFoundAndReached = false;
+    bool randomPositionFound = false;
     
     // Start is called before the first frame update
     void Start()
@@ -172,7 +173,7 @@ public class enemyAI : MonoBehaviour, IDamage
                 StartCoroutine(shoot());
             }
         }
-        else
+        else if (Vector3.Distance(agent.transform.position, playerPos) <= agent.stoppingDistance + 1.5f)
         {
             _enemyState = EnemyState.searching;
         }
@@ -185,16 +186,38 @@ public class enemyAI : MonoBehaviour, IDamage
             _enemyState = EnemyState.chasing;
             agent.stoppingDistance = initialAgentStoppingDistance;
         }
+        else
+        {
+            if (!randomPositionFound)
+            {
+                StartCoroutine(waitToFindNextPos(1));
+            }
+        }
     }
 
     IEnumerator waitToFindNextPos(float timeToWait)
-    {
-        
-        
-        randomPositionFoundAndReached = true;
-        yield return new WaitForSeconds(timeToWait);
+    {      
+        randomPositionFound = true;
+        NavMeshHit hit;
 
-        randomPositionFoundAndReached = false;
+        float counter = searchLength;
+        
+        while (counter > 0)
+        {
+            if (NavMesh.SamplePosition(agent.transform.position, out hit, searchRadius, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+                agent.stoppingDistance = 0.5f;
+                        
+                if (agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    yield return new WaitForSeconds(timeToWait);
+                }
+            }
+            counter--;
+        }
+        
+        randomPositionFound = false;
     }
 
     void attackState()
