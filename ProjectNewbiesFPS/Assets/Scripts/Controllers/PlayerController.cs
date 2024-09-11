@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour, IDamage
     public int shootDamage;
     [SerializeField] private int shootDist;
     public float shootRate;
+    [SerializeField] private GameObject gun;
+    [SerializeField] private Transform hipPos, adsPos;
+    [SerializeField] private float gunSpeed;
     
   //  [SerializeField] private float shootRate;
     [SerializeField] public int magazineSize;
@@ -110,6 +113,19 @@ public class PlayerController : MonoBehaviour, IDamage
         crouch();
         headSway();
         leanCameraPivot();
+        swapFire();
+    }
+
+    public void swapFire()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            gun.transform.position = Vector3.Lerp(gun.transform.position, adsPos.position, Time.deltaTime * gunSpeed);
+        }
+        else
+        {
+            gun.transform.position = Vector3.Lerp(gun.transform.position, hipPos.position, Time.deltaTime * gunSpeed);
+        }
     }
 
     public int getPlayerVisibility()
