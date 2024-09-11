@@ -19,12 +19,12 @@ public class AudioManager : MonoBehaviour
     public AudioClip shootPistol;
     public AudioClip shootMachineGun;
     public AudioClip shootShotGun;
+    public AudioClip shootBow;          //Shoot and reload
 
     //Reloads
     public AudioClip reloadPistol;
     public AudioClip reloadMachineGun;
     public AudioClip reloadShotGun;
-    public AudioClip shootBow;          //Shoot and reload
 
     [Header("------------------- Melee SFX")]
     public AudioClip meleeUnarmedHit;   //Fists
@@ -43,11 +43,24 @@ public class AudioManager : MonoBehaviour
     public AudioClip trapActivate;
     public AudioClip jump;
     public AudioClip land;
-    public AudioClip takeDmg;
+    public AudioClip playerHurt;
+    public AudioClip enemyHurt;
 
-    public void Awake()
+    [Header("------------------- UI SFX")]
+    public AudioClip menuUp;
+    public AudioClip menuDown;
+    public AudioClip menuClick;
+    public AudioClip menuWin;
+    public AudioClip menuLose;
+
+    public void Start()
     {
         musicSource.clip = bckGrndMusic;
         musicSource.Play();
+    }
+
+    public void playSFX(AudioClip clip)
+    {
+        sfxSource.PlayOneShot(clip);
     }
 }

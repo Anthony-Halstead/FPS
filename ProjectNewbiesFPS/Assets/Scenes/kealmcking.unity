@@ -774,6 +774,10 @@ PrefabInstance:
       value: Enemy1
       objectReference: {fileID: 0}
     - target: {fileID: 5866375664357388585, guid: 5410f7159b1f5eb4abdde48e1504db60, type: 3}
+      propertyPath: searchLength
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866375664357388585, guid: 5410f7159b1f5eb4abdde48e1504db60, type: 3}
       propertyPath: searchRadius
       value: 5
       objectReference: {fileID: 0}

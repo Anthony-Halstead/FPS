@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] CharacterController charController;
     [SerializeField] private LayerMask ignoreMask;
     [SerializeField] private Transform cameraPivotTransform;
+    public AudioManager audioManager;
 
     [Header("Player Stats - General")]
     public int HP;
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private int shootDist;
     public float shootRate;
     
-    
+  //  [SerializeField] private float shootRate;
     [SerializeField] public int magazineSize;
 
     [Header("Projectile Settings")]
@@ -133,6 +134,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
+            audioManager.playSFX(audioManager.jump);
+
             _jumpCount++;
             _playerVelocity.y = jumpSpeed;
         }
@@ -152,6 +155,8 @@ public class PlayerController : MonoBehaviour, IDamage
         
         if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
+            audioManager.playSFX(audioManager.footStepRunning);
+
             speed *= sprintMod;
             _isSprinting = true;
         } else if (Input.GetButtonUp("Sprint") && !_isCrouching)
@@ -307,6 +312,9 @@ public class PlayerController : MonoBehaviour, IDamage
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
+        // Play bullet sound
+        audioManager.playSFX(audioManager.shootPistol);
+
         if (bulletRb != null)
         {
             bulletRb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
@@ -323,6 +331,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
     public void takeDamage(int amount, Vector3 origin)
     {
+        audioManager.playSFX(audioManager.playerHurt);
+
         HP -= amount;
         StartCoroutine(damageFlash());
         GameManager.instance.healthBar.fillAmount = HP / 10;

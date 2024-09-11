@@ -212,6 +212,85 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &555558004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 555558006}
+  - component: {fileID: 555558005}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Audio
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &555558005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555558004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d12c8e13d21624d9ecc66fa43a768b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 591442547}
+  sfxSource: {fileID: 1921907149}
+  bckGrndMusic: {fileID: 8300000, guid: 53c872007347a4aab8d8d2bc9bf181f1, type: 3}
+  footStepWalking: {fileID: 8300000, guid: 0609acde86b59a2458aaf135531f8756, type: 3}
+  footStepRunning: {fileID: 8300000, guid: 7a1da8275935858428d3af22a10ab810, type: 3}
+  explosion: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
+  explosionLanding: {fileID: 0}
+  shootPistol: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
+  shootMachineGun: {fileID: 8300000, guid: 3061c7b9b32d894478e4126ccce25ca3, type: 3}
+  shootShotGun: {fileID: 0}
+  shootBow: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
+  reloadPistol: {fileID: 8300000, guid: 2c39577c9b36cfc48896c0023bfe7e6e, type: 3}
+  reloadMachineGun: {fileID: 8300000, guid: f90a4e57bec0a8548a61a84e70f7a889, type: 3}
+  reloadShotGun: {fileID: 0}
+  meleeUnarmedHit: {fileID: 8300000, guid: 1f53a5fc6bd934e46a5d8cfa8fd27b64, type: 3}
+  meleeUnarmedMiss: {fileID: 8300000, guid: 4d4ef7516a431934681038a3dc391e55, type: 3}
+  meleeBluntHit: {fileID: 8300000, guid: 1e3312d22540aa14597a1fb4739f2782, type: 3}
+  meleeBluntMiss: {fileID: 8300000, guid: a65d792d6907f744490c9b15bb70edfe, type: 3}
+  meleeSharpHit: {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}
+  meleeSharpMiss: {fileID: 8300000, guid: 482611fe6bc559142a00be6e726b4862, type: 3}
+  meleePierce: {fileID: 0}
+  potionHealth: {fileID: 0}
+  trapPlace: {fileID: 8300000, guid: 68058b7dc40be724cb1ac5a1be3265ba, type: 3}
+  trapActivate: {fileID: 8300000, guid: 5aa948679296f2649802b2f562804537, type: 3}
+  jump: {fileID: 8300000, guid: cb5fc1d775e6d274db17d79d19805c6c, type: 3}
+  land: {fileID: 8300000, guid: 684d90e2defae1547a1d51bec24e6e9d, type: 3}
+  playerHurt: {fileID: 8300000, guid: fbe7524b8863352449e9edbd9b4d192b, type: 3}
+  enemyHurt: {fileID: 8300000, guid: e7e68999e5d01fa44bd1b54990d08d1b, type: 3}
+  menuUp: {fileID: 8300000, guid: 7e5745afffbcd0e4aaa8fce19523a3d2, type: 3}
+  menuDown: {fileID: 8300000, guid: b2d5d7e57895b2745b155d240ed5a5a5, type: 3}
+  menuClick: {fileID: 8300000, guid: 1abb37b32c849be44a7a5628d1e6f8b6, type: 3}
+  menuWin: {fileID: 0}
+  menuLose: {fileID: 0}
+--- !u!4 &555558006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555558004}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3311708, y: 0.54254574, z: -8.67953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 591442548}
+  - {fileID: 1921907150}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &564126464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -230,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5642805185411564424, guid: 49e9bd13becdb3240a92d9956d2f3a1b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: -10.2
       objectReference: {fileID: 0}
     - target: {fileID: 5642805185411564424, guid: 49e9bd13becdb3240a92d9956d2f3a1b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -282,7 +361,7 @@ GameObject:
   - component: {fileID: 1143614568}
   - component: {fileID: 1143614567}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

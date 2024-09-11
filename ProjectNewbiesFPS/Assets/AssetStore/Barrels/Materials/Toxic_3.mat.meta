@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 64deef42604ac204ab9257ecafe22c7b
+timeCreated: 1487525250
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 83508
+  packageName: PBR Barrels
+  packageVersion: 1.0
+  assetPath: Assets/Barrels/Materials/Toxic_3.mat
+  uploadId: 163113

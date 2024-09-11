@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     //Instance for gameManager
     public static GameManager instance;
+    public AudioManager audioManager;
 
     //References for menu Objects, characterUI and money Text
     [SerializeField] GameObject menuActive;
@@ -129,6 +130,8 @@ public class GameManager : MonoBehaviour
             //pausing the game
             if (menuActive == null)
             {
+                audioManager.playSFX(audioManager.menuUp);
+
                 statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(isPaused);
@@ -136,6 +139,8 @@ public class GameManager : MonoBehaviour
             //Unpausing the game
             else if (menuActive == menuPause)
             {
+                audioManager.playSFX(audioManager.menuDown);
+
                 stateUnpause();
             }
         }
@@ -155,7 +160,7 @@ public class GameManager : MonoBehaviour
             
 
         }
-       // ammoText.text = "" + projectilesScript.magazineSize;
+        ammoText.text = "" + projectilesScript.magazineSize;
     }
 
     //Pausing Game Method

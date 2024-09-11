@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cb9dad75301ddcf45ab7be0b661091c9
+timeCreated: 1487526071
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 83508
+  packageName: PBR Barrels
+  packageVersion: 1.0
+  assetPath: Assets/Barrels/Materials/PBR.mat
+  uploadId: 163113

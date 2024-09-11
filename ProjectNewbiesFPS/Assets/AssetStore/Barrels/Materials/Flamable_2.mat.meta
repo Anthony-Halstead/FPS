@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 012983db11badba469a5632ea0db7d55
+timeCreated: 1487525028
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 83508
+  packageName: PBR Barrels
+  packageVersion: 1.0
+  assetPath: Assets/Barrels/Materials/Flamable_2.mat
+  uploadId: 163113
