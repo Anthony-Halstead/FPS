@@ -309,17 +309,11 @@ public class PlayerController : MonoBehaviour, IDamage
 
         }
         // Instantiate bullet
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+        //GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        //Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
         // Play bullet sound
         audioManager.playSFX(audioManager.shootPistol);
-
-        if (bulletRb != null)
-        {
-            bulletRb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
-        }
-        Destroy(bullet, 1f);
 
         // Instantiate muzzle flash
         GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
