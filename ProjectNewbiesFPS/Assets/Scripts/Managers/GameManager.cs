@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     public GameObject projectiles;
     public GameObject enemyAI;
     public enemyAI enemyAIScript;
+    public AudioManager audioManager;
 
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
@@ -93,7 +94,8 @@ public class GameManager : MonoBehaviour
         enemyAI = GameObject.FindWithTag("Enemy");
         enemyAIScript = enemyAI.GetComponent<enemyAI>();
         projectiles = GameObject.FindWithTag("Projectiles");
-       // projectilesScript = projectiles.GetComponent<Projectiles>();
+        // projectilesScript = projectiles.GetComponent<Projectiles>();
+        audioManager = GameObject.FindWithTag("Audio").GetComponent<AudioManager>();
         moneyText.text = "" + playerScript.money;
         storeMoneyText.text = "" + playerScript.money;
          healthUpgrageToggle.isOn = false;
@@ -113,6 +115,8 @@ public class GameManager : MonoBehaviour
             //pausing the game
             if (menuActive == null)
             {
+                audioManager.playSFX(audioManager.menuUp);
+
                 statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(isPaused);
@@ -120,6 +124,8 @@ public class GameManager : MonoBehaviour
             //Unpausing the game
             else if (menuActive == menuPause)
             {
+                audioManager.playSFX(audioManager.menuDown);
+
                 stateUnpause();
             }
         }
