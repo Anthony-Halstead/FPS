@@ -69,7 +69,7 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void SetSfxVolume(float volume)
     {
-        audioMixer.SetFloat("SfxVolume", volume);
+        audioMixer.SetFloat("SFXVolume", volume);
     }
     public void ToggleEnemyHealthBarSound()
     {

@@ -248,8 +248,8 @@ MonoBehaviour:
     m_Bits: 8
   cameraPivotTransform: {fileID: 5526848235105782140}
   audioManager: {fileID: 8306160150476981954, guid: ffec6f25155c66447ba259c645659c7e, type: 3}
-  HP: 10
-  HPMax: 0
+  HP: 0
+  HPMax: 10
   speed: 3
   money: 50
   originalSpeed: 0

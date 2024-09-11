@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
 
     //Winning Game Method
     public void WinGame(int amount)
-    { 
+    {
         enemyCount += amount;
         if (enemyCount <= 0)
         {
