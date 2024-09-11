@@ -73,6 +73,10 @@ public class GameManager : MonoBehaviour
     public List<enemyAI> enemyAIScript;
     public GameObject mainCamera;
     public CameraController mainCameraController;
+    public GameObject dropBoxObjectSpawned;
+    
+    
+    
 
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
@@ -326,35 +330,35 @@ public class GameManager : MonoBehaviour
 
    public void InstantiateUpgrades()
     {
-        
+        dropBoxObjectSpawned = GameObject.FindWithTag("DropBox");
         if (healthUpgradeBought)
         {
-            Instantiate(healthUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(healthUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             healthUpgradeBought = false;
 
         }
          if (magazineUpgradeBought)
         {
-            Instantiate(magazineUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(magazineUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             magazineUpgradeBought = false;
         }
          if (shootRateUpgradeBought)
         {
-            Instantiate(shootRateUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(shootRateUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             shootRateUpgradeBought = false;
         }
          if (doubleDamageUpgradeBought)
         {
-            Instantiate(doubleDamageUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(doubleDamageUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             doubleDamageUpgradeBought = false;
         }
          if (killEnemiesUpgradeBought)
         {
-            Instantiate(killEnemiesUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(killEnemiesUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             killEnemiesUpgradeBought = false;
         }

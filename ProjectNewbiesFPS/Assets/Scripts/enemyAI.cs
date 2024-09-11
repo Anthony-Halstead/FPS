@@ -57,6 +57,7 @@ public class enemyAI : Spawnable, IDamage
         agent = GetComponent<NavMeshAgent>();
         colorOriginal = model.material.color;
         initialAgentStoppingDistance = agent.stoppingDistance;
+        healthBar.fillAmount = HP;
     }
 
     // Update is called once per frame
