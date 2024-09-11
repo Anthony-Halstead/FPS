@@ -30,6 +30,7 @@ public class enemyAI : MonoBehaviour, IDamage
     private Vector3 playerPos;
     private Vector3 lastSeenPlayerPos;
 
+    [SerializeField] private Animator _animator;
     [SerializeField] private GameObject debugPlayerPos;
 
     private float initialAgentStoppingDistance;
@@ -52,6 +53,7 @@ public class enemyAI : MonoBehaviour, IDamage
     void Update()
     {
         enemyAIStates();
+        _animator.SetFloat("AgentSpeed", agent.velocity.magnitude);
     }
 
     void enemyAIStates()
@@ -167,6 +169,7 @@ public class enemyAI : MonoBehaviour, IDamage
             {
                 faceTarget();
             }
+            
 
             if (!isShooting)
             {
@@ -241,7 +244,6 @@ public class enemyAI : MonoBehaviour, IDamage
 
         Instantiate(bullet, shootPos.position, transform.rotation);
         yield return new WaitForSeconds(shootRate);
-        
         isShooting = false;
     }
     
