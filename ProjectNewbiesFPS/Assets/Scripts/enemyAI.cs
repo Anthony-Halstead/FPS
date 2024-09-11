@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class enemyAI : MonoBehaviour, IDamage
 {
@@ -13,6 +14,7 @@ public class enemyAI : MonoBehaviour, IDamage
     
     [SerializeField] private int HP;
     [SerializeField] private int faceTargetSpeed;
+    [SerializeField] private int searchRadius;
 
     [SerializeField] private GameObject bullet;
     [SerializeField] private float shootRate;
@@ -28,9 +30,13 @@ public class enemyAI : MonoBehaviour, IDamage
     private Vector3 lastSeenPlayerPos;
 
     [SerializeField] private GameObject debugPlayerPos;
+
+    private float initialAgentStoppingDistance;
     
-    enum EnemyState {idle, chasing, investigating, searching, shooting}
+    enum EnemyState {idle, chasing, searching, shooting}
     [SerializeField] private EnemyState _enemyState = EnemyState.idle;
+    
+    bool randomPositionFoundAndReached = false;
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +44,7 @@ public class enemyAI : MonoBehaviour, IDamage
         model = GetComponentInChildren<Renderer>();
         agent = GetComponent<NavMeshAgent>();
         colorOriginal = model.material.color;
+        initialAgentStoppingDistance = agent.stoppingDistance;
     }
 
     // Update is called once per frame
@@ -62,9 +69,6 @@ public class enemyAI : MonoBehaviour, IDamage
                 break;
             //case EnemyState.shooting:
                 //break;
-            case EnemyState.investigating:
-                investigatingState(); 
-                break;
             case EnemyState.searching:
                 searchingState(); 
                 break;
@@ -174,20 +178,29 @@ public class enemyAI : MonoBehaviour, IDamage
         }
     }
 
-    void investigatingState()
-    {
-        if (isPlayerVisible())
-        {
-            _enemyState = EnemyState.chasing;
-        }
-    }
-
     void searchingState()
     {
         if (isPlayerVisible())
         {
             _enemyState = EnemyState.chasing;
+            agent.stoppingDistance = initialAgentStoppingDistance;
         }
+    }
+
+    IEnumerator waitToFindNextPos(float timeToWait)
+    {
+        
+        
+        randomPositionFoundAndReached = true;
+        yield return new WaitForSeconds(timeToWait);
+
+        randomPositionFoundAndReached = false;
+    }
+
+    void attackState()
+    {
+        // bang bang shoot the player if some bools are active or whatever
+        // TODO: later tonight, make this work
     }
 
     void faceTarget()
