@@ -2544,7 +2544,7 @@ GameObject:
   - component: {fileID: 1616148811330995109}
   m_Layer: 0
   m_Name: BasicEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2590,6 +2590,8 @@ MonoBehaviour:
   searchLength: 100
   bullet: {fileID: 8737397164380214915, guid: 05a7fb2e1b1b0d24682e1d576411d9ba, type: 3}
   shootRate: 2
+  healthBar: {fileID: 2234045843478173448}
+  healthBarVisibility: {fileID: 6918145819725315819}
   _animator: {fileID: 1616148811330995109}
   debugPlayerPos: {fileID: 72314409540948439}
   _enemyState: 0
@@ -3057,6 +3059,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224374824136518608, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
   m_PrefabInstance: {fileID: 2204131847040044776}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2234045843478173448 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114361196886809056, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
+  m_PrefabInstance: {fileID: 2204131847040044776}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2552604557875805788
 PrefabInstance:
   m_ObjectHideFlags: 0
