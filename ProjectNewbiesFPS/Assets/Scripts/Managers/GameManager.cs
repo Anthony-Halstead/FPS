@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
 
         }
         ammoText.text = "" + playerScript.magazineSize;
-        enemyCountText.text = enemyCount.ToString("F0");
+       // enemyCountText.text = enemyCount.ToString("F0");
     }
 
     //Pausing Game Method
