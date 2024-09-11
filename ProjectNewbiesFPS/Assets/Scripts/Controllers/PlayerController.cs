@@ -99,6 +99,8 @@ public class PlayerController : MonoBehaviour, IDamage
         newHeight = originalHeight;
         _mainCam = Camera.main;
         money = 0;
+        HP = HPMax;
+        GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
     }
 
     // Update is called once per frame
@@ -346,10 +348,10 @@ public class PlayerController : MonoBehaviour, IDamage
 
         HP -= amount;
         StartCoroutine(damageFlash());
-        GameManager.instance.healthBar.fillAmount = HP / 10;
+        GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
         if (HP <= 0)
         {
-            
+            GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
             GameManager.instance.LoseGame();
         }
     }
