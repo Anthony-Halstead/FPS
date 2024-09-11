@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Toggle enemyHealthBarToggle;
 
 
-    [SerializeField] GameObject enemyHealthBarVisibility;
+    [SerializeField] List<GameObject> enemyHealthBarVisibility;
 
     public TextMeshProUGUI storeMoneyText;
     public TextMeshProUGUI moneyText;
@@ -63,14 +63,14 @@ public class GameManager : MonoBehaviour
     //References for taking damage
     public GameObject damagePanel;
     public Image healthBar;
-    public Image enemyHealthBar;
+    public List<Image> enemyHealthBar;
 
     //Player and script references
     public GameObject player;
     public PlayerController playerScript;
     public GameObject projectiles;
-    public GameObject enemyAI;
-    public enemyAI enemyAIScript;
+    public GameObject[] enemyAI;
+    public List<enemyAI> enemyAIScript;
     public GameObject mainCamera;
     public CameraController mainCameraController;
 
@@ -98,8 +98,15 @@ public class GameManager : MonoBehaviour
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        enemyAI = GameObject.FindWithTag("Enemy");
-        enemyAIScript = enemyAI.GetComponent<enemyAI>();
+        
+        enemyAI = GameObject.FindGameObjectsWithTag("Enemy");
+
+        for(int i = 0; i < enemyAI.Length; i++)
+        {
+            enemyAIScript.Add(enemyAI[i].GetComponent<enemyAI>());
+            enemyHealthBar.Add(enemyAIScript[i].healthBar);
+            enemyHealthBarVisibility.Add(enemyAIScript[i].healthBarVisibility);
+        }
         // projectiles = GameObject.FindWithTag("Projectiles");
         // projectilesScript = projectiles.GetComponent<Projectiles>();
         mainCamera = GameObject.FindWithTag("MainCamera");
@@ -226,11 +233,17 @@ public class GameManager : MonoBehaviour
     {
         if (enemyHealthBarToggle.isOn)
         {
-            enemyHealthBarVisibility.SetActive(true);
+            foreach (GameObject bar in enemyHealthBarVisibility)
+            {
+                bar.SetActive(true);
+            }
         }
         else
         {
-            enemyHealthBarVisibility.SetActive(false);
+            foreach (GameObject bar in enemyHealthBarVisibility)
+            {
+                bar.SetActive(false);
+            }
         }
     }
 

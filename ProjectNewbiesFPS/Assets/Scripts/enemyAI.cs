@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class enemyAI : MonoBehaviour, IDamage
@@ -29,6 +30,9 @@ public class enemyAI : MonoBehaviour, IDamage
     private Vector3 playerDir;
     private Vector3 playerPos;
     private Vector3 lastSeenPlayerPos;
+    
+    public Image healthBar;
+    public GameObject healthBarVisibility;
 
     [SerializeField] private Animator _animator;
     [SerializeField] private GameObject debugPlayerPos;

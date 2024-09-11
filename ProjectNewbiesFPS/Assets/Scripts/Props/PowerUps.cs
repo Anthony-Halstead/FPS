@@ -67,8 +67,10 @@ public class PowerUps : MonoBehaviour, IPowerUps
         }
         if (other.CompareTag("Player") && killEnemiesUpgrade)
         {
-            
-            GameManager.instance.enemyAIScript.takeDamage(killEnemiesUpgradeAmount, Vector3.zero);
+            foreach (enemyAI ai in GameManager.instance.enemyAIScript)
+            {
+                ai.takeDamage(killEnemiesUpgradeAmount, Vector3.zero);
+            }
             Destroy(gameObject);
 
         }

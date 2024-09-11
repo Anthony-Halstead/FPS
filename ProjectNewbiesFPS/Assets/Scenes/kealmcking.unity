@@ -4750,6 +4750,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7273905626183861170, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: enemyAI.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273905626183861170, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: enemyAIScript.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273905626183861170, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: enemyHealthBar.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273905626183861170, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: enemyHealthBarVisibility.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6577,6 +6593,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 901293143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1961032499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2234045843478173448, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+  m_PrefabInstance: {fileID: 5317219388488895755}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1974427452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7057,11 +7084,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8493574111644994232, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570601105125320743, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1961032499}
+    - target: {fileID: 8570601105125320743, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: healthBarVisibility
+      value: 
+      objectReference: {fileID: 5317219388488895756}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+--- !u!1 &5317219388488895756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6918145819725315819, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+  m_PrefabInstance: {fileID: 5317219388488895755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
