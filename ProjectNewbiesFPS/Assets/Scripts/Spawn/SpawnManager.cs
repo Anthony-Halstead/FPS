@@ -15,6 +15,8 @@ public class SpawnManager : MonoBehaviour
    , SerializeField] float maxDistanceToNavMesh = 7f;
 
     SpawnerHandler[] sceneSpawnHandlers;
+
+
     private void Awake()
     {
         instance = this;
@@ -57,6 +59,16 @@ public class SpawnManager : MonoBehaviour
         {
             col.TryGetComponent(out SpawnerHandler spawner);
             if(spawner == null) continue;
+            spawner.TriggerTimer();
+        }
+    }
+    /// <summary>
+    /// Call this trigger from anywhere to activeate all the spawn points to spawn the objects in it
+    /// </summary>
+    public void TriggerAllSpawnPoints()
+    {
+        foreach(var spawner in sceneSpawnHandlers)
+        {
             spawner.TriggerTimer();
         }
     }
