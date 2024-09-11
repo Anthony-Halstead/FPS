@@ -25,7 +25,6 @@ public class PowerUps : MonoBehaviour, IPowerUps
     void Start()
     {
         
-        
     }
 
     // Update is called once per frame
@@ -39,8 +38,6 @@ public class PowerUps : MonoBehaviour, IPowerUps
          
          if (other.CompareTag("Player") && doubleDamageUpgrade)
         {
-
-            GameManager.instance.playerScript.shootDamage += doubleDamageUpgradeAmount;
 
             Destroy(gameObject);
 
