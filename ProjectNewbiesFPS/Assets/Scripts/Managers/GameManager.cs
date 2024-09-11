@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     //Instance for gameManager
     public static GameManager instance;
+    public AudioManager audioManager;
 
     //References for menu Objects, characterUI and money Text
     [SerializeField] GameObject menuActive;
@@ -65,7 +66,6 @@ public class GameManager : MonoBehaviour
     public GameObject projectiles;
     public GameObject enemyAI;
     public enemyAI enemyAIScript;
-    public AudioManager audioManager;
 
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
