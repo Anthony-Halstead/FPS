@@ -216,6 +216,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cameraPivotTransform: {fileID: 5526848235105782140}
+  audioManager: {fileID: 8306160150476981954, guid: ffec6f25155c66447ba259c645659c7e, type: 3}
   HP: 10
   HPMax: 0
   speed: 3
@@ -243,8 +244,19 @@ MonoBehaviour:
   shootDamage: 2
   shootDist: 150
   shootRate: 0.5
+  magazineSize: 0
+  bulletPrefab: {fileID: 0}
+  grenadePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  bulletForce: 0
+  grenadeForce: 0
+  muzzleFlashPrefab: {fileID: 0}
+  muzzleFlashSpawnPoint: {fileID: 0}
   damageFlashDuration: 0.1
   _isSprinting: 0
+  _isShooting: 0
+  _isCrouching: 0
+  _isLeaning: 0
 --- !u!143 &1968836186271199824
 CharacterController:
   m_ObjectHideFlags: 0

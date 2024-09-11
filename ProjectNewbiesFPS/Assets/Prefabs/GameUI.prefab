@@ -3120,6 +3120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd4fc056f867a7459256387a7ed2bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 8306160150476981954, guid: ffec6f25155c66447ba259c645659c7e, type: 3}
   menuActive: {fileID: 0}
   menuPause: {fileID: 101415067560172969}
   menuWin: {fileID: 2569232296833143145}
@@ -3145,11 +3146,11 @@ MonoBehaviour:
   storeMoneyText: {fileID: 7895465084879178766}
   moneyText: {fileID: 1975954776784877933}
   ammoText: {fileID: 3417271937118077337}
-  healthUpgradeCost: 10
-  magezineUpgradeCost: 20
-  shootRateUpgradeCost: 30
-  doubleDamageUpgradeCost: 40
-  killEnemiesUpgradeCost: 50
+  healthUpgradeCost: 0
+  magezineUpgradeCost: 0
+  shootRateUpgradeCost: 0
+  doubleDamageUpgradeCost: 0
+  killEnemiesUpgradeCost: 0
   masterVolumeSlider: {fileID: 1298132453453976932}
   musicVolumeSlider: {fileID: 4179781333572610897}
   sfxVolumeSlider: {fileID: 2156383365191196648}

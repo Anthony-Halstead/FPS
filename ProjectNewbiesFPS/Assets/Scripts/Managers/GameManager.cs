@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
             
 
         }
-        ammoText.text = "" + projectilesScript.magazineSize;
+        ammoText.text = "" + playerScript.magazineSize;
     }
 
     //Pausing Game Method
@@ -323,25 +323,25 @@ public class GameManager : MonoBehaviour
             healthUpgradeBought = false;
 
         }
-        else if (magazineUpgradeBought)
+         if (magazineUpgradeBought)
         {
             Instantiate(magazineUpgrade, Vector3.forward, Quaternion.identity);
 
             magazineUpgradeBought = false;
         }
-        else if (shootRateUpgradeBought)
+         if (shootRateUpgradeBought)
         {
             Instantiate(shootRateUpgrade, Vector3.forward, Quaternion.identity);
 
             shootRateUpgradeBought = false;
         }
-        else if (doubleDamageUpgradeBought)
+         if (doubleDamageUpgradeBought)
         {
             Instantiate(doubleDamageUpgrade, Vector3.forward, Quaternion.identity);
 
             doubleDamageUpgradeBought = false;
         }
-        else if (killEnemiesUpgradeBought)
+         if (killEnemiesUpgradeBought)
         {
             Instantiate(killEnemiesUpgrade, Vector3.forward, Quaternion.identity);
 

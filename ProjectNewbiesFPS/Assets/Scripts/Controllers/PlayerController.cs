@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (Input.GetButton("Fire1") && !_isShooting)
         {
-           // StartCoroutine(shoot());
+            StartCoroutine(shoot());
         }
     }
 

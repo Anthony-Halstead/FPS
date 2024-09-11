@@ -62,6 +62,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
         else if(other.CompareTag("Player") && magazineUpgrade)
         {
             GameManager.instance.playerScript.magazineSize += 30;
+            
             Destroy(gameObject);
         }
         if (other.CompareTag("Player") && killEnemiesUpgrade)
