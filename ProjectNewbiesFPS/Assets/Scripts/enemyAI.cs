@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class enemyAI : MonoBehaviour, IDamage
+public class enemyAI : Spawnable, IDamage
 {
     [SerializeField] private Renderer model;
     [SerializeField] private NavMeshAgent agent;
