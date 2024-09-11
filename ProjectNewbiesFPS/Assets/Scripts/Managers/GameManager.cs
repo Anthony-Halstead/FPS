@@ -157,8 +157,6 @@ public class GameManager : MonoBehaviour
                 storeMoneyText.text = "$" + playerScript.money;
             }
 
-            
-
         }
         ammoText.text = "" + playerScript.magazineSize;
     }
