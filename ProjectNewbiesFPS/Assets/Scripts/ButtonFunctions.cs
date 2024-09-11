@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+
 
 public class ButtonFunctions : MonoBehaviour
 {
+    public AudioMixer audioMixer;
     public void resume()
     {
         GameManager.instance.stateUnpause();
@@ -27,25 +30,7 @@ public class ButtonFunctions : MonoBehaviour
 #endif
     }
 
-    //public void BuyHealth()
-    //{
-    //    if(GameManager.instance.playerScript.money >= 20)
-    //    {
-    //        GameManager.instance.playerScript.money -= 20;
-    //        GameManager.instance.playerScript.HP += 20;
-    //        GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
-    //    }
-    //}
-
-    //public void BuyMagazineUpgrade()
-    //{
-    //    if(GameManager.instance.playerScript.money >= 30)
-    //    {
-    //        GameManager.instance.playerScript.money -= 30;
-    //       
-    //        GameManager.instance.storeMoneyText.text = "Money: " + GameManager.instance.playerScript.money;
-    //    }
-    //}
+   
 
     public void Cancel()
     {
@@ -61,5 +46,22 @@ public class ButtonFunctions : MonoBehaviour
     public void OrderConfirm()
     {
         GameManager.instance.StoreOrder();
+    }
+
+    public void SetSensitivity(float sensitivity)
+    {
+        GameManager.instance.mainCameraController.sensitivity = sensitivity;
+    }
+    public void SetMasterVolume(float volume)
+    {
+        audioMixer.SetFloat("MasterVolume", volume);
+    }
+    public void SetMusicVolume(float volume)
+    {
+        audioMixer.SetFloat("MusicVolume", volume);
+    }
+    public void SetSfxVolume(float volume)
+    {
+        audioMixer.SetFloat("SfxVolume", volume);
     }
 }

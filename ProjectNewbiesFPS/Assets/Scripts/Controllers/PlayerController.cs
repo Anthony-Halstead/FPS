@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private int shootDist;
     public float shootRate;
     
-    [SerializeField] private float shootRate;
+    
     [SerializeField] public int magazineSize;
 
     [Header("Projectile Settings")]
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (Input.GetButton("Fire1") && !_isShooting)
         {
-            StartCoroutine(shoot());
+           // StartCoroutine(shoot());
         }
     }
 

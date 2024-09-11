@@ -39,7 +39,9 @@ public class PowerUps : MonoBehaviour, IPowerUps
          
          if (other.CompareTag("Player") && doubleDamageUpgrade)
         {
-            GameManager.instance.playerScript.shootDamage += doubleDamageUpgradeAmount; 
+
+            GameManager.instance.playerScript.shootDamage += doubleDamageUpgradeAmount;
+
             Destroy(gameObject);
 
         }
@@ -65,7 +67,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
         if (other.CompareTag("Player") && killEnemiesUpgrade)
         {
             
-            GameManager.instance.enemyAIScript.takeDamage(killEnemiesUpgradeAmount);
+            GameManager.instance.enemyAIScript.takeDamage(killEnemiesUpgradeAmount, Vector3.zero);
             Destroy(gameObject);
 
         }

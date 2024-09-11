@@ -53,6 +53,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] int doubleDamageUpgradeCost;
     [SerializeField] int killEnemiesUpgradeCost;
 
+    [SerializeField] Slider masterVolumeSlider;
+    [SerializeField] Slider musicVolumeSlider;
+    [SerializeField] Slider sfxVolumeSlider;
+    [SerializeField] Slider sensitivitySlider;
+
 
     //References for taking damage
     public GameObject damagePanel;
@@ -65,6 +70,8 @@ public class GameManager : MonoBehaviour
     public GameObject projectiles;
     public GameObject enemyAI;
     public enemyAI enemyAIScript;
+    public GameObject mainCamera;
+    public CameraController mainCameraController;
 
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
@@ -92,8 +99,11 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         enemyAI = GameObject.FindWithTag("Enemy");
         enemyAIScript = enemyAI.GetComponent<enemyAI>();
-        projectiles = GameObject.FindWithTag("Projectiles");
-        projectilesScript = projectiles.GetComponent<Projectiles>();
+        // projectiles = GameObject.FindWithTag("Projectiles");
+        // projectilesScript = projectiles.GetComponent<Projectiles>();
+        mainCamera = GameObject.FindWithTag("MainCamera");
+        mainCameraController = mainCamera.GetComponent<CameraController>();
+
         moneyText.text = "" + playerScript.money;
         storeMoneyText.text = "" + playerScript.money;
          healthUpgrageToggle.isOn = false;
@@ -101,6 +111,12 @@ public class GameManager : MonoBehaviour
          shootRateUpgrageToggle.isOn = false;
          doubleDamageUpgrageToggle.isOn = false;
          killEnemiesUpgrageToggle.isOn = false;
+
+
+        sensitivitySlider.value = 300f;
+        masterVolumeSlider.value = 0;
+        musicVolumeSlider.value = 0;
+        sfxVolumeSlider.value = 0;
     }
 
     // Update is called once per frame
@@ -139,7 +155,7 @@ public class GameManager : MonoBehaviour
             
 
         }
-        ammoText.text = "" + projectilesScript.magazineSize;
+       // ammoText.text = "" + projectilesScript.magazineSize;
     }
 
     //Pausing Game Method
