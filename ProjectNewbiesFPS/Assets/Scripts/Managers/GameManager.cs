@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider sfxVolumeSlider;
     [SerializeField] Slider sensitivitySlider;
 
+    [SerializeField] TMP_Text enemyCountText;
 
     //References for taking damage
     public GameObject damagePanel;
@@ -165,6 +166,7 @@ public class GameManager : MonoBehaviour
 
         }
         ammoText.text = "" + playerScript.magazineSize;
+        enemyCountText.text = enemyCount.ToString("F0");
     }
 
     //Pausing Game Method
@@ -191,6 +193,18 @@ public class GameManager : MonoBehaviour
 
     //Winning Game Method
     public void WinGame(int amount)
+    { 
+        if (enemyCount <= 0)
+        {
+
+
+            statePause();
+            menuActive = menuWin;
+            menuWin.SetActive(true);
+        }
+    }
+
+    public void UpdateGameGoal(int amount)
     {
         enemyCount += amount;
 
@@ -203,6 +217,7 @@ public class GameManager : MonoBehaviour
             menuWin.SetActive(true);
         }
     }
+
 
     //Losing Game Method
     public void LoseGame()
