@@ -135,6 +135,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 12118431483949137, guid: 5410f7159b1f5eb4abdde48e1504db60, type: 3}
   m_PrefabInstance: {fileID: 1665843471}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1113453614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8306160150476981954, guid: ffec6f25155c66447ba259c645659c7e, type: 3}
+  m_PrefabInstance: {fileID: 1843221327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d12c8e13d21624d9ecc66fa43a768b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1182733776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -313,6 +324,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7440058048379561414, guid: 5410f7159b1f5eb4abdde48e1504db60, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -471,6 +486,14 @@ PrefabInstance:
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: -4827459894280841240, guid: 9701eabff8b358346a147aff03a1e502, type: 2}
+    - target: {fileID: 8306160150476981954, guid: ffec6f25155c66447ba259c645659c7e, type: 3}
+      propertyPath: dropBox
+      value: 
+      objectReference: {fileID: 8300000, guid: aba3270755269dc4b834dde6e1d3cae9, type: 3}
+    - target: {fileID: 8306160150476981954, guid: ffec6f25155c66447ba259c645659c7e, type: 3}
+      propertyPath: menuSlider
+      value: 
+      objectReference: {fileID: 8300000, guid: f10e7ff812627164fa39911459400577, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -584,6 +607,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2083553546
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1609426563364382538, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_Name
+      value: Bullet_Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2098119158785457648, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 482a23eb854875b4ea0a9d1394443a6b, type: 3}
+--- !u!114 &445577617473649044 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8398865523139364882, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+  m_PrefabInstance: {fileID: 4216457082393698436}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41004d659f63ded47ae99984e18915d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4216457082393698436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -592,6 +683,94 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 286181574281469080, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 286181574281469080, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 286181574281469080, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 286181574281469080, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 286181574281469080, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleEnemyHealthBarSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 286181574281469080, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 286181574281469080, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298132453453976932, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298132453453976932, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298132453453976932, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 1298132453453976932, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298132453453976932, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MenuSliderSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298132453453976932, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298132453453976932, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344513671982232037, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344513671982232037, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344513671982232037, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 1344513671982232037, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344513671982232037, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleEnemyHealthBarSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344513671982232037, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344513671982232037, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387173061804483256, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1847942829083049847, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -599,6 +778,90 @@ PrefabInstance:
     - target: {fileID: 1847942829083049847, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156383365191196648, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156383365191196648, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156383365191196648, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 2156383365191196648, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156383365191196648, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MenuSliderSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156383365191196648, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156383365191196648, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321035649938264498, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321035649938264498, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321035649938264498, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 2321035649938264498, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321035649938264498, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleEnemyHealthBarSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321035649938264498, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321035649938264498, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179781333572610897, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179781333572610897, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179781333572610897, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 4179781333572610897, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179781333572610897, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MenuSliderSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179781333572610897, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179781333572610897, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4211135118556512074, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
       propertyPath: m_AnchorMax.x
@@ -612,9 +875,93 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5547400268542423906, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547400268542423906, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547400268542423906, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 5547400268542423906, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547400268542423906, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: MenuSliderSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547400268542423906, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547400268542423906, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247043700406937495, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247043700406937495, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247043700406937495, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 6247043700406937495, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247043700406937495, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleEnemyHealthBarSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247043700406937495, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247043700406937495, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6272159342561444735, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
       propertyPath: m_Name
       value: GameUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920314406641366536, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920314406641366536, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920314406641366536, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 6920314406641366536, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920314406641366536, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleEnemyHealthBarSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920314406641366536, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920314406641366536, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6921170813559543547, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
       propertyPath: m_AnchorMax.x
@@ -662,6 +1009,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7411058479634276387, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439562094428676142, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439562094428676142, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439562094428676142, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 445577617473649044}
+    - target: {fileID: 7439562094428676142, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439562094428676142, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleEnemyHealthBarSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439562094428676142, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ButtonFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439562094428676142, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807796798133120722, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8091117238753376079, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
@@ -752,6 +1131,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8398865523139364882, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 1113453614}
     - target: {fileID: 8845050607154105143, guid: fb96795eebe1ca04199048bd39b8c353, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -780,3 +1163,4 @@ SceneRoots:
   - {fileID: 1665843471}
   - {fileID: 1183545162}
   - {fileID: 1843221327}
+  - {fileID: 2083553546}

@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider sfxVolumeSlider;
     [SerializeField] Slider sensitivitySlider;
 
+    [SerializeField] TMP_Text enemyCountText;
 
     //References for taking damage
     public GameObject damagePanel;
@@ -73,6 +74,10 @@ public class GameManager : MonoBehaviour
     public List<enemyAI> enemyAIScript;
     public GameObject mainCamera;
     public CameraController mainCameraController;
+    public GameObject dropBoxObjectSpawned;
+    
+    
+    
 
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
@@ -165,6 +170,7 @@ public class GameManager : MonoBehaviour
 
         }
         ammoText.text = "" + playerScript.magazineSize;
+       // enemyCountText.text = enemyCount.ToString("F0");
     }
 
     //Pausing Game Method
@@ -191,6 +197,18 @@ public class GameManager : MonoBehaviour
 
     //Winning Game Method
     public void WinGame(int amount)
+    { 
+        if (enemyCount <= 0)
+        {
+
+
+            statePause();
+            menuActive = menuWin;
+            menuWin.SetActive(true);
+        }
+    }
+
+    public void UpdateGameGoal(int amount)
     {
         enemyCount += amount;
 
@@ -204,12 +222,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     //Losing Game Method
     public void LoseGame()
     {
         statePause();
         menuActive = menuLose;
         menuLose.SetActive(true);
+        damagePanel.SetActive(false);
 
     }
 
@@ -325,35 +345,35 @@ public class GameManager : MonoBehaviour
 
    public void InstantiateUpgrades()
     {
-        
+        dropBoxObjectSpawned = GameObject.FindWithTag("DropBox");
         if (healthUpgradeBought)
         {
-            Instantiate(healthUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(healthUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             healthUpgradeBought = false;
 
         }
          if (magazineUpgradeBought)
         {
-            Instantiate(magazineUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(magazineUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             magazineUpgradeBought = false;
         }
          if (shootRateUpgradeBought)
         {
-            Instantiate(shootRateUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(shootRateUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             shootRateUpgradeBought = false;
         }
          if (doubleDamageUpgradeBought)
         {
-            Instantiate(doubleDamageUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(doubleDamageUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             doubleDamageUpgradeBought = false;
         }
          if (killEnemiesUpgradeBought)
         {
-            Instantiate(killEnemiesUpgrade, Vector3.forward, Quaternion.identity);
+            Instantiate(killEnemiesUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             killEnemiesUpgradeBought = false;
         }

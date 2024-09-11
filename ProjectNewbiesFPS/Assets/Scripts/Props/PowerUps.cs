@@ -56,7 +56,8 @@ public class PowerUps : MonoBehaviour, IPowerUps
         else if(other.CompareTag("Player") && healthUpgrade)
         {
             GameManager.instance.playerScript.HPMax += healthUpgradeUpAmount;
-            GameManager.instance.healthBar.fillAmount = GameManager.instance.playerScript.HP / GameManager.instance.playerScript.HPMax;
+            GameManager.instance.playerScript.HP = GameManager.instance.playerScript.HPMax;
+            GameManager.instance.healthBar.fillAmount = (float)GameManager.instance.playerScript.HP / GameManager.instance.playerScript.HPMax;
             Destroy(gameObject);
         }
         else if(other.CompareTag("Player") && magazineUpgrade)

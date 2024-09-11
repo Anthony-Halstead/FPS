@@ -57,6 +57,7 @@ public class enemyAI : Spawnable, IDamage
         agent = GetComponent<NavMeshAgent>();
         colorOriginal = model.material.color;
         initialAgentStoppingDistance = agent.stoppingDistance;
+        healthBar.fillAmount = HP;
     }
 
     // Update is called once per frame
@@ -263,12 +264,14 @@ public class enemyAI : Spawnable, IDamage
         playerDetected = true;
         
         HP -= amount;
+        healthBar.fillAmount = (float)HP / 5;
 
         lastSeenPlayerPos = shooterPos;
 
         agent.SetDestination(lastSeenPlayerPos);
         if (HP <= 0)
         {
+            healthBar.fillAmount = (float)HP;
             GameManager.instance.playerScript.money += 5;
             Destroy(gameObject);
         }
