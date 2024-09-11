@@ -126,10 +126,12 @@ public class GameManager : MonoBehaviour
         //Finding out if menu is paused at any moment
         if (Input.GetButtonDown("Cancel"))
         {
+            
             Debug.Log("Pause");
             //pausing the game
             if (menuActive == null)
             {
+                
                 audioManager.playSFX(audioManager.menuUp);
 
                 statePause();
@@ -147,10 +149,13 @@ public class GameManager : MonoBehaviour
         //finding if BuyMenu is requested
         else if (Input.GetButtonDown("Buy"))
         {
+            audioManager.playSFX(audioManager.menuUp);
             Debug.Log("Buy");
             //setting screen active
             if (menuActive == null)
             {
+               
+                
                 statePause();
                 menuActive = buyMenu;
                 menuActive.SetActive(true);
@@ -211,6 +216,7 @@ public class GameManager : MonoBehaviour
     {
         if (menuActive == buyMenu)
         {
+            audioManager.playSFX(audioManager.menuDown);
             stateUnpause();
         }
     }
@@ -224,12 +230,15 @@ public class GameManager : MonoBehaviour
 
     public void ToggleEnemyHealthBar()
     {
+        
         if (enemyHealthBarToggle.isOn)
         {
+            
             enemyHealthBarVisibility.SetActive(true);
         }
         else
         {
+            
             enemyHealthBarVisibility.SetActive(false);
         }
     }
@@ -240,6 +249,7 @@ public class GameManager : MonoBehaviour
         {
             if (healthUpgrageToggle.isOn)
             {
+                audioManager.playSFX(audioManager.menuClick);
                 Debug.Log("Health Chosen");
                 GameManager.instance.playerScript.money -= healthUpgradeCost;
                 
@@ -253,6 +263,7 @@ public class GameManager : MonoBehaviour
         {
             if (magazineUpgrageToggle.isOn)
             {
+                audioManager.playSFX(audioManager.menuClick);
                 Debug.Log("Magazine Chosen");
                 GameManager.instance.playerScript.money -= magezineUpgradeCost;
 
@@ -265,6 +276,7 @@ public class GameManager : MonoBehaviour
         {
             if (shootRateUpgrageToggle.isOn)
             {
+                audioManager.playSFX(audioManager.menuClick);
                 Debug.Log("Shoot Rate Chosen");
                 GameManager.instance.playerScript.money -= shootRateUpgradeCost;
 
@@ -277,6 +289,7 @@ public class GameManager : MonoBehaviour
         {
             if (doubleDamageUpgrageToggle.isOn)
             {
+                audioManager.playSFX(audioManager.menuClick);
                 Debug.Log("Double Damage Chosen");
                 GameManager.instance.playerScript.money -= doubleDamageUpgradeCost;
 
@@ -289,6 +302,7 @@ public class GameManager : MonoBehaviour
         {
             if (killEnemiesUpgrageToggle.isOn)
             {
+                audioManager.playSFX(audioManager.menuClick);
                 Debug.Log("Kill Enemies Chosen");
                 GameManager.instance.playerScript.money -= killEnemiesUpgradeCost;
 

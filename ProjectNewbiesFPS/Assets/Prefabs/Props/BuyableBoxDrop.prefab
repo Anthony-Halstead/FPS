@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa8be5bc39d186e42bff0a2b538e7064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 0
+  audioManager: {fileID: 8306160150476981954, guid: ffec6f25155c66447ba259c645659c7e, type: 3}
 --- !u!65 &5271818501299206197
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dd2439c3d7396854e83a01a432d0a5ca, type: 2}
+  - {fileID: 2100000, guid: 40ac9d5860d42294cb2889127a9ebd3a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

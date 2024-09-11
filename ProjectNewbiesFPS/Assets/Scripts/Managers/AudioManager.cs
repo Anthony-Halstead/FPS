@@ -45,6 +45,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip land;
     public AudioClip playerHurt;
     public AudioClip enemyHurt;
+    public AudioClip dropBox;
+    public AudioClip UpgradePickUp;
 
     [Header("------------------- UI SFX")]
     public AudioClip menuUp;
@@ -52,6 +54,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip menuClick;
     public AudioClip menuWin;
     public AudioClip menuLose;
+    public AudioClip menuSlider;
 
     public void Start()
     {

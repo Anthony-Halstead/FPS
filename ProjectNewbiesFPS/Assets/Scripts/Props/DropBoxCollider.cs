@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DropBoxCollider : MonoBehaviour
 {
-
+    public AudioManager audioManager;
    
 
     //private void OnCollisionEnter(Collision other)
@@ -19,6 +19,7 @@ public class DropBoxCollider : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
+            audioManager.playSFX(audioManager.dropBox);
             Debug.Log("Collided");
 
             //Activate Animation
