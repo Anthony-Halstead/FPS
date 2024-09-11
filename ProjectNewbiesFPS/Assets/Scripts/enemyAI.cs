@@ -44,9 +44,15 @@ public class enemyAI : MonoBehaviour, IDamage
     
     bool randomPositionFound = false;
     
+
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.instance.enemyAI.Add(gameObject);
+        GameManager.instance.enemyAIScript.Add(this);
+        GameManager.instance.enemyHealthBar.Add(healthBar);
+        GameManager.instance.enemyHealthBarVisibility.Add(healthBarVisibility);
+        
         model = GetComponentInChildren<Renderer>();
         agent = GetComponent<NavMeshAgent>();
         colorOriginal = model.material.color;

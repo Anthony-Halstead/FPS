@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Toggle enemyHealthBarToggle;
 
 
-    [SerializeField] List<GameObject> enemyHealthBarVisibility;
+    public List<GameObject> enemyHealthBarVisibility;
 
     public TextMeshProUGUI storeMoneyText;
     public TextMeshProUGUI moneyText;
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public PlayerController playerScript;
     public GameObject projectiles;
-    public GameObject[] enemyAI;
+    public List<GameObject> enemyAI;
     public List<enemyAI> enemyAIScript;
     public GameObject mainCamera;
     public CameraController mainCameraController;
@@ -94,19 +94,18 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         //Setting Instance, original time and player references
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
         
-        enemyAI = GameObject.FindGameObjectsWithTag("Enemy");
-
-        for(int i = 0; i < enemyAI.Length; i++)
-        {
-            enemyAIScript.Add(enemyAI[i].GetComponent<enemyAI>());
-            enemyHealthBar.Add(enemyAIScript[i].healthBar);
-            enemyHealthBarVisibility.Add(enemyAIScript[i].healthBarVisibility);
-        }
         // projectiles = GameObject.FindWithTag("Projectiles");
         // projectilesScript = projectiles.GetComponent<Projectiles>();
         mainCamera = GameObject.FindWithTag("MainCamera");
