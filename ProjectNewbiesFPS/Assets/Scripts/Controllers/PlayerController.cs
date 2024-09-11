@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
             if (dmg != null)
             {
-                dmg.takeDamage(shootDamage);
+                dmg.takeDamage(shootDamage, transform.position);
             }
         }
         
@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviour, IDamage
         _isShooting = false;
     }
 
-    public void takeDamage(int amount)
+    public void takeDamage(int amount, Vector3 origin)
     {
         HP -= amount;
         StartCoroutine(damageFlash());
