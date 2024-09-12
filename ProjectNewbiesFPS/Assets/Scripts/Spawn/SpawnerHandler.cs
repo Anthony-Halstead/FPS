@@ -20,6 +20,21 @@ public class SpawnerHandler : MonoBehaviour
     Timer timerInstance;
     
     int counter;
+    int numberOfWaves = 1;
+
+    private void OnEnable()
+    {
+        GameManager.WaveCount += SetWaveCount;
+    }
+    private void OnDisable()
+    {
+        GameManager.WaveCount -= SetWaveCount;
+    }
+
+    private void SetWaveCount(int count)
+    {
+        numberOfWaves = count;
+    }
 
     public void Awake()
     {
@@ -30,14 +45,25 @@ public class SpawnerHandler : MonoBehaviour
 
         timerInstance.OnStopTimer += () =>
         {
-            if (counter++ >= spawnPoints.Length)
-            {
-                timerInstance.StopTimer(this);
-                counter = 0;
-                return;
-            }
-            Spawn();
-            timerInstance.StartTimer(this,spawnInterval);
+            
+                if (counter++ >= spawnPoints.Length)
+                {
+                   if(numberOfWaves <= 0)
+                   {
+                    timerInstance.StopTimer(this);
+                    counter = 0;
+                    return;
+                   }
+                   else
+                   {
+                    numberOfWaves--;
+                    counter = 0;
+                   }
+                }
+                Spawn();
+                timerInstance.StartTimer(this, spawnInterval);
+            
+
         };
         if(spawnPositionType == SpawnPositionType.NavMesh) 
         OnSendSpawner.Invoke(spawnPoints);

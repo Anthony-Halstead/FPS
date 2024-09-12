@@ -274,6 +274,7 @@ public class enemyAI : Spawnable, IDamage
         {
             healthBar.fillAmount = (float)HP;
             GameManager.instance.playerScript.money += 5;
+
             Destroy(gameObject);
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -75,9 +76,9 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public CameraController mainCameraController;
     public GameObject dropBoxObjectSpawned;
-    
-    
-    
+
+
+    public static Action<int>WaveCount;
 
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
