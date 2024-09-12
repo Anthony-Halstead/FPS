@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         enemyCount = value;
             if(enemyCount <= 0)
             {
-                EnemyCountCheck();
+                NextWave();
                 WinGame();
             }
         } }
@@ -233,10 +233,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void EnemyCountCheck()
+    public void NextWave()
     {  
-                wave++;
-                SpawnWave();
+        wave++;
+        SpawnWave();
     }
 
 

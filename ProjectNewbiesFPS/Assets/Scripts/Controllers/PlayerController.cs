@@ -126,10 +126,12 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetMouseButton(1))
         {
             gun.transform.position = Vector3.Lerp(gun.transform.position, adsPos.position, Time.deltaTime * gunSpeed);
+            _mainCam.fieldOfView = 50f;
         }
         else
         {
             gun.transform.position = Vector3.Lerp(gun.transform.position, hipPos.position, Time.deltaTime * gunSpeed);
+            _mainCam.fieldOfView = 60f;
         }
     }
 
