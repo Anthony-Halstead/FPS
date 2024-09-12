@@ -120,13 +120,12 @@ MonoBehaviour:
   shootRateUpgrade: 1
   doubleDamageUpgrade: 0
   healthUpgrade: 0
-  magazineUpgrade: 0
+  magazineUpgrade: 1
   killEnemiesUpgradeAmount: 0
-  shootRateUpgradeAmount: 2
+  shootRateUpgradeAmount: 0.2
   doubleDamageUpgradeAmount: 0
   healthUpgradeUpAmount: 0
   magezineUpgradeUpAmount: 0
-  audioSource: {fileID: -1262658722930118418}
 --- !u!136 &2004780514715008721
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -58,6 +58,7 @@ public class enemyAI : Spawnable, IDamage
         colorOriginal = model.material.color;
         initialAgentStoppingDistance = agent.stoppingDistance;
         healthBar.fillAmount = HP;
+        GameManager.instance.WinGame(1);
     }
 
     // Update is called once per frame
@@ -273,6 +274,7 @@ public class enemyAI : Spawnable, IDamage
         {
             healthBar.fillAmount = (float)HP;
             GameManager.instance.playerScript.money += 5;
+            GameManager.instance.WinGame(-1);
             Destroy(gameObject);
         }
     }

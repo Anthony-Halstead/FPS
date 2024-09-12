@@ -15,7 +15,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
 
  
     public int killEnemiesUpgradeAmount;
-    public int shootRateUpgradeAmount;
+    public float shootRateUpgradeAmount;
     public int doubleDamageUpgradeAmount;
     public int healthUpgradeUpAmount;
     public int magezineUpgradeUpAmount;
@@ -40,14 +40,14 @@ public class PowerUps : MonoBehaviour, IPowerUps
          if (other.CompareTag("Player") && doubleDamageUpgrade)
         {
 
-            GameManager.instance.playerScript.shootDamage += doubleDamageUpgradeAmount;
+            GameManager.instance.playerScript.shootDamage *= doubleDamageUpgradeAmount;
 
             Destroy(gameObject);
 
         }
         else if (other.CompareTag("Player") && shootRateUpgrade)
         {
-            GameManager.instance.playerScript.shootRate += shootRateUpgradeAmount;
+            GameManager.instance.playerScript.shootRate -= shootRateUpgradeAmount;
             
             Destroy(gameObject);
 

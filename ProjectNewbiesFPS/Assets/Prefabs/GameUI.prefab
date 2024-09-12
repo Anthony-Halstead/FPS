@@ -1119,7 +1119,7 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 8066659177471848145}
   sfxVolumeSlider: {fileID: 3756809194013511602}
   sensitivitySlider: {fileID: 693377459258937802}
-  enemyCountText: {fileID: 547049991790481969}
+  waveText: {fileID: 0}
   damagePanel: {fileID: 2171091173855748587}
   healthBar: {fileID: 5426625961609910695}
   enemyHealthBar: []
@@ -1334,7 +1334,6 @@ RectTransform:
   - {fileID: 904217416426133258}
   - {fileID: 5704147179974221267}
   - {fileID: 904485998082535864}
-  - {fileID: 3848184581388319661}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9258,7 +9257,7 @@ GameObject:
   - component: {fileID: 2609276168767276044}
   - component: {fileID: 6221191717562896851}
   m_Layer: 5
-  m_Name: Enemy Count Label
+  m_Name: Wave Count Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9271,17 +9270,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6760006445227865311}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2061125, y: 1.2061125, z: 1.2061125}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7966636731851577133}
-  m_Father: {fileID: 8716654082195364807}
+  m_Father: {fileID: 8667409342871838974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 69.75, y: -26.75}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -104, y: 25}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2609276168767276044
@@ -9312,7 +9311,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Enemy Count:'
+  m_text: 'Wave:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9346,7 +9345,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -9490,6 +9489,7 @@ RectTransform:
   m_Children:
   - {fileID: 1542791780492846431}
   - {fileID: 5148200825196649059}
+  - {fileID: 3848184581388319661}
   m_Father: {fileID: 3554590401511755409}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -10828,7 +10828,7 @@ GameObject:
   - component: {fileID: 6754483780072799462}
   - component: {fileID: 547049991790481969}
   m_Layer: 5
-  m_Name: Enemy Count
+  m_Name: Wave Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10915,7 +10915,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0

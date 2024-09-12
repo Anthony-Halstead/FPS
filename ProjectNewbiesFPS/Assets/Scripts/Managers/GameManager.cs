@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider sfxVolumeSlider;
     [SerializeField] Slider sensitivitySlider;
 
-    [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] TMP_Text waveText;
 
     //References for taking damage
     public GameObject damagePanel;
@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviour
 
     //Enemy Reference
     int enemyCount;
+    int wave = 1;
+    
 
     //Time Reference
     float timeScaleOG;
@@ -170,7 +172,8 @@ public class GameManager : MonoBehaviour
 
         }
         ammoText.text = "" + playerScript.magazineSize;
-       // enemyCountText.text = enemyCount.ToString("F0");
+        waveText.text = "" + wave;
+        moneyText.text = "$" + playerScript.money;
     }
 
     //Pausing Game Method
@@ -199,7 +202,17 @@ public class GameManager : MonoBehaviour
     public void WinGame(int amount)
     {
         enemyCount += amount;
-        if (enemyCount <= 0)
+        if (wave < 10 && enemyCount <= 0 )
+        {
+            
+          
+                wave++;
+                SpawnWave();
+
+            
+
+        }
+        else if (wave == 10 && enemyCount <= 0)
         {
 
 
@@ -207,6 +220,8 @@ public class GameManager : MonoBehaviour
             menuActive = menuWin;
             menuWin.SetActive(true);
         }
+
+
     }
 
 
@@ -364,6 +379,16 @@ public class GameManager : MonoBehaviour
 
             killEnemiesUpgradeBought = false;
         }
+    }
+
+    void SpawnWave()
+    {
+        
+        
+            SpawnManager.instance.TriggerAllSpawnPoints();
+          
+        
+        
     }
 
 }
