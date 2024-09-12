@@ -2162,7 +2162,11 @@ MonoBehaviour:
   shootPos: {fileID: 895297550573536156}
   headPos: {fileID: 5621831544432318727}
   HP: 10
+<<<<<<< HEAD
   HPMax: 10
+=======
+  HPMax: 0
+>>>>>>> 2bc1b0d170feb0240324e15f5a3e53b7b8493dc0
   faceTargetSpeed: 300
   searchLength: 30
   timeToWait: 1

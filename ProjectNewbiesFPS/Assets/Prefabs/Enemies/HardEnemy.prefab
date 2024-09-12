@@ -2712,7 +2712,11 @@ MonoBehaviour:
   shootPos: {fileID: 5573114588642351133}
   headPos: {fileID: 3602213396512673434}
   HP: 15
+<<<<<<< HEAD
   HPMax: 15
+=======
+  HPMax: 0
+>>>>>>> 2bc1b0d170feb0240324e15f5a3e53b7b8493dc0
   faceTargetSpeed: 300
   searchLength: 30
   timeToWait: 1
@@ -3034,7 +3038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224374824136518608, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.00000046193594
       objectReference: {fileID: 0}
     - target: {fileID: 224374824136518608, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
       propertyPath: m_LocalRotation.z
