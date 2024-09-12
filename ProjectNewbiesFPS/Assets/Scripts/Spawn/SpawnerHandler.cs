@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 /// <summary>
 /// Represents the concrete spawner that is placed in the game world
 /// </summary>
@@ -20,6 +21,21 @@ public class SpawnerHandler : MonoBehaviour
     Timer timerInstance;
     
     int counter;
+    [SerializeField] int  numberOfWaves = 0;
+
+    private void OnEnable()
+    {
+        GameManager.WaveCount += SetWaveCount;
+    }
+    private void OnDisable()
+    {
+        GameManager.WaveCount -= SetWaveCount;
+    }
+
+    private void SetWaveCount(int count)
+    {
+        numberOfWaves = count;
+    }
 
     public void Awake()
     {
@@ -30,14 +46,26 @@ public class SpawnerHandler : MonoBehaviour
 
         timerInstance.OnStopTimer += () =>
         {
-            if (counter++ >= spawnPoints.Length)
-            {
-                timerInstance.StopTimer(this);
-                counter = 0;
-                return;
-            }
-            Spawn();
-            timerInstance.StartTimer(this,spawnInterval);
+            
+                if (counter++ >= spawnPoints.Length)
+                {
+                --numberOfWaves;
+                if (numberOfWaves <= 0)
+                   {
+                    timerInstance.StopTimer(this);
+                    counter = 0;
+                    return;
+                   }
+                   else
+                   {
+                    
+                    counter = 0;
+                   }
+                }
+                Spawn();
+                timerInstance.StartTimer(this, spawnInterval);
+            
+
         };
         if(spawnPositionType == SpawnPositionType.NavMesh) 
         OnSendSpawner.Invoke(spawnPoints);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 /// <summary>
@@ -40,8 +41,8 @@ public class Timer : ScriptableObject
         elapsedTime = 0;
     }
     public virtual IEnumerator TimerCoroutine() 
-    { 
-        
+    {
+       
         while(elapsedTime < duration)
         {
             if (isRunning)

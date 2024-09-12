@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Toggle doubleDamageUpgrageToggle;
     [SerializeField] Toggle killEnemiesUpgrageToggle;
 
+    
 
     [SerializeField] Toggle enemyHealthBarToggle;
 
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI storeMoneyText;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI enemyCountText;
+    
 
 
     [SerializeField] int healthUpgradeCost;
@@ -75,9 +79,9 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public CameraController mainCameraController;
     public GameObject dropBoxObjectSpawned;
-    
-    
-    
+
+
+    public static Action<int>WaveCount;
 
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
@@ -86,7 +90,15 @@ public class GameManager : MonoBehaviour
     bool killEnemiesUpgradeBought;
 
     //Enemy Reference
-    int enemyCount;
+    private int enemyCount;
+    public int EnemyCount { get { return enemyCount; } set { 
+        enemyCount = value;
+            if(enemyCount <= 0)
+            {
+                EnemyCountCheck();
+                WinGame();
+            }
+        } }
     int wave = 1;
     
 
@@ -131,6 +143,8 @@ public class GameManager : MonoBehaviour
         masterVolumeSlider.value = 0;
         musicVolumeSlider.value = 0;
         sfxVolumeSlider.value = 0;
+
+        
     }
 
     // Update is called once per frame
@@ -174,6 +188,7 @@ public class GameManager : MonoBehaviour
         ammoText.text = "" + playerScript.magazineSize;
         waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
+        enemyCountText.text = "" + enemyCount;
     }
 
     //Pausing Game Method
@@ -199,29 +214,24 @@ public class GameManager : MonoBehaviour
     }
 
     //Winning Game Method
-    public void WinGame(int amount)
+    public void WinGame()
     {
-        enemyCount += amount;
-        if (wave < 10 && enemyCount <= 0 )
+        
+        
+        if (wave == 10)
         {
-            
-          
-                wave++;
-                SpawnWave();
-
-            
-
-        }
-        else if (wave == 10 && enemyCount <= 0)
-        {
-
-
             statePause();
             menuActive = menuWin;
             menuWin.SetActive(true);
         }
 
 
+    }
+
+    public void EnemyCountCheck()
+    {  
+                wave++;
+                SpawnWave();
     }
 
 
@@ -383,7 +393,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnWave()
     {
-        
+        WaveCount.Invoke(wave);
         
             SpawnManager.instance.TriggerAllSpawnPoints();
           

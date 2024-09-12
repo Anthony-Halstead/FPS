@@ -14,6 +14,7 @@ public class enemyAI : Spawnable, IDamage
     [SerializeField] private Transform headPos;
     
     [SerializeField] private int HP;
+    [SerializeField] private int HPMax;
     [SerializeField] private int faceTargetSpeed;
     [SerializeField] private int searchRadius;
     [SerializeField] private float searchLength;
@@ -57,8 +58,9 @@ public class enemyAI : Spawnable, IDamage
         agent = GetComponent<NavMeshAgent>();
         colorOriginal = model.material.color;
         initialAgentStoppingDistance = agent.stoppingDistance;
-        healthBar.fillAmount = HP;
-        GameManager.instance.WinGame(1);
+        healthBar.fillAmount = (float)HP;
+        HPMax = HP;
+        GameManager.instance.EnemyCount++;
     }
 
     // Update is called once per frame
@@ -198,6 +200,7 @@ public class enemyAI : Spawnable, IDamage
     {
         if (isPlayerVisible())
         {
+            StopCoroutine(waitToFindNextPos(1));
             _enemyState = EnemyState.chasing;
             agent.stoppingDistance = initialAgentStoppingDistance;
         }
@@ -265,16 +268,19 @@ public class enemyAI : Spawnable, IDamage
         playerDetected = true;
         
         HP -= amount;
-        healthBar.fillAmount = (float)HP / 5;
+        healthBar.fillAmount = (float)HP / HPMax;
 
         lastSeenPlayerPos = shooterPos;
 
         agent.SetDestination(lastSeenPlayerPos);
         if (HP <= 0)
         {
-            healthBar.fillAmount = (float)HP;
+            healthBar.fillAmount = (float)HP / HPMax;
             GameManager.instance.playerScript.money += 5;
-            GameManager.instance.WinGame(-1);
+            GameManager.instance.enemyAIScript.Remove(this);
+            GameManager.instance.enemyAI.Remove(this.gameObject);
+           
+            GameManager.instance.EnemyCount--;
             Destroy(gameObject);
         }
     }

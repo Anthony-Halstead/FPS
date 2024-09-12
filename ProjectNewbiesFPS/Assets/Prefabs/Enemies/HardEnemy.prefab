@@ -2712,9 +2712,9 @@ MonoBehaviour:
   shootPos: {fileID: 5573114588642351133}
   headPos: {fileID: 3602213396512673434}
   HP: 15
-  faceTargetSpeed: 5
+  faceTargetSpeed: 300
   searchRadius: 5
-  searchLength: 100
+  searchLength: 39.1
   bullet: {fileID: 8737397164380214915, guid: 05a7fb2e1b1b0d24682e1d576411d9ba, type: 3}
   shootRate: 0.5
   healthBar: {fileID: 3485094792234919070}
@@ -2735,8 +2735,8 @@ NavMeshAgent:
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 3
+  m_AngularSpeed: 333.3
+  m_StoppingDistance: 10.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
