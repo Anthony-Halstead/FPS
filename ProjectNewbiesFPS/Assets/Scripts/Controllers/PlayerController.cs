@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private GameObject gun;
     [SerializeField] private Transform hipPos, adsPos;
     [SerializeField] private float gunSpeed;
+    [SerializeField] public int bulletsLeft;
     
   //  [SerializeField] private float shootRate;
     [SerializeField] public int magazineSize;
@@ -101,6 +102,7 @@ public class PlayerController : MonoBehaviour, IDamage
         money = 0;
         HP = HPMax;
         GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
+        
     }
 
     // Update is called once per frame
@@ -311,35 +313,39 @@ public class PlayerController : MonoBehaviour, IDamage
     #region Shooting And Damage
     IEnumerator shoot()
     {
-        _isShooting = true;
-
-        // for returning damage on what was hit
-        RaycastHit hit;
-        
-        // fire raycast in camera forward by shootDist variable and return info from hit
-        if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
+        if (bulletsLeft > 0)
         {
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
+            _isShooting = true;
 
-            if (dmg != null)
+            // for returning damage on what was hit
+            RaycastHit hit;
+
+            // fire raycast in camera forward by shootDist variable and return info from hit
+            if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
             {
-                dmg.takeDamage(shootDamage, transform.position);
+                bulletsLeft--;
+                IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+                if (dmg != null)
+                {
+                    dmg.takeDamage(shootDamage, transform.position);
+                }
+
             }
+            // Instantiate bullet
+            //GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            //Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
+            // Play bullet sound
+            audioManager.playSFX(audioManager.shootPistol);
+
+            // Instantiate muzzle flash
+            GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+            Destroy(muzzleFlash, 0.1f);
+
+            yield return new WaitForSeconds(shootRate);
+            _isShooting = false;
         }
-        // Instantiate bullet
-        //GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        //Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-
-        // Play bullet sound
-        audioManager.playSFX(audioManager.shootPistol);
-
-        // Instantiate muzzle flash
-        GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
-        Destroy(muzzleFlash, 0.1f);
-
-        yield return new WaitForSeconds(shootRate);
-        _isShooting = false;
     }
 
     public void takeDamage(int amount, Vector3 origin)

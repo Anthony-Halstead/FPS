@@ -12,6 +12,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
     [SerializeField] bool doubleDamageUpgrade;
     [SerializeField] bool healthUpgrade;
     [SerializeField] bool magazineUpgrade;
+    [SerializeField] bool refillUpgrade;
 
  
     public int killEnemiesUpgradeAmount;
@@ -19,12 +20,13 @@ public class PowerUps : MonoBehaviour, IPowerUps
     public int doubleDamageUpgradeAmount;
     public int healthUpgradeUpAmount;
     public int magezineUpgradeUpAmount;
+    int refillUpgradeUpAmount;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        refillUpgradeUpAmount = GameManager.instance.playerScript.magazineSize - GameManager.instance.playerScript.bulletsLeft;
         
     }
 
@@ -62,7 +64,9 @@ public class PowerUps : MonoBehaviour, IPowerUps
         }
         else if(other.CompareTag("Player") && magazineUpgrade)
         {
+            
             GameManager.instance.playerScript.magazineSize += 30;
+            GameManager.instance.playerScript.bulletsLeft += GameManager.instance.playerScript.magazineSize;
             
             Destroy(gameObject);
         }
@@ -74,6 +78,19 @@ public class PowerUps : MonoBehaviour, IPowerUps
             }
             Destroy(gameObject);
 
+        }
+        else if (other.CompareTag("Player") && refillUpgrade)
+        {
+            Debug.Log("Refill Picked Up");
+            if (GameManager.instance.playerScript.bulletsLeft == 0)
+            {
+                GameManager.instance.playerScript.bulletsLeft = GameManager.instance.playerScript.magazineSize;
+            }
+            else
+            {
+                GameManager.instance.playerScript.bulletsLeft += refillUpgradeUpAmount;
+            }
+            Destroy(gameObject);
         }
     }
 }

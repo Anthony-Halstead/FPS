@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject shootRateUpgrade;
     [SerializeField] GameObject doubleDamageUpgrade;
     [SerializeField] GameObject killEnemiesUpgrade;
+    [SerializeField] GameObject refillUpgrade;
 
 
     [SerializeField] GameObject dropBox;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Toggle shootRateUpgrageToggle;
     [SerializeField] Toggle doubleDamageUpgrageToggle;
     [SerializeField] Toggle killEnemiesUpgrageToggle;
+    [SerializeField] Toggle refillUpgradeToggle;
 
     
 
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int shootRateUpgradeCost;
     [SerializeField] int doubleDamageUpgradeCost;
     [SerializeField] int killEnemiesUpgradeCost;
+    [SerializeField] int refillUpgradeCost;
 
     [SerializeField] Slider masterVolumeSlider;
     [SerializeField] Slider musicVolumeSlider;
@@ -88,6 +91,7 @@ public class GameManager : MonoBehaviour
     bool shootRateUpgradeBought;
     bool doubleDamageUpgradeBought;
     bool killEnemiesUpgradeBought;
+    bool refillUpgradeBought;
 
     //Enemy Reference
     private int enemyCount;
@@ -137,6 +141,7 @@ public class GameManager : MonoBehaviour
          shootRateUpgrageToggle.isOn = false;
          doubleDamageUpgrageToggle.isOn = false;
          killEnemiesUpgrageToggle.isOn = false;
+        refillUpgradeToggle.isOn = false;
 
 
         sensitivitySlider.value = 300f;
@@ -185,7 +190,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        ammoText.text = "" + playerScript.magazineSize;
+        ammoText.text = playerScript.bulletsLeft + "/" + playerScript.magazineSize;
         waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
         enemyCountText.text = "" + enemyCount;
@@ -341,6 +346,18 @@ public class GameManager : MonoBehaviour
                 killEnemiesUpgrageToggle.isOn = false;
             }
         }
+        if (GameManager.instance.playerScript.money >= refillUpgradeCost)
+        {
+            if (refillUpgradeToggle.isOn)
+            {
+                Debug.Log("Refill Chosen");
+                GameManager.instance.playerScript.money -= refillUpgradeCost;
+
+                GameManager.instance.storeMoneyText.text = "$" + GameManager.instance.playerScript.money;
+                refillUpgradeBought = true;
+                refillUpgradeToggle.isOn = false;
+            }
+        }
         DropBox();
     }
 
@@ -348,7 +365,7 @@ public class GameManager : MonoBehaviour
     public void DropBox()
     {
         stateUnpause();
-        if (healthUpgradeBought || magazineUpgradeBought || shootRateUpgradeBought || doubleDamageUpgradeBought || killEnemiesUpgradeBought)
+        if (healthUpgradeBought || magazineUpgradeBought || shootRateUpgradeBought || doubleDamageUpgradeBought || killEnemiesUpgradeBought || refillUpgradeBought)
         {
             Instantiate(dropBox, player.transform.position + new Vector3(0,6,4), player.transform.localRotation );
             
@@ -388,6 +405,12 @@ public class GameManager : MonoBehaviour
             Instantiate(killEnemiesUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
 
             killEnemiesUpgradeBought = false;
+        }
+        if (refillUpgradeBought)
+        {
+            Instantiate(refillUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
+
+            refillUpgradeBought = false;
         }
     }
 
