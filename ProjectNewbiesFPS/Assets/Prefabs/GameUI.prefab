@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 9701eabff8b358346a147aff03a1e502, type: 2}
-  audioManager: {fileID: 0}
+  audioManager: {fileID: 8306160150476981954, guid: f56c86d4789f8b34cb25c90ced6e2939, type: 3}
 --- !u!1 &852030123431945540
 GameObject:
   m_ObjectHideFlags: 0
@@ -6994,6 +6994,7 @@ MonoBehaviour:
   shootRateUpgrade: {fileID: 7495854542567655959, guid: 77c2108e75a6da04b8a9c2d5f73fc910, type: 3}
   doubleDamageUpgrade: {fileID: 5923972992805410746, guid: 2c19505c3f3b0ce489bbc1852e94c484, type: 3}
   killEnemiesUpgrade: {fileID: 8415248498332601849, guid: 836d7ac5b25afc746ac6cd6b74c295d0, type: 3}
+  refillUpgrade: {fileID: 1609426563364382538, guid: ac880fd3b2aeb6e448a9dba19b42a842, type: 3}
   dropBox: {fileID: 3258043981817652478, guid: ea798177e8448864d8907f510bacc5e4, type: 3}
   dropBoxSpawnPos: {fileID: 0}
   upgradeBoughtSpawnPos: {fileID: 0}
@@ -7002,16 +7003,19 @@ MonoBehaviour:
   shootRateUpgrageToggle: {fileID: 5626145803481226370}
   doubleDamageUpgrageToggle: {fileID: 8104945864875534901}
   killEnemiesUpgrageToggle: {fileID: 5629917493366380364}
+  refillUpgradeToggle: {fileID: 0}
   enemyHealthBarToggle: {fileID: 1768816100529305622}
   enemyHealthBarVisibility: []
   storeMoneyText: {fileID: 60565270605475594}
   moneyText: {fileID: 8467685804124582009}
   ammoText: {fileID: 363848139820249070}
+  enemyCountText: {fileID: 256111370812115027}
   healthUpgradeCost: 10
   magezineUpgradeCost: 20
   shootRateUpgradeCost: 30
   doubleDamageUpgradeCost: 40
   killEnemiesUpgradeCost: 50
+  refillUpgradeCost: 60
   masterVolumeSlider: {fileID: 6636367732301913255}
   musicVolumeSlider: {fileID: 1775747195016691439}
   sfxVolumeSlider: {fileID: 8708112167893016155}
