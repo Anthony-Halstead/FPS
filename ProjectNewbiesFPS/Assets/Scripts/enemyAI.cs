@@ -197,6 +197,7 @@ public class enemyAI : Spawnable, IDamage
     {
         if (isPlayerVisible())
         {
+            StopCoroutine(waitToFindNextPos(1));
             _enemyState = EnemyState.chasing;
             agent.stoppingDistance = initialAgentStoppingDistance;
         }
