@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         enemyCount = value;
             if(enemyCount <= 0)
             {
-                EnemyCountCheck();
+                NextWave();
                 WinGame();
             }
         } }
@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
 
         }
         ammoText.text = "" + playerScript.magazineSize;
-        waveText.text = "" + wave;
+       // waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
         enemyCountText.text = "" + enemyCount;
     }
@@ -228,10 +228,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void EnemyCountCheck()
+    public void NextWave()
     {  
-                wave++;
-                SpawnWave();
+        wave++;
+        SpawnWave();
     }
 
 

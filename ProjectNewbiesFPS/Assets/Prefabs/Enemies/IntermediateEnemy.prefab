@@ -2135,7 +2135,7 @@ Transform:
   m_GameObject: {fileID: 7458351683500159882}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4169884, y: -0.74999964, z: -16.14234}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2162,16 +2162,27 @@ MonoBehaviour:
   shootPos: {fileID: 895297550573536156}
   headPos: {fileID: 5621831544432318727}
   HP: 10
+  HPMax: 10
   faceTargetSpeed: 300
-  searchRadius: 5
-  searchLength: 40
+  searchLength: 30
+  timeToWait: 1
   bullet: {fileID: 8737397164380214915, guid: 05a7fb2e1b1b0d24682e1d576411d9ba, type: 3}
   shootRate: 1
+  shootRange: 10
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
   healthBar: {fileID: 5151196113557739694}
   healthBarVisibility: {fileID: 4875631376267856198}
   _animator: {fileID: 3048067076819692033}
   debugPlayerPos: {fileID: 1521932142797338021}
-  _enemyState: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  _defaultState: 0
+  _currentState: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 20
 --- !u!195 &6512059303207803370
 NavMeshAgent:
   m_ObjectHideFlags: 0
