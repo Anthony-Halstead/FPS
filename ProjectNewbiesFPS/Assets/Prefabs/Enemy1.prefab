@@ -233,11 +233,27 @@ MonoBehaviour:
   shootPos: {fileID: 5471242118626404297}
   headPos: {fileID: 4121038019293896853}
   HP: 5
+  HPMax: 0
   faceTargetSpeed: 5
+  searchLength: 5
+  timeToWait: 1
   bullet: {fileID: 8737397164380214915, guid: 05a7fb2e1b1b0d24682e1d576411d9ba, type: 3}
-  shootRate: 2
+  shootRate: 1
+  shootRange: 100
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  healthBar: {fileID: 0}
+  healthBarVisibility: {fileID: 0}
+  _animator: {fileID: 0}
   debugPlayerPos: {fileID: 4507660095880965224}
-  _enemyState: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  _defaultState: 0
+  _currentState: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 0
 --- !u!33 &5013260142760238169
 MeshFilter:
   m_ObjectHideFlags: 0
