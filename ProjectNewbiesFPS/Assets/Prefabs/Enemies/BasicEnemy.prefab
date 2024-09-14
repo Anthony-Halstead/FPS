@@ -2481,18 +2481,15 @@ MonoBehaviour:
     m_Bits: 8
   HP: 5
   HPMax: 5
-  healthBar: {fileID: 2234325564370309674}
+  healthBar: {fileID: 2234045843478173448}
   healthBarVisibility: {fileID: 6918145819725315819}
-  faceTargetSpeed: 50
+  faceTargetSpeed: 8
   sightRange: 30
   shootRate: 1
   shootRange: 30
   bullet: {fileID: 8737397164380214915, guid: 05a7fb2e1b1b0d24682e1d576411d9ba, type: 3}
   timeToWait: 3
   searchLength: 20
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
   _defaultState: {fileID: 11400000, guid: 4d7cd26e1a03e814cb55296a5e63773c, type: 2}
   _chaseState: {fileID: 11400000, guid: 50d97d50a58a83a4093474dd2a1daa03, type: 2}
   _currentState: {fileID: 0}
@@ -2941,9 +2938,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224374824136518608, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
   m_PrefabInstance: {fileID: 2204131847040044776}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2234325564370309674 stripped
+--- !u!114 &2234045843478173448 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114645527339949250, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
+  m_CorrespondingSourceObject: {fileID: 114361196886809056, guid: ad84c37a896f54e1180d600bd7746b95, type: 3}
   m_PrefabInstance: {fileID: 2204131847040044776}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
