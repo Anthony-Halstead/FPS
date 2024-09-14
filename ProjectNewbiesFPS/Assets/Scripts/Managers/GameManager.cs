@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
     bool shootRateUpgradeBought;
     bool doubleDamageUpgradeBought;
     bool killEnemiesUpgradeBought;
-  //  bool refillUpgradeBought;
+    bool refillUpgradeBought;
 
     //Enemy Reference
     private int enemyCount;
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
          shootRateUpgrageToggle.isOn = false;
          doubleDamageUpgrageToggle.isOn = false;
          killEnemiesUpgrageToggle.isOn = false;
-    //    refillUpgradeToggle.isOn = false;
+        refillUpgradeToggle.isOn = false;
 
 
         sensitivitySlider.value = 300f;
@@ -356,7 +356,7 @@ public class GameManager : MonoBehaviour
                 GameManager.instance.playerScript.money -= refillUpgradeCost;
 
                 GameManager.instance.storeMoneyText.text = "$" + GameManager.instance.playerScript.money;
-           //     refillUpgradeBought = true;
+                refillUpgradeBought = true;
                 refillUpgradeToggle.isOn = false;
             }
         }
@@ -408,12 +408,12 @@ public class GameManager : MonoBehaviour
 
             killEnemiesUpgradeBought = false;
         }
-   /*     if (refillUpgradeBought)
+        if (refillUpgradeBought)
         {
             Instantiate(refillUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             refillUpgradeBought = false;
-        }*/
+        }
     }
 
     void SpawnWave()

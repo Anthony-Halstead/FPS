@@ -50,10 +50,6 @@ public class AIController : Spawnable, IDamage
     }
 
  
-
-  
-
-    [SerializeField] LayerMask ground;
     [SerializeField] private State _defaultState;
     public State DefaultState => _defaultState;
     [SerializeField] private State _chaseState;
@@ -83,9 +79,7 @@ public class AIController : Spawnable, IDamage
 
 
     void Update()
-    {
-       
-        
+    {       
         _currentState.UpdateState(this);
         TrackedStats();
     }
@@ -94,15 +88,9 @@ public class AIController : Spawnable, IDamage
     {
 
         float clampedVelocity = Mathf.Clamp01(agent.velocity.magnitude);
-        _animator.SetFloat("AgentSpeed", clampedVelocity,.2f,Time.deltaTime);
+        _animator.SetFloat("AgentSpeed", clampedVelocity);
         playerDir = GameManager.instance.player.transform.position - headPos.position;
-        if (CanMove)
-        {
-            
-            agent.SetDestination(target);
-         
-        }
-        
+        agent.SetDestination(target);        
         faceTarget(lookTarget - headPos.position);  
     }
    public void TransitionToState(State state)
@@ -161,6 +149,7 @@ public class AIController : Spawnable, IDamage
 
             Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * searchRadius;
             randomDirection += transform.position;  
+           
             NavMeshHit hit;
 
       
@@ -188,13 +177,14 @@ public class AIController : Spawnable, IDamage
     void faceTarget(Vector3 lookTarget)
     {    
             Quaternion rot = Quaternion.LookRotation(lookTarget);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rot,Time.deltaTime * faceTargetSpeed);
+        Quaternion currentRotation = transform.rotation;
+        Quaternion targetRotation = Quaternion.Euler(0, rot.eulerAngles.y, 0);
+            transform.rotation = Quaternion.Lerp(currentRotation, targetRotation,Time.deltaTime * faceTargetSpeed);
     }
 
     public IEnumerator shoot()
     {
-        IsShooting = true;
-    
+        IsShooting = true;   
         _animator.SetTrigger("Shoot");
         Instantiate(bullet, shootPos.position, transform.rotation);
         yield return new WaitForSeconds(shootRate);
