@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     //References for taking damage
     public GameObject damagePanel;
     public Image healthBar;
+    public TextMeshProUGUI healthBarText;
     public List<Image> enemyHealthBar;
 
     //Player and script references
@@ -148,7 +149,7 @@ public class GameManager : MonoBehaviour
         masterVolumeSlider.value = 0;
         musicVolumeSlider.value = 0;
         sfxVolumeSlider.value = 0;
-
+        
         
     }
 
@@ -194,6 +195,7 @@ public class GameManager : MonoBehaviour
         waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
         enemyCountText.text = "" + enemyCount;
+        healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
     }
 
     //Pausing Game Method
@@ -377,38 +379,38 @@ public class GameManager : MonoBehaviour
         dropBoxObjectSpawned = GameObject.FindWithTag("DropBox");
         if (healthUpgradeBought)
         {
-            Instantiate(healthUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
+            Instantiate(healthUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             healthUpgradeBought = false;
 
         }
          if (magazineUpgradeBought)
         {
-            Instantiate(magazineUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
+            Instantiate(magazineUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             magazineUpgradeBought = false;
         }
          if (shootRateUpgradeBought)
         {
-            Instantiate(shootRateUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
+            Instantiate(shootRateUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             shootRateUpgradeBought = false;
         }
          if (doubleDamageUpgradeBought)
         {
-            Instantiate(doubleDamageUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
+            Instantiate(doubleDamageUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             doubleDamageUpgradeBought = false;
         }
          if (killEnemiesUpgradeBought)
         {
-            Instantiate(killEnemiesUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
+            Instantiate(killEnemiesUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             killEnemiesUpgradeBought = false;
         }
         if (refillUpgradeBought)
         {
-            Instantiate(refillUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 0, 4), dropBoxObjectSpawned.transform.localRotation);
+            Instantiate(refillUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             refillUpgradeBought = false;
         }

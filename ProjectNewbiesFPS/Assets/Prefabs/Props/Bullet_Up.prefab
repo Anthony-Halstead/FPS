@@ -120,6 +120,7 @@ MonoBehaviour:
   doubleDamageUpgrade: 0
   healthUpgrade: 0
   magazineUpgrade: 1
+  refillUpgrade: 0
   killEnemiesUpgradeAmount: 0
   shootRateUpgradeAmount: 0
   doubleDamageUpgradeAmount: 0

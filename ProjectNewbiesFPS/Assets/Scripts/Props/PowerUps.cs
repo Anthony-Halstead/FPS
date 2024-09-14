@@ -66,7 +66,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
         {
             
             GameManager.instance.playerScript.magazineSize += 30;
-            GameManager.instance.playerScript.bulletsLeft += GameManager.instance.playerScript.magazineSize;
+            GameManager.instance.playerScript.bulletsLeft = GameManager.instance.playerScript.magazineSize;
             
             Destroy(gameObject);
         }
