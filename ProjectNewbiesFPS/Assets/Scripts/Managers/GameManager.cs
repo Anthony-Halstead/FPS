@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject buyMenu;
     [SerializeField] GameObject optionsMenu;
+    [SerializeField] GameObject tutorialMenu;
     [SerializeField] GameObject characterUI;
 
     [SerializeField] GameObject healthUpgrade;
@@ -149,8 +150,9 @@ public class GameManager : MonoBehaviour
         masterVolumeSlider.value = 0;
         musicVolumeSlider.value = 0;
         sfxVolumeSlider.value = 0;
-        
-        
+
+        TutorialMenu();
+
     }
 
     // Update is called once per frame
@@ -196,11 +198,24 @@ public class GameManager : MonoBehaviour
         moneyText.text = "$" + playerScript.money;
         enemyCountText.text = "" + enemyCount;
         healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (menuActive == tutorialMenu)
+            {
+                stateUnpause();
+                
+            }
+        }
     }
 
     //Pausing Game Method
     public void statePause()
     {
+        if(damagePanel != null)
+        {
+            damagePanel.SetActive(false);
+        }
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -421,8 +436,22 @@ public class GameManager : MonoBehaviour
         WaveCount.Invoke(wave);
         
             SpawnManager.instance.TriggerAllSpawnPoints();
-          
-        
+    }
+
+    public void TutorialMenu()
+    {
+        if (menuActive == null)
+        {
+            statePause();
+            menuActive = tutorialMenu;
+            menuActive.SetActive(true);
+        }
+       else if (menuActive == menuPause)
+        {
+            menuActive = tutorialMenu;
+            menuActive.SetActive(true);
+            menuPause.SetActive(false);
+        }
         
     }
 
