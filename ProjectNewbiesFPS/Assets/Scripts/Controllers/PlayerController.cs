@@ -330,7 +330,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
                 if (dmg != null)
                 {
-                    dmg.takeDamage(shootDamage, transform.position);
+                    dmg.TakeDamage(shootDamage, transform.position);
                 }
 
             }
@@ -350,7 +350,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    public void takeDamage(int amount, Vector3 origin)
+    public void TakeDamage(int amount, Vector3 origin)
     {
         audioManager.playSFX(audioManager.playerHurt);
 

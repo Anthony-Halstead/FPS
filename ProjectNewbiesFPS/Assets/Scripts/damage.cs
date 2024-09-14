@@ -41,7 +41,7 @@ public class damage : MonoBehaviour
 
         if (dmg != null)
         {
-            dmg.takeDamage(damageAmount, Vector3.zero);
+            dmg.TakeDamage(damageAmount, Vector3.zero);
         }
 
         if (type == damageType.moving)
