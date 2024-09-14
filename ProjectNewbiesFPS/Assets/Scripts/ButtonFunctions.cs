@@ -80,8 +80,5 @@ public class ButtonFunctions : MonoBehaviour
         audioManager.playSFX(audioManager.menuSlider);
     }
 
-    public void RefillAmmoToggle()
-    {
-
-    }
+    
 }

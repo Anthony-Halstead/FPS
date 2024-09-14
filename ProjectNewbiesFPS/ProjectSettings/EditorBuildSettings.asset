@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: d8e4fbae8fe21614083db73e2dad62f6
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 8525e255c98b83745a61d0e3bff6d59a
+  - enabled: 1
     path: Assets/Scenes/TaterTony.unity
     guid: 3d6af1b3afc846f46981a4be748ac993
   m_configObjects: {}

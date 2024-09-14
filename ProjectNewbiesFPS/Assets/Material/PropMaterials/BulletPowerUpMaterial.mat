@@ -10,10 +10,11 @@ Material:
   m_Name: BulletPowerUpMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 2100000, guid: a712e8c9c38c1684691e298651cb7f22, type: 2}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ModifiedSerializedProperties: 18
+  m_ValidKeywords:
+  - _EMISSION
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -25,8 +26,16 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _DstBlend: 0
     - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Mode: 0
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.12311172, g: 0.4339623, b: 0.03684579, a: 1}
+    - _Color: {r: 0.07545853, g: 0.29559743, b: 0.02323873, a: 1}
+    - _EmissionColor: {r: 0.052096732, g: 0.5628805, b: 0.014569297, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
