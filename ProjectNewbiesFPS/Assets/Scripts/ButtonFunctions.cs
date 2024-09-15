@@ -80,5 +80,8 @@ public class ButtonFunctions : MonoBehaviour
         audioManager.playSFX(audioManager.menuSlider);
     }
 
-    
+    public void TutorialMenu()
+    {
+        GameManager.instance.TutorialMenu();
+    }
 }
