@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     //Instance for gameManager
     public static GameManager instance;
-    public AudioManager audioManager;
+    
 
     //References for menu Objects, characterUI and money Text
     [SerializeField] GameObject menuActive;
@@ -28,8 +29,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject killEnemiesUpgrade;
     [SerializeField] GameObject refillUpgrade;
 
+    //Key Sprite Images
+    public GameObject redkeySpriteImage;
+    public GameObject blackkeySpriteImage;
+    public GameObject greenkeySpriteImage;
 
-    [SerializeField] GameObject dropBox;
+
+[SerializeField] GameObject dropBox;
 
     [SerializeField] Transform dropBoxSpawnPos;
     [SerializeField] Transform upgradeBoughtSpawnPos;
@@ -52,6 +58,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI enemyCountText;
+    public TextMeshProUGUI objectivesText;
     
 
 
@@ -84,16 +91,26 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public CameraController mainCameraController;
     public GameObject dropBoxObjectSpawned;
+    public GameObject audioManager;
+    public AudioManager audioManagerScript;
+    
 
-
+    //Tracking Waves
     public static Action<int>WaveCount;
 
+
+    //bools for store upgrades
     bool healthUpgradeBought;
     bool magazineUpgradeBought;
     bool shootRateUpgradeBought;
     bool doubleDamageUpgradeBought;
     bool killEnemiesUpgradeBought;
     bool refillUpgradeBought;
+
+    //bools for keys found
+    public bool redKeyFound;
+    public bool blackKeyFound;
+    public bool greenKeyFound;
 
     //Enemy Reference
     private int enemyCount;
@@ -115,9 +132,14 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
 
     bool isGrounded;
+
+
+   
     // Start is called before the first frame update
     void Awake()
     {
+
+        
         //Setting Instance, original time and player references
         if (instance == null)
         {
@@ -127,30 +149,40 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        //Assigning references
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        
-        // projectiles = GameObject.FindWithTag("Projectiles");
-        // projectilesScript = projectiles.GetComponent<Projectiles>();
+        audioManager = GameObject.FindWithTag("AudioManager");
+        audioManagerScript = audioManager.GetComponent<AudioManager>();
         mainCamera = GameObject.FindWithTag("MainCamera");
         mainCameraController = mainCamera.GetComponent<CameraController>();
 
+        
+
+        //Initializing money
         moneyText.text = "" + playerScript.money;
         storeMoneyText.text = "" + playerScript.money;
+
+        //Initializing Objectives Text
+        objectivesText.text = "OBJECTIVE: Find Key";
+
+        //Initializing shop icons as not checked
          healthUpgrageToggle.isOn = false;
          magazineUpgrageToggle.isOn = false;
          shootRateUpgrageToggle.isOn = false;
          doubleDamageUpgrageToggle.isOn = false;
          killEnemiesUpgrageToggle.isOn = false;
-        refillUpgradeToggle.isOn = false;
+         refillUpgradeToggle.isOn = false;
 
-
+        //Initializing Slider values on Options menu to a default
         sensitivitySlider.value = 300f;
         masterVolumeSlider.value = 0;
         musicVolumeSlider.value = 0;
         sfxVolumeSlider.value = 0;
 
+        //Show Tutorial Screen at start of game
         TutorialMenu();
 
     }
@@ -165,7 +197,7 @@ public class GameManager : MonoBehaviour
             //pausing the game
             if (menuActive == null)
             {
-                audioManager.playSFX(audioManager.menuUp);
+                audioManagerScript.playSFX(audioManagerScript.menuUp);
 
                 statePause();
                 menuActive = menuPause;
@@ -174,7 +206,7 @@ public class GameManager : MonoBehaviour
             //Unpausing the game
             else if (menuActive == menuPause)
             {
-                audioManager.playSFX(audioManager.menuDown);
+                audioManagerScript.playSFX(audioManagerScript.menuDown);
 
                 stateUnpause();
             }
@@ -193,12 +225,16 @@ public class GameManager : MonoBehaviour
             }
 
         }
+
+        //Updating UI items during game
         ammoText.text = playerScript.bulletsLeft + "/" + playerScript.magazineSize;
         waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
         enemyCountText.text = "" + enemyCount;
         healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
 
+
+        //closing out of tutorial screen
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (menuActive == tutorialMenu)
@@ -238,16 +274,12 @@ public class GameManager : MonoBehaviour
     //Winning Game Method
     public void WinGame()
     {
-        
-        
         if (wave == 10)
         {
             statePause();
             menuActive = menuWin;
             menuWin.SetActive(true);
         }
-
-
     }
 
     public void NextWave()
@@ -267,6 +299,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //Closing Shop
     public void BuyMenu()
     {
         if (menuActive == buyMenu)
@@ -275,6 +308,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Opening Options menu
     public void Options()
     {
         optionsMenu.SetActive(true);
@@ -282,6 +316,7 @@ public class GameManager : MonoBehaviour
         menuPause.SetActive(false);
     }
 
+    //Toggling Enemy Health Bar in Options menu
     public void ToggleEnemyHealthBar()
     {
         if (enemyHealthBarToggle.isOn)
@@ -300,6 +335,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Submitting order from Shop
     public void StoreOrder()
     {
         if (GameManager.instance.playerScript.money >= healthUpgradeCost)
@@ -378,17 +414,18 @@ public class GameManager : MonoBehaviour
         DropBox();
     }
 
-
+    //Instantiating Drop Box 
     public void DropBox()
     {
         stateUnpause();
-        if (healthUpgradeBought || magazineUpgradeBought || shootRateUpgradeBought || doubleDamageUpgradeBought || killEnemiesUpgradeBought )//|| refillUpgradeBought)
+        if (healthUpgradeBought || magazineUpgradeBought || shootRateUpgradeBought || doubleDamageUpgradeBought || killEnemiesUpgradeBought || refillUpgradeBought)
         {
             Instantiate(dropBox, player.transform.position + new Vector3(0,6,4), player.transform.localRotation );
             
         }
     }
 
+    //Instantiating Upgrades after Box Drops
    public void InstantiateUpgrades()
     {
         dropBoxObjectSpawned = GameObject.FindWithTag("DropBox");
@@ -431,6 +468,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Spawning a wave
     void SpawnWave()
     {
         WaveCount.Invoke(wave);
@@ -438,6 +476,7 @@ public class GameManager : MonoBehaviour
             SpawnManager.instance.TriggerAllSpawnPoints();
     }
 
+    //Opening Tutorial Menu from Options menu
     public void TutorialMenu()
     {
         if (menuActive == null)
@@ -454,6 +493,9 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
+    
+    
 
 }
 

@@ -8,6 +8,9 @@ TagManager:
   - Projectiles
   - Fire
   - Audio
+  - DropBox
+  - Floor
+  - AudioManager
   layers:
   - Default
   - TransparentFX
