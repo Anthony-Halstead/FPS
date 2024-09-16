@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
 {
     //Instance for gameManager
     public static GameManager instance;
-    public AudioManager audioManager;
 
     //References for menu Objects, characterUI and money Text
     [SerializeField] GameObject menuActive;
@@ -20,6 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject tutorialMenu;
     [SerializeField] GameObject characterUI;
+
+    [SerializeField] private GameObject interactUI;
+    [SerializeField] private TMP_Text interactText;
 
     [SerializeField] GameObject healthUpgrade;
     [SerializeField] GameObject magazineUpgrade;
@@ -155,6 +157,20 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ToggleInteractionUI(bool toggle, string text)
+    {
+        if (toggle)
+        {
+            interactUI.SetActive(true);
+            interactText.text = text;
+        }
+        else
+        {
+            interactUI.SetActive(false);
+            interactText.text = "";
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -165,7 +181,7 @@ public class GameManager : MonoBehaviour
             //pausing the game
             if (menuActive == null)
             {
-                audioManager.playSFX(audioManager.menuUp);
+                AudioManager.instance.playSFX(AudioManager.instance.menuUp);
 
                 statePause();
                 menuActive = menuPause;
@@ -174,7 +190,7 @@ public class GameManager : MonoBehaviour
             //Unpausing the game
             else if (menuActive == menuPause)
             {
-                audioManager.playSFX(audioManager.menuDown);
+                AudioManager.instance.playSFX(AudioManager.instance.menuDown);
 
                 stateUnpause();
             }
