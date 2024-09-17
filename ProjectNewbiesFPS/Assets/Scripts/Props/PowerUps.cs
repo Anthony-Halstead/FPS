@@ -13,6 +13,9 @@ public class PowerUps : MonoBehaviour, IPowerUps
     [SerializeField] bool healthUpgrade;
     [SerializeField] bool magazineUpgrade;
     [SerializeField] bool refillUpgrade;
+    [SerializeField] bool redKey;
+    [SerializeField] bool blackKey;
+    [SerializeField] bool greenKey;
 
  
     public int killEnemiesUpgradeAmount;
@@ -90,6 +93,27 @@ public class PowerUps : MonoBehaviour, IPowerUps
             {
                 GameManager.instance.playerScript.bulletsLeft += refillUpgradeUpAmount;
             }
+            Destroy(gameObject);
+        }
+        else if(other.CompareTag("Player") && redKey)
+        {
+            GameManager.instance.redKeyFound = true;
+            GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
+            GameManager.instance.redkeySpriteImage.SetActive(true);
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("Player") && blackKey)
+        {
+            GameManager.instance.blackKeyFound = true;
+            GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
+            GameManager.instance.blackkeySpriteImage.SetActive(true);
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("Player") && greenKey)
+        {
+            GameManager.instance.greenKeyFound = true;
+            GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
+            GameManager.instance.greenkeySpriteImage.SetActive(true);
             Destroy(gameObject);
         }
     }

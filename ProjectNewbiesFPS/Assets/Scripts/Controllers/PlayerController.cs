@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Debug = UnityEngine.Debug;
@@ -45,18 +46,27 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private float swayTime;
     [SerializeField] private bool toggleSwayFwdBck;
     [SerializeField] private bool toggleSwayLeftRight;
-    
-    [Header("Player Stats - Shooting")]
+
+    [Header("Player Stats - Shooting")] 
+    [SerializeField] private List<WeaponObject> weaponsInInventory;
+    [SerializeField] private List<GameObject> weaponsObjects;
+    [SerializeField] private WeaponObject equippedWeapon;
     public int shootDamage;
     [SerializeField] private int shootDist;
     public float shootRate;
     [SerializeField] private GameObject gun;
-    [SerializeField] private Transform hipPos, adsPos;
+    [SerializeField] private Transform hipPos, adsPos, gunSpawnPos;
     [SerializeField] private float gunSpeed;
-    [SerializeField] public int bulletsLeft;
+    public int bulletsLeft;
+    [SerializeField] private Vector3 weaponDropOffset;
     
   //  [SerializeField] private float shootRate;
-    [SerializeField] public int magazineSize;
+    public int magazineSize;
+
+    [Header("Interactable Settings")] 
+    [SerializeField] private float interactDistance;
+    [SerializeField] private LayerMask interactMask;
+    [SerializeField] private GameObject currentHoveredInteractable;
 
     [Header("Projectile Settings")]
     [SerializeField] private GameObject bulletPrefab;
@@ -82,6 +92,7 @@ public class PlayerController : MonoBehaviour, IDamage
     public bool _isShooting;
     public bool _isCrouching;
     public bool _isLeaning;
+    public bool _canInteract;
     
     private Camera _mainCam;
 
@@ -93,6 +104,12 @@ public class PlayerController : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
+        if (weaponsInInventory != null)
+        {
+            equippedWeapon = weaponsInInventory[0];
+            gun = weaponsObjects[0];
+            setGunValuesToPlayerValues(equippedWeapon);
+        }
         charController = GetComponent<CharacterController>();
         originalAngle = cameraPivotTransform.localRotation.z;
         originalHeight = charController.height;
@@ -119,10 +136,15 @@ public class PlayerController : MonoBehaviour, IDamage
         headSway();
         leanCameraPivot();
         swapFire();
+        checkForInteractable();
+        addNewWeapon();
+        dropCurrentWeapon();
+        swapWeapon();
     }
 
     public void swapFire()
     {
+        if (gun == null) return;
         if (Input.GetMouseButton(1))
         {
             gun.transform.position = Vector3.Lerp(gun.transform.position, adsPos.position, Time.deltaTime * gunSpeed);
@@ -130,6 +152,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
         else
         {
+     
             gun.transform.position = Vector3.Lerp(gun.transform.position, hipPos.position, Time.deltaTime * gunSpeed);
             _mainCam.fieldOfView = 60f;
         }
@@ -157,7 +180,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
-            audioManager.playSFX(audioManager.jump);
+            AudioManager.instance.playSFX(AudioManager.instance.jump);
 
             _jumpCount++;
             _playerVelocity.y = jumpSpeed;
@@ -178,7 +201,7 @@ public class PlayerController : MonoBehaviour, IDamage
         
         if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
-            audioManager.playSFX(audioManager.footStepRunning);
+            AudioManager.instance.playSFX(AudioManager.instance.footStepRunning);
 
             speed *= sprintMod;
             _isSprinting = true;
@@ -295,7 +318,26 @@ public class PlayerController : MonoBehaviour, IDamage
     
     #endregion
     
-    #region Interactables    
+    #region Interactables
+
+    void checkForInteractable()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, interactDistance, ~interactMask))
+        {
+            _canInteract = true;
+            currentHoveredInteractable = hit.transform.gameObject;
+            GameManager.instance.ToggleInteractionUI(true, currentHoveredInteractable.GetComponent<Weapon>().interactionText);
+            Debug.Log(hit.transform.name);
+        }
+        else
+        {
+            _canInteract = false;
+            currentHoveredInteractable = null;
+            GameManager.instance.ToggleInteractionUI(false, "");
+        }
+    }
     void grappleEnemy()
     {
         // Enter Grapple State
@@ -309,10 +351,106 @@ public class PlayerController : MonoBehaviour, IDamage
         // Enter climbing state
         // When player reaches x height, remove player from ladder climb state
     }
+
+    void addNewWeapon()
+    {
+
+        if (currentHoveredInteractable == null) return;
+        WeaponObject newWeapon;
+        if(currentHoveredInteractable.GetComponent<Weapon>() )
+        {
+            newWeapon = currentHoveredInteractable.GetComponent<Weapon>().GetWeaponObject();
+        }
+        else { return; }
+        
+        if (Input.GetButtonDown("Interact"))
+        {
+            if (weaponsInInventory.Contains(newWeapon)) return;
+            if (gun != null)
+            {
+                gun.SetActive(false);
+            }
+            weaponsInInventory.Add(newWeapon);
+            GameObject clone = Instantiate(newWeapon.prefab, gunSpawnPos.transform.position, Quaternion.identity);
+            clone.transform.parent = gunSpawnPos;
+            clone.transform.localRotation = Quaternion.Euler(0,0,0);
+            gun = clone;
+            equippedWeapon = newWeapon;
+            weaponsObjects.Add(clone);
+            setGunValuesToPlayerValues(equippedWeapon);
+            Destroy(currentHoveredInteractable);
+        }
+        
+    }
+
+    void swapWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            swap(0);
+        } else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            swap(1);
+        }
+    }
+
+    void swap(int weaponIndex)
+    {
+        if (weaponsInInventory.Count < weaponIndex) return; 
+        equippedWeapon = weaponsInInventory[weaponIndex];
+        gun.SetActive(false);
+        gun = weaponsObjects[weaponIndex];
+        gun.SetActive(true);
+        setGunValuesToPlayerValues(equippedWeapon);
+
+    }
+
+    void setGunValuesToPlayerValues(WeaponObject newWeapon)
+    {
+        gunSpeed = newWeapon.fireSpeed;
+        shootRate = newWeapon.rate;
+        shootDamage = newWeapon.dmg;
+        shootDist = newWeapon.dist;
+        magazineSize = newWeapon.magazineCount;
+        firePoint = gun.GetComponent<Weapon>().GetFirePoint();
+    }
+
+    void dropCurrentWeapon()
+    {
+        if (gun == null) return;
+        if (Input.GetButtonDown("Drop"))
+        {
+            Vector3 dropPosition = _mainCam.transform.position + transform.TransformDirection(weaponDropOffset);
+            
+            GameObject clone = Instantiate(equippedWeapon.prefab_rb, dropPosition, Quaternion.identity);
+            
+            Rigidbody rb = clone.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = _mainCam.transform.forward; 
+            }
+
+            weaponsInInventory.Remove(equippedWeapon);
+            weaponsObjects.Remove(gun);
+            Destroy(gun);
+
+            if (weaponsInInventory.Count == 0)
+            {
+                equippedWeapon = null;
+            }
+            else
+            {
+                equippedWeapon = weaponsInInventory[0];
+                gun = weaponsObjects[0];
+                gun.SetActive(true);
+            }
+        }
+    }
     
     #endregion
     
     #region Shooting And Damage
+    
     IEnumerator shoot()
     {
         if (bulletsLeft > 0)
