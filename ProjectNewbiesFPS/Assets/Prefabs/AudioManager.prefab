@@ -49,17 +49,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 5928188308584385047}
   sfxSource: {fileID: 4989875812704928581}
-  musicForest: {fileID: 0}
+  musicForest: {fileID: 8300000, guid: 53c872007347a4aab8d8d2bc9bf181f1, type: 3}
   musicTown: {fileID: 0}
   musicIndustrial: {fileID: 0}
   musicBoss: {fileID: 0}
-  footStepWalking: {fileID: 0}
-  footStepRunning: {fileID: 0}
+  footStepWalking: {fileID: 8300000, guid: 0609acde86b59a2458aaf135531f8756, type: 3}
+  footStepRunning: {fileID: 8300000, guid: 7a1da8275935858428d3af22a10ab810, type: 3}
   crouchDown: {fileID: 0}
   crouchUp: {fileID: 0}
   explosion: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
   explosionLanding: {fileID: 0}
-  shootPistol: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
+  shootPistol: {fileID: 8300000, guid: 24c7070b369c71542a9acedbbfee4857, type: 3}
   shootMachineGun: {fileID: 8300000, guid: 3061c7b9b32d894478e4126ccce25ca3, type: 3}
   shootShotGun: {fileID: 0}
   shootBow: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
@@ -76,10 +76,10 @@ MonoBehaviour:
   potionHealth: {fileID: 0}
   trapPlace: {fileID: 8300000, guid: 68058b7dc40be724cb1ac5a1be3265ba, type: 3}
   trapActivate: {fileID: 8300000, guid: 5aa948679296f2649802b2f562804537, type: 3}
-  jump: {fileID: 0}
-  land: {fileID: 8300000, guid: 684d90e2defae1547a1d51bec24e6e9d, type: 3}
-  playerHurt: {fileID: 0}
-  enemyHurt: {fileID: 0}
+  jump: {fileID: 8300000, guid: cb5fc1d775e6d274db17d79d19805c6c, type: 3}
+  land: {fileID: 8300000, guid: 65713fdea647c1949961f91d42bed416, type: 3}
+  playerHurt: {fileID: 8300000, guid: fbe7524b8863352449e9edbd9b4d192b, type: 3}
+  enemyHurt: {fileID: 8300000, guid: 2008b82462e6c064a9c0f7466aa7e67f, type: 3}
   dropBox: {fileID: 8300000, guid: aba3270755269dc4b834dde6e1d3cae9, type: 3}
   UpgradePickUp: {fileID: 8300000, guid: a8cc663b2ae453149904b8ccb93a10c2, type: 3}
   menuUp: {fileID: 8300000, guid: 80d3799791748ac42b3ec097c17a2383, type: 3}

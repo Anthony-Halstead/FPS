@@ -186,6 +186,7 @@ public class PlayerController : MonoBehaviour, IDamage
             _playerVelocity.y = jumpSpeed;
         }
 
+        AudioManager.instance.playLoop(AudioManager.instance.footStepWalking, true);
         charController.Move(_playerVelocity * Time.deltaTime);
         _playerVelocity.y -= gravity * Time.deltaTime;
 
@@ -201,12 +202,15 @@ public class PlayerController : MonoBehaviour, IDamage
         
         if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
-            AudioManager.instance.playSFX(AudioManager.instance.footStepRunning);
+            //Play sprint loop (currently cannot shoot while sprinting)
+            AudioManager.instance.playLoop(AudioManager.instance.footStepRunning, false);
 
             speed *= sprintMod;
             _isSprinting = true;
         } else if (Input.GetButtonUp("Sprint") && !_isCrouching)
         {
+            AudioManager.instance.stopLoop();
+
             speed = originalSpeed;
             _isSprinting = false;
         }
