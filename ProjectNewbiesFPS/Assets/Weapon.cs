@@ -14,10 +14,14 @@ public class Weapon : MonoBehaviour, IInteractable
 
     [SerializeField] private Transform firePoint;
 
+    [SerializeField] private int startingAmmo;
+    [SerializeField] private int currentAmmo;
+
     public string interactionText;
     // Start is called before the first frame update
     void Start()
     {
+        currentAmmo = startingAmmo;
         gunSpeed = _weaponObject.fireSpeed;
         shootDamage = _weaponObject.dmg;
         shootDist = _weaponObject.dist;
@@ -29,6 +33,21 @@ public class Weapon : MonoBehaviour, IInteractable
     void Update()
     {
         
+    }
+
+    public int GetStartingAmmo()
+    {
+        return startingAmmo;
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return currentAmmo;
+    }
+
+    public void UpdateCurrentAmmo(int bullets)
+    {
+        currentAmmo += bullets;
     }
 
     public Transform GetFirePoint()
@@ -56,7 +75,7 @@ public class Weapon : MonoBehaviour, IInteractable
         return shootRate;
     }
 
-    public float GetMagazineSize()
+    public int GetMagazineSize()
     {
         return magazineSize;
     }
@@ -64,6 +83,41 @@ public class Weapon : MonoBehaviour, IInteractable
     public WeaponObject GetWeaponObject()
     {
         return _weaponObject;
+    }
+
+    public void SetStartingAmmo(int start)
+    {
+        startingAmmo = start;
+    }
+
+    public void SetCurrentAmmo(int current)
+    {
+        currentAmmo = current;
+    }
+
+    public void SetGunSpeed(float speed)
+    {
+        gunSpeed = speed;
+    }
+
+    public void SetGunDamage(int dmg)
+    {
+        shootDamage = dmg;
+    }
+    
+    public void SetShootDist(int dist)
+    {
+        shootDist = dist;
+    }
+
+    public void SetShootRate(float rate)
+    {
+        shootRate = rate;
+    }
+
+    public void SetMagSize(int magSize)
+    {
+        magazineSize = magSize;
     }
 
     public void Interact()

@@ -3293,7 +3293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd4fc056f867a7459256387a7ed2bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioManager: {fileID: 0}
   menuActive: {fileID: 0}
   menuPause: {fileID: 101415067560172969}
   menuWin: {fileID: 2569232296833143145}
@@ -3352,7 +3351,6 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   mainCameraController: {fileID: 0}
   dropBoxObjectSpawned: {fileID: 0}
-  audioManagerScript: {fileID: 0}
   redKeyFound: 0
   blackKeyFound: 0
   greenKeyFound: 0

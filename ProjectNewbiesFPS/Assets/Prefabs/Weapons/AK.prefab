@@ -308,6 +308,8 @@ MonoBehaviour:
   shootRate: 0
   magazineSize: 0
   firePoint: {fileID: 264193148822951429}
+  startingAmmo: 120
+  currentAmmo: 0
   interactionText: 
 --- !u!1 &3866475400592597681
 GameObject:
