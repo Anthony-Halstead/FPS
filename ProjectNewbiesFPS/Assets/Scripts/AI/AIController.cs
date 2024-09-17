@@ -28,7 +28,10 @@ public class AIController : Spawnable, IDamage
 
     [SerializeField, Tooltip("How long the AI should wait at each point when searching?")] private float timeToWait = 3;
     public Coroutine searchRoutine = null;
+    public Coroutine positionRoutine = null;
     [SerializeField, Tooltip("How long should the AI stay in the search state?")] private float searchLength = 20;
+    [SerializeField] private float actionCooldownTimer = 0f;
+    public float ActionCooldownTimer { get { return actionCooldownTimer; } set { actionCooldownTimer = Mathf.Max(value,0); } }
     public float SearchLength => searchLength;
     private float currentTime;
     public float CurrentTime {  get { return currentTime; } set { currentTime = value; } }
@@ -48,7 +51,9 @@ public class AIController : Spawnable, IDamage
            
         }
     }
-
+    public bool PathFound { get; set; } = false;
+    public NavMeshAgent Agent => agent;
+    public Animator Anim => _animator;
  
     [SerializeField] private State _defaultState;
     public State DefaultState => _defaultState;
@@ -86,7 +91,10 @@ public class AIController : Spawnable, IDamage
 
     void TrackedStats()
     {
-
+        if(actionCooldownTimer > 0)
+        {
+            actionCooldownTimer -= Time.deltaTime;
+        }
         float clampedVelocity = Mathf.Clamp01(agent.velocity.magnitude);
         _animator.SetFloat("AgentSpeed", clampedVelocity);
         playerDir = GameManager.instance.player.transform.position - headPos.position;
@@ -172,8 +180,48 @@ public class AIController : Spawnable, IDamage
         agent.stoppingDistance = originalStopDistance;
         searchRoutine = null;
     }
+    public IEnumerator GetRandomClearPositionInRange(float range)
+    {
+      
+        Vector3 final = Vector3.zero;
+        int walkableMask = NavMesh.GetAreaFromName("Walkable");
+      
 
+        while (final == Vector3.zero)
+        {
 
+            Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * range;
+            randomDirection += transform.position;  
+            NavMeshPath path = new NavMeshPath();
+            NavMeshHit hit;      
+            if (NavMesh.SamplePosition(randomDirection, out hit, range, 1 << walkableMask))
+            {
+                agent.CalculatePath(hit.position, path);
+
+                if (path.status == NavMeshPathStatus.PathComplete)
+                {
+                    final = hit.position;
+                    agent.stoppingDistance = .2f;
+                    target = hit.position;
+                    lookTarget = hit.position;
+                    
+                }
+            }
+            else
+            {
+             Debug.LogWarning("No valid NavMesh position found.");
+            }
+            yield return null;  
+        }
+
+        yield return new WaitForSeconds(.5f);
+        agent.stoppingDistance = originalStopDistance;
+        searchRoutine = null;
+    }
+    public IEnumerator GetOpenCoverPosition()
+    {
+        yield return new WaitForSeconds(1f);
+    }
     void faceTarget(Vector3 lookTarget)
     {    
             Quaternion rot = Quaternion.LookRotation(lookTarget);
