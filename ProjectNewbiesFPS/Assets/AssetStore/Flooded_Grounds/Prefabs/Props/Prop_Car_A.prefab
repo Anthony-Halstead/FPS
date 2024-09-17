@@ -224,6 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 477712}
   - component: {fileID: 20574888}
+  - component: {fileID: 706110639671719742}
   m_Layer: 0
   m_Name: Prop_Car_A
   m_TagString: Untagged
@@ -280,6 +281,27 @@ LODGroup:
     renderers:
     - renderer: {fileID: 2314106}
   m_Enabled: 1
+--- !u!65 &706110639671719742
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146946}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.9598193, y: 2.4664612, z: 2.4995956}
+  m_Center: {x: -0.22715592, y: 1.1933441, z: -0.13214292}
 --- !u!1 &185856
 GameObject:
   m_ObjectHideFlags: 0
