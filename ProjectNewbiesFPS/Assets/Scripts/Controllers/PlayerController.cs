@@ -311,13 +311,6 @@ public class PlayerController : MonoBehaviour, IDamage
         cameraPivotTransform.localPosition =
             Vector3.Lerp(cameraPivotTransform.localPosition, _leanPos, Time.deltaTime * leanTime);
     }
-
-    void headBob()
-    {
-        // if player is moving
-            // on a timer, smoothly move head up then down on one side
-            // when that side has been complete, now do the same on the opposite side
-    }
     
     #endregion
     
@@ -378,12 +371,28 @@ public class PlayerController : MonoBehaviour, IDamage
             clone.transform.parent = gunSpawnPos;
             clone.transform.localRotation = Quaternion.Euler(0,0,0);
             gun = clone;
+            bulletsLeft = gun.GetComponent<Weapon>().GetCurrentAmmo();
             equippedWeapon = newWeapon;
             weaponsObjects.Add(clone);
+            SendPickupDataToPlayerWeapon();
             setGunValuesToPlayerValues(equippedWeapon);
             Destroy(currentHoveredInteractable);
         }
         
+    }
+
+    void SendPickupDataToPlayerWeapon()
+    {
+        Weapon pickedUpWeapon = currentHoveredInteractable.GetComponent<Weapon>();
+        Weapon spawnedWeapon = gun.GetComponent<Weapon>();
+        
+        spawnedWeapon.SetCurrentAmmo(pickedUpWeapon.GetCurrentAmmo());
+        spawnedWeapon.SetStartingAmmo(pickedUpWeapon.GetStartingAmmo());
+        spawnedWeapon.SetGunDamage(pickedUpWeapon.GetGunDamage());
+        spawnedWeapon.SetGunSpeed(pickedUpWeapon.GetGunSpeed());
+        spawnedWeapon.SetMagSize(pickedUpWeapon.GetMagazineSize());
+        spawnedWeapon.SetShootDist(pickedUpWeapon.GetShootDist());
+        spawnedWeapon.SetShootRate(pickedUpWeapon.GetShootRate());
     }
 
     void swapWeapon()
@@ -456,6 +465,7 @@ public class PlayerController : MonoBehaviour, IDamage
     
     IEnumerator shoot()
     {
+        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentAmmo();
         if (bulletsLeft > 0)
         {
             _isShooting = true;
@@ -466,7 +476,9 @@ public class PlayerController : MonoBehaviour, IDamage
             // fire raycast in camera forward by shootDist variable and return info from hit
             if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
             {
-                bulletsLeft--;
+                gun.GetComponent<Weapon>().UpdateCurrentAmmo(-1);
+                bulletsLeft = gun.GetComponent<Weapon>().GetCurrentAmmo();
+                
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
                 if (dmg != null)

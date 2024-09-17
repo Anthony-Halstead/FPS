@@ -821,4 +821,6 @@ MonoBehaviour:
   shootRate: 0
   magazineSize: 0
   firePoint: {fileID: 1385596056119083425}
+  startingAmmo: 120
+  currentAmmo: 0
   interactionText: F - Pick Up AK
