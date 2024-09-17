@@ -6,6 +6,7 @@ using UnityEngine;
 public class GuardState : State
 {
     public State chaseState;
+    public State dodgeState;
     public override void EnterState(AIController controller)
     {
      
@@ -16,6 +17,7 @@ public class GuardState : State
         {
             controller.TransitionToState(chaseState);
         } 
+       // if(dodgeState != null &&)
     }
     public override void ExitState(AIController controller)
     {

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     //Instance for gameManager
     public static GameManager instance;
-    
+    public AudioManager audioManager;
 
     //References for menu Objects, characterUI and money Text
     [SerializeField] GameObject menuActive;
@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject optionsMenu;
     [SerializeField] GameObject tutorialMenu;
     [SerializeField] GameObject characterUI;
+
+    [SerializeField] private GameObject interactUI;
+    [SerializeField] private TMP_Text interactText;
 
     [SerializeField] GameObject healthUpgrade;
     [SerializeField] GameObject magazineUpgrade;
@@ -91,7 +94,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public CameraController mainCameraController;
     public GameObject dropBoxObjectSpawned;
-    public GameObject audioManager;
+  //  public GameObject audioManager;
     public AudioManager audioManagerScript;
     
 
@@ -154,7 +157,7 @@ public class GameManager : MonoBehaviour
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-        audioManager = GameObject.FindWithTag("AudioManager");
+    //    audioManager = GameObject.FindWithTag("AudioManager");
         audioManagerScript = audioManager.GetComponent<AudioManager>();
         mainCamera = GameObject.FindWithTag("MainCamera");
         mainCameraController = mainCamera.GetComponent<CameraController>();
@@ -187,6 +190,20 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ToggleInteractionUI(bool toggle, string text)
+    {
+        if (toggle)
+        {
+            interactUI.SetActive(true);
+            interactText.text = text;
+        }
+        else
+        {
+            interactUI.SetActive(false);
+            interactText.text = "";
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -197,7 +214,7 @@ public class GameManager : MonoBehaviour
             //pausing the game
             if (menuActive == null)
             {
-                audioManagerScript.playSFX(audioManagerScript.menuUp);
+                AudioManager.instance.playSFX(AudioManager.instance.menuUp);
 
                 statePause();
                 menuActive = menuPause;
@@ -206,7 +223,7 @@ public class GameManager : MonoBehaviour
             //Unpausing the game
             else if (menuActive == menuPause)
             {
-                audioManagerScript.playSFX(audioManagerScript.menuDown);
+                AudioManager.instance.playSFX(AudioManager.instance.menuDown);
 
                 stateUnpause();
             }

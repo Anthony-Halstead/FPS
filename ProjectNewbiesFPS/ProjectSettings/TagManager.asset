@@ -9,8 +9,7 @@ TagManager:
   - Fire
   - Audio
   - DropBox
-  - Floor
-  - AudioManager
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -23,7 +22,7 @@ TagManager:
   - Floor
   - Spawnable
   - PostProcessing
-  - 
+  - Interactable
   - 
   - 
   - 
