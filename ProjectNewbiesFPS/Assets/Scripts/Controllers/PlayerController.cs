@@ -186,7 +186,6 @@ public class PlayerController : MonoBehaviour, IDamage
             _playerVelocity.y = jumpSpeed;
         }
 
-        AudioManager.instance.playLoop(AudioManager.instance.footStepWalking, true);
         charController.Move(_playerVelocity * Time.deltaTime);
         _playerVelocity.y -= gravity * Time.deltaTime;
 
