@@ -5,10 +5,20 @@ using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.UI;
 
 public class AIController : Spawnable, IDamage
 {
+    [Header("AnimationRig")]
+    [SerializeField] Rig rig;
+    [SerializeField] Transform defaultRigTarget;
+    [SerializeField] MultiAimConstraint head;
+    [SerializeField] MultiAimConstraint body;
+    [SerializeField] MultiAimConstraint rArm;
+ 
+
+    [Header("AI")]
     [SerializeField] private Renderer model;
     private Color colorOriginal;
     [SerializeField] private NavMeshAgent agent;
@@ -64,21 +74,30 @@ public class AIController : Spawnable, IDamage
     public Vector3 target = Vector3.zero;
     public Vector3 lookTarget = Vector3.zero;
     private float originalStopDistance;
+    void Awake()
+    {
+        rig ??= GetComponentInChildren<Rig>();
+        model ??= GetComponentInChildren<Renderer>();
+        agent ??= GetComponent<NavMeshAgent>();
 
+
+        StopRig();
+        originalStopDistance = agent.stoppingDistance;
+        HP = HPMax;
+        CurrentTime = 0;
+    }
     void Start()
     {
         GameManager.instance.enemyAI.Add(gameObject);
         GameManager.instance.enemyAIScript.Add(this);
         GameManager.instance.enemyHealthBar.Add(healthBar);
         GameManager.instance.enemyHealthBarVisibility.Add(healthBarVisibility);
-        originalStopDistance = agent.stoppingDistance;
-        model = GetComponentInChildren<Renderer>();
-        agent = GetComponent<NavMeshAgent>();
+              
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
-        HPMax = HP;
+        
         GameManager.instance.EnemyCount++;
-        CurrentTime = 0;
+        StopRig();
         TransitionToState(_defaultState);
     }
 
@@ -268,6 +287,25 @@ public class AIController : Spawnable, IDamage
         
         model.material.color = colorOriginal;
     }
-   
 
+    public void StartRig()
+    {
+        head.data.sourceObjects.SetWeight(0, 0);
+        head.data.sourceObjects.SetWeight(1, 1);
+        body.data.sourceObjects.SetWeight(0, 0);
+        body.data.sourceObjects.SetWeight(1, 1);
+        rArm.data.sourceObjects.SetWeight(0, 0);
+        rArm.data.sourceObjects.SetWeight(1, 1);
+        rig.weight = 1.0f;
+    }
+    public void StopRig()
+    {
+        head.data.sourceObjects.SetWeight(0, 1);
+        head.data.sourceObjects.SetWeight(1, 0);
+        body.data.sourceObjects.SetWeight(0, 1);
+        body.data.sourceObjects.SetWeight(1, 0);
+        rArm.data.sourceObjects.SetWeight(0, 1);
+        rArm.data.sourceObjects.SetWeight(1, 0);
+        rig.weight = 0f;
+    }
 }

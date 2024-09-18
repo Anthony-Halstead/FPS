@@ -10,6 +10,7 @@ public class ChaseState : State
         controller.lastSeenPlayerPos = controller.playerPos;
         controller.target = GameManager.instance.player.transform.position;
         controller.lookTarget = GameManager.instance.player.transform.position;
+        controller.StartRig();
     }
     public override void UpdateState(AIController controller)
     {

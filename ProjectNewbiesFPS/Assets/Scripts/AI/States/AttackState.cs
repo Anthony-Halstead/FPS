@@ -5,7 +5,8 @@ public class AttackState : State
     public State chaseState;
     public override void EnterState(AIController controller)
     {
-       // controller.CanMove = false;
+      
+       controller.StartRig();
         controller.StartCoroutine(controller.shoot());
     }
     public override void UpdateState(AIController controller)
@@ -15,7 +16,7 @@ public class AttackState : State
     }
     public override void ExitState(AIController controller)
     {
-      //  controller.CanMove = true;
+     
     }
 
    
