@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 5928188308584385047}
   sfxSource: {fileID: 4989875812704928581}
-  musicForest: {fileID: 0}
+  musicForest: {fileID: 8300000, guid: 259d8bf4eb42cde4ebd12c4eaf760916, type: 3}
   musicTown: {fileID: 0}
   musicIndustrial: {fileID: 0}
   musicBoss: {fileID: 0}

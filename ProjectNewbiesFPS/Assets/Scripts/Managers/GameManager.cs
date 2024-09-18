@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 {
     //Instance for gameManager
     public static GameManager instance;
-    public AudioManager audioManager;
 
     //References for menu Objects, characterUI and money Text
     [SerializeField] GameObject menuActive;
@@ -94,8 +93,6 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public CameraController mainCameraController;
     public GameObject dropBoxObjectSpawned;
-  //  public GameObject audioManager;
-   // public AudioManager audioManagerScript;
     
 
     //Tracking Waves
@@ -157,8 +154,6 @@ public class GameManager : MonoBehaviour
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-       // audioManager = GameObject.FindWithTag("AudioManager");
-        //audioManagerScript = audioManager.GetComponent<AudioManager>();
         mainCamera = GameObject.FindWithTag("MainCamera");
         mainCameraController = mainCamera.GetComponent<CameraController>();
 

@@ -3309,6 +3309,9 @@ MonoBehaviour:
   doubleDamageUpgrade: {fileID: 5923972992805410746, guid: 2c19505c3f3b0ce489bbc1852e94c484, type: 3}
   killEnemiesUpgrade: {fileID: 8415248498332601849, guid: 836d7ac5b25afc746ac6cd6b74c295d0, type: 3}
   refillUpgrade: {fileID: 1609426563364382538, guid: ac880fd3b2aeb6e448a9dba19b42a842, type: 3}
+  redkeySpriteImage: {fileID: 0}
+  blackkeySpriteImage: {fileID: 0}
+  greenkeySpriteImage: {fileID: 0}
   dropBox: {fileID: 3258043981817652478, guid: ea798177e8448864d8907f510bacc5e4, type: 3}
   dropBoxSpawnPos: {fileID: 0}
   upgradeBoughtSpawnPos: {fileID: 0}
@@ -3324,6 +3327,7 @@ MonoBehaviour:
   moneyText: {fileID: 1975954776784877933}
   ammoText: {fileID: 3417271937118077337}
   enemyCountText: {fileID: 1065033804790474346}
+  objectivesText: {fileID: 0}
   healthUpgradeCost: 0
   magezineUpgradeCost: 0
   shootRateUpgradeCost: 0
@@ -3347,6 +3351,9 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   mainCameraController: {fileID: 0}
   dropBoxObjectSpawned: {fileID: 0}
+  redKeyFound: 0
+  blackKeyFound: 0
+  greenKeyFound: 0
   isPaused: 0
 --- !u!1 &2493525615479383703
 GameObject:

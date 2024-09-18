@@ -92,7 +92,7 @@ public class AudioManager : MonoBehaviour
         sfxSource.clip = clip;
         sfxSource.PlayOneShot(clip);
     }
-    public void playLoop(AudioClip clip, bool canLap)
+    public void playLoop(AudioClip clip, bool canLap = true)
     {
         //Loop Sound effect
         sfxSource.clip = clip;
