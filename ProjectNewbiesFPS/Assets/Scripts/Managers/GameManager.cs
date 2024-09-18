@@ -29,12 +29,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject shootRateUpgrade;
     [SerializeField] GameObject doubleDamageUpgrade;
     [SerializeField] GameObject killEnemiesUpgrade;
-  //  [SerializeField] GameObject refillUpgrade;
+    [SerializeField] GameObject refillUpgrade;
 
     //Key Sprite Images
     public GameObject redkeySpriteImage;
     public GameObject blackkeySpriteImage;
     public GameObject greenkeySpriteImage;
+
+    public GameObject checkpointPopUp;
 
 
 [SerializeField] GameObject dropBox;
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainCamera;
     public CameraController mainCameraController;
     public GameObject dropBoxObjectSpawned;
+    public GameObject playerSpawnPos;
     
 
     //Tracking Waves
@@ -156,7 +159,7 @@ public class GameManager : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
         mainCamera = GameObject.FindWithTag("MainCamera");
         mainCameraController = mainCamera.GetComponent<CameraController>();
-
+        playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");
         
 
         //Initializing money
@@ -164,7 +167,7 @@ public class GameManager : MonoBehaviour
         storeMoneyText.text = "" + playerScript.money;
 
         //Initializing Objectives Text
-        objectivesText.text = "OBJECTIVE: Find Key";
+        objectivesText.text = "OBJECTIVE: Find Red Key";
 
         //Initializing shop icons as not checked
          healthUpgrageToggle.isOn = false;
@@ -181,7 +184,7 @@ public class GameManager : MonoBehaviour
         sfxVolumeSlider.value = 0;
 
         //Show Tutorial Screen at start of game
-     //   TutorialMenu();
+       TutorialMenu();
 
     }
 
@@ -243,7 +246,7 @@ public class GameManager : MonoBehaviour
         waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
         enemyCountText.text = "" + enemyCount;
-      //  healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
+        healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
 
 
         //closing out of tutorial screen
@@ -472,12 +475,12 @@ public class GameManager : MonoBehaviour
 
             killEnemiesUpgradeBought = false;
         }
-      /*  if (refillUpgradeBought)
+        if (refillUpgradeBought)
         {
             Instantiate(refillUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             refillUpgradeBought = false;
-        }*/
+        }
     }
 
     //Spawning a wave

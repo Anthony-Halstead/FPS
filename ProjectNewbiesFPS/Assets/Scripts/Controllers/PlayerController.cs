@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private int jumpSpeed;
     [SerializeField] private int gravity;
     
+    
     [Header("Player Stats - Crouching")]
     [SerializeField] private float crouchTime;
     [SerializeField] private float crouchHeight;
@@ -119,7 +120,15 @@ public class PlayerController : MonoBehaviour, IDamage
         money = 0;
         HP = HPMax;
         GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
-        
+        SpawnPlayer();
+    }
+
+    public void SpawnPlayer()
+    {
+        charController.enabled = false;
+        transform.position = GameManager.instance.playerSpawnPos.transform.position;
+        charController.enabled = true;
+        HP = HPMax;
     }
 
     // Update is called once per frame
@@ -488,8 +497,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
             }
             // Instantiate bullet
-            //GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            //Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
             // Play bullet sound
             audioManager.playSFX(audioManager.shootPistol);

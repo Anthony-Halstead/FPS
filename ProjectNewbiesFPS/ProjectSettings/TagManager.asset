@@ -10,6 +10,8 @@ TagManager:
   - Audio
   - DropBox
   - Interactable
+  - AudioManager
+  - PlayerSpawnPos
   layers:
   - Default
   - TransparentFX

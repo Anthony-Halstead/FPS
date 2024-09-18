@@ -91,4 +91,10 @@ public class ButtonFunctions : MonoBehaviour
     {
         GameManager.instance.TutorialMenu();
     }
+
+    public void Respawn()
+    {
+        GameManager.instance.playerScript.SpawnPlayer();
+        GameManager.instance.stateUnpause();
+    }
 }
