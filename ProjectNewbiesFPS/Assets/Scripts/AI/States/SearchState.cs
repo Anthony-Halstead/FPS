@@ -8,6 +8,7 @@ public class SearchState : State
 
     public override void EnterState(AIController controller)
     {
+        controller.StopRig();
        controller.searchRoutine = controller.StartCoroutine(controller.SearchSpot());
     }
     public override void UpdateState(AIController controller)
