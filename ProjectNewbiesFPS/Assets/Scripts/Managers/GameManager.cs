@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject shootRateUpgrade;
     [SerializeField] GameObject doubleDamageUpgrade;
     [SerializeField] GameObject killEnemiesUpgrade;
-    [SerializeField] GameObject refillUpgrade;
+  //  [SerializeField] GameObject refillUpgrade;
 
     //Key Sprite Images
     public GameObject redkeySpriteImage;
@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
          shootRateUpgrageToggle.isOn = false;
          doubleDamageUpgrageToggle.isOn = false;
          killEnemiesUpgrageToggle.isOn = false;
-         refillUpgradeToggle.isOn = false;
+        // refillUpgradeToggle.isOn = false;
 
         //Initializing Slider values on Options menu to a default
         sensitivitySlider.value = 300f;
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         sfxVolumeSlider.value = 0;
 
         //Show Tutorial Screen at start of game
-        TutorialMenu();
+     //   TutorialMenu();
 
     }
 
@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour
         waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
         enemyCountText.text = "" + enemyCount;
-        healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
+      //  healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
 
 
         //closing out of tutorial screen
@@ -472,12 +472,12 @@ public class GameManager : MonoBehaviour
 
             killEnemiesUpgradeBought = false;
         }
-        if (refillUpgradeBought)
+      /*  if (refillUpgradeBought)
         {
             Instantiate(refillUpgrade, dropBoxObjectSpawned.transform.position + new Vector3(0, 1, 4), dropBoxObjectSpawned.transform.localRotation);
 
             refillUpgradeBought = false;
-        }
+        }*/
     }
 
     //Spawning a wave
