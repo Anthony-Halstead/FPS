@@ -8,24 +8,31 @@ using UnityEngine.SceneManagement;
 public class ButtonFunctions : MonoBehaviour
 {
     public AudioMixer audioMixer;
-    public AudioManager audioManager;
+    public GameObject AudioManager;
+    public AudioManager audioManagerScript;
+
+    private void Start()
+    {
+        AudioManager = GameObject.FindWithTag("AudioManager");
+        audioManagerScript = AudioManager.GetComponent<AudioManager>();
+    }
     public void resume()
     {
-        audioManager.playSFX(audioManager.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick);
         GameManager.instance.stateUnpause();
         GameManager.instance.ToggleEnemyHealthBar();
     }
 
     public void restart()
     {
-        audioManager.playSFX(audioManager.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.instance.stateUnpause();
     }
 
     public void quit()
     {
-        audioManager.playSFX(audioManager.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -38,20 +45,20 @@ public class ButtonFunctions : MonoBehaviour
 
     public void Cancel()
     {
-        audioManager.playSFX(audioManager.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick);
         GameManager.instance.BuyMenu();
         
     }
 
     public void OptionsButton()
     {
-        audioManager.playSFX(audioManager.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick);
         GameManager.instance.Options();
     }
 
     public void OrderConfirm()
     {
-        audioManager.playSFX(audioManager.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick);
         GameManager.instance.StoreOrder();
     }
 
@@ -73,11 +80,11 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void ToggleEnemyHealthBarSound()
     {
-        audioManager.playSFX(audioManager.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick);
     }
     public void MenuSliderSound()
     {
-        audioManager.playSFX(audioManager.menuSlider);
+        audioManagerScript.playSFX(audioManagerScript.menuSlider);
     }
 
     public void TutorialMenu()
