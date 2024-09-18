@@ -249,7 +249,7 @@ MonoBehaviour:
   cameraPivotTransform: {fileID: 5526848235105782140}
   audioManager: {fileID: 0}
   HP: 0
-  HPMax: 10
+  HPMax: 40
   speed: 3
   money: 50
   originalSpeed: 0

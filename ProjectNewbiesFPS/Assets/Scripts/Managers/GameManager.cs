@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
     public CameraController mainCameraController;
     public GameObject dropBoxObjectSpawned;
   //  public GameObject audioManager;
-    public AudioManager audioManagerScript;
+   // public AudioManager audioManagerScript;
     
 
     //Tracking Waves
@@ -157,8 +157,8 @@ public class GameManager : MonoBehaviour
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
-    //    audioManager = GameObject.FindWithTag("AudioManager");
-        audioManagerScript = audioManager.GetComponent<AudioManager>();
+       // audioManager = GameObject.FindWithTag("AudioManager");
+        //audioManagerScript = audioManager.GetComponent<AudioManager>();
         mainCamera = GameObject.FindWithTag("MainCamera");
         mainCameraController = mainCamera.GetComponent<CameraController>();
 

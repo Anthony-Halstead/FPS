@@ -58,7 +58,7 @@ MonoBehaviour:
   crouchUp: {fileID: 0}
   explosion: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
   explosionLanding: {fileID: 0}
-  shootPistol: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
+  shootPistol: {fileID: 8300000, guid: 24c7070b369c71542a9acedbbfee4857, type: 3}
   shootMachineGun: {fileID: 8300000, guid: 3061c7b9b32d894478e4126ccce25ca3, type: 3}
   shootShotGun: {fileID: 0}
   shootBow: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
@@ -129,8 +129,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 6776676642200378293, guid: 9701eabff8b358346a147aff03a1e502, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 80d3799791748ac42b3ec097c17a2383, type: 3}
-  m_Resource: {fileID: 8300000, guid: 80d3799791748ac42b3ec097c17a2383, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
