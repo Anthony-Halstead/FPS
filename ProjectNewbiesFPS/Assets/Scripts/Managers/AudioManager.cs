@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     [Header("------------------- Sources")]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource sfxSource;
+    [SerializeField] AudioSource movementSource;
 
     [Header("------------------- Music/Backgrounds")]
     public AudioClip musicForest;
@@ -22,6 +23,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip footStepRunning;
     public AudioClip crouchDown;
     public AudioClip crouchUp;
+    public AudioClip jump;
 
     [Header("------------------- Ranged SFX")]
     public AudioClip explosion;         //Bombs/traps
@@ -51,12 +53,12 @@ public class AudioManager : MonoBehaviour
     [Header("------------------- Misc")]
     public AudioClip trapPlace;
     public AudioClip trapActivate;
-    public AudioClip jump;
     public AudioClip land;
     public AudioClip playerHurt;
     public AudioClip enemyHurt;
     public AudioClip dropBox;
     public AudioClip UpgradePickUp;
+    public AudioClip checkPointTrigger;
 
     [Header("------------------- UI SFX")]
     public AudioClip menuUp;
@@ -66,6 +68,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip menuLose;
     public AudioClip menuSlider;
 
+    [Header("------------------- Stats")]
+    public float walkSpeedMod;
+    public float sprintSpeedMod;
 
     private void Awake()
     {

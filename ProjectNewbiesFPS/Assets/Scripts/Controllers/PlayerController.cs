@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour, IDamage
     public int HPMax;
     public float speed;
     public int money = 50;
+    private Vector3 prevPos;
     [SerializeField] private float originalSpeed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float crouchMod;
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour, IDamage
     private int _jumpCount;
 
     public bool _isSprinting;
+    public bool _isWalking;
     public bool _isShooting;
     public bool _isCrouching;
     public bool _isLeaning;
@@ -149,6 +151,8 @@ public class PlayerController : MonoBehaviour, IDamage
         addNewWeapon();
         dropCurrentWeapon();
         swapWeapon();
+
+        prevPos = GameManager.instance.player.transform.position;
     }
 
     public void swapFire()
@@ -187,6 +191,12 @@ public class PlayerController : MonoBehaviour, IDamage
                    vertInput * transform.forward;
         charController.Move(_moveDir * (speed * Time.deltaTime));
 
+        //Player has moved
+        if (prevPos != GameManager.instance.player.transform.position && !_isSprinting && !_isWalking && charController.isGrounded)
+        {
+            StartCoroutine(walking());
+        }
+
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
             AudioManager.instance.playSFX(AudioManager.instance.jump);
@@ -202,6 +212,14 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             StartCoroutine(shoot());
         }
+    }
+
+    IEnumerator walking()
+    {
+        _isWalking = true;
+        AudioManager.instance.playSFX(AudioManager.instance.footStepWalking);
+        yield return new WaitForSeconds(0.8f);
+        _isWalking = false;
     }
 
     // handles player sprinting
@@ -229,12 +247,16 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         if (Input.GetButtonDown("Crouch") && !_isSprinting)
         {
+            AudioManager.instance.playSFX(AudioManager.instance.crouchDown);
+
             speed *= crouchMod;
             newHeight = crouchHeight;
             _isCrouching = true;
         }
         else if (Input.GetButtonUp("Crouch") && !_isSprinting)
         {
+            AudioManager.instance.playSFX(AudioManager.instance.crouchUp);
+
             speed = originalSpeed;
             newHeight = originalHeight;
             _isCrouching = false;

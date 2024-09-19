@@ -264,34 +264,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8306160150476981954, guid: f56c86d4789f8b34cb25c90ced6e2939, type: 3}
-      propertyPath: enemyHurt
-      value: 
-      objectReference: {fileID: 8300000, guid: 550b3b30d8b68b4428f606bbd7e9864f, type: 3}
-    - target: {fileID: 8306160150476981954, guid: f56c86d4789f8b34cb25c90ced6e2939, type: 3}
-      propertyPath: playerHurt
-      value: 
-      objectReference: {fileID: 8300000, guid: fbe7524b8863352449e9edbd9b4d192b, type: 3}
-    - target: {fileID: 8306160150476981954, guid: f56c86d4789f8b34cb25c90ced6e2939, type: 3}
-      propertyPath: musicForest
-      value: 
-      objectReference: {fileID: 8300000, guid: 53c872007347a4aab8d8d2bc9bf181f1, type: 3}
-    - target: {fileID: 8306160150476981954, guid: f56c86d4789f8b34cb25c90ced6e2939, type: 3}
-      propertyPath: shootPistol
-      value: 
-      objectReference: {fileID: 8300000, guid: 25bc8c7c04ed81844b4f9140e70213dd, type: 3}
-    - target: {fileID: 8306160150476981954, guid: f56c86d4789f8b34cb25c90ced6e2939, type: 3}
-      propertyPath: shootShotGun
-      value: 
-      objectReference: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
-    - target: {fileID: 8306160150476981954, guid: f56c86d4789f8b34cb25c90ced6e2939, type: 3}
-      propertyPath: footStepRunning
-      value: 
-      objectReference: {fileID: 8300000, guid: 7a1da8275935858428d3af22a10ab810, type: 3}
-    - target: {fileID: 8306160150476981954, guid: f56c86d4789f8b34cb25c90ced6e2939, type: 3}
-      propertyPath: footStepWalking
-      value: 
-      objectReference: {fileID: 8300000, guid: 0609acde86b59a2458aaf135531f8756, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
