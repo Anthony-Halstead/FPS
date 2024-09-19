@@ -56,16 +56,17 @@ MonoBehaviour:
   musicBoss: {fileID: 0}
   footStepWalking: {fileID: 8300000, guid: 0609acde86b59a2458aaf135531f8756, type: 3}
   footStepRunning: {fileID: 8300000, guid: 7a1da8275935858428d3af22a10ab810, type: 3}
-  crouchDown: {fileID: 0}
-  crouchUp: {fileID: 0}
+  crouchDown: {fileID: 8300000, guid: 4d4ef7516a431934681038a3dc391e55, type: 3}
+  crouchUp: {fileID: 8300000, guid: 482611fe6bc559142a00be6e726b4862, type: 3}
+  jump: {fileID: 8300000, guid: cb5fc1d775e6d274db17d79d19805c6c, type: 3}
   explosion: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
-  explosionLanding: {fileID: 0}
+  explosionLanding: {fileID: 8300000, guid: 68058b7dc40be724cb1ac5a1be3265ba, type: 3}
   shootPistol: {fileID: 8300000, guid: 25bc8c7c04ed81844b4f9140e70213dd, type: 3}
   shootMachineGun: {fileID: 8300000, guid: 3061c7b9b32d894478e4126ccce25ca3, type: 3}
   shootShotGun: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
   shootBow: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
-  reloadPistol: {fileID: 0}
-  reloadMachineGun: {fileID: 0}
+  reloadPistol: {fileID: 8300000, guid: 2c39577c9b36cfc48896c0023bfe7e6e, type: 3}
+  reloadMachineGun: {fileID: 8300000, guid: f90a4e57bec0a8548a61a84e70f7a889, type: 3}
   reloadShotGun: {fileID: 0}
   meleeUnarmedHit: {fileID: 8300000, guid: 1f53a5fc6bd934e46a5d8cfa8fd27b64, type: 3}
   meleeUnarmedMiss: {fileID: 8300000, guid: 4d4ef7516a431934681038a3dc391e55, type: 3}
@@ -77,18 +78,20 @@ MonoBehaviour:
   potionHealth: {fileID: 0}
   trapPlace: {fileID: 8300000, guid: 68058b7dc40be724cb1ac5a1be3265ba, type: 3}
   trapActivate: {fileID: 8300000, guid: 5aa948679296f2649802b2f562804537, type: 3}
-  jump: {fileID: 8300000, guid: cb5fc1d775e6d274db17d79d19805c6c, type: 3}
   land: {fileID: 8300000, guid: 65713fdea647c1949961f91d42bed416, type: 3}
   playerHurt: {fileID: 8300000, guid: fbe7524b8863352449e9edbd9b4d192b, type: 3}
   enemyHurt: {fileID: 8300000, guid: 550b3b30d8b68b4428f606bbd7e9864f, type: 3}
   dropBox: {fileID: 8300000, guid: aba3270755269dc4b834dde6e1d3cae9, type: 3}
   UpgradePickUp: {fileID: 8300000, guid: a8cc663b2ae453149904b8ccb93a10c2, type: 3}
+  checkPointTrigger: {fileID: 8300000, guid: f5c5f438581b89c4b96789e177c6254a, type: 3}
   menuUp: {fileID: 8300000, guid: 80d3799791748ac42b3ec097c17a2383, type: 3}
   menuDown: {fileID: 8300000, guid: 52104bc3637e70540be457e0ba1ba9cd, type: 3}
   menuClick: {fileID: 8300000, guid: 245965889d0a183438ef3478b27122c0, type: 3}
-  menuWin: {fileID: 0}
-  menuLose: {fileID: 0}
+  menuWin: {fileID: 8300000, guid: 06a0420f8524f54458b313c29fbfd2b1, type: 3}
+  menuLose: {fileID: 8300000, guid: 15e9f634e944e104dab8ac20d84b5e12, type: 3}
   menuSlider: {fileID: 8300000, guid: f10e7ff812627164fa39911459400577, type: 3}
+  walkSpeedMod: 0.8
+  sprintSpeedMod: 0
 --- !u!82 &-6782015543472707791
 AudioSource:
   m_ObjectHideFlags: 0
