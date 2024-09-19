@@ -254,6 +254,7 @@ public class AIController : Spawnable, IDamage
         IsShooting = true;   
         _animator.SetTrigger("Shoot");
         Instantiate(bullet, shootPos.position, transform.rotation);
+        AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
         yield return new WaitForSeconds(shootRate);
         IsShooting = false;
     }
@@ -282,7 +283,8 @@ public class AIController : Spawnable, IDamage
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
-        
+        AudioManager.instance.playSFX(AudioManager.instance.enemyHurt);
+
         yield return new WaitForSeconds(0.1f);
         
         model.material.color = colorOriginal;

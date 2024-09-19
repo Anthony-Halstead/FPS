@@ -247,7 +247,7 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         if (Input.GetButtonDown("Crouch") && !_isSprinting)
         {
-            AudioManager.instance.playSFX(AudioManager.instance.crouchDown);
+            AudioManager.instance.playMove(AudioManager.instance.crouchDown);
 
             speed *= crouchMod;
             newHeight = crouchHeight;
@@ -255,7 +255,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
         else if (Input.GetButtonUp("Crouch") && !_isSprinting)
         {
-            AudioManager.instance.playSFX(AudioManager.instance.crouchUp);
+            AudioManager.instance.playMove(AudioManager.instance.crouchUp);
 
             speed = originalSpeed;
             newHeight = originalHeight;

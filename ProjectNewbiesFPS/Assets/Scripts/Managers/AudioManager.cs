@@ -139,6 +139,7 @@ public class AudioManager : MonoBehaviour
 
     public void stopMoveLoop(bool stopNow = true)
     {
+        //Same as the other stopLoop method
         movementSource.loop= false;
 
         if (stopNow)
