@@ -91,29 +91,40 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void playSFX(AudioClip clip)
+    public void playSFX(AudioClip clip, bool Loop = false)
     {
-        //Play Sound effect once (can play over itself)
         sfxSource.clip = clip;
-        sfxSource.PlayOneShot(clip);
-    }
-    public void playLoop(AudioClip clip, bool canLap = true)
-    {
-        //Loop Sound effect
-        sfxSource.clip = clip;
-        sfxSource.loop = true;
         
-        if(canLap)
+        if(Loop)
         {
-            //If true PlayOneShot()
-            sfxSource.PlayOneShot(clip);
+            //Loops
+            sfxSource.loop = true;
+            sfxSource.Play();
         } else
         {
-            //If false Play()
-            sfxSource.Play();
+            //Plays once
+            sfxSource.PlayOneShot(clip);
         }
     }
-    public void stopLoop(bool stopNow = true)
+
+    public void playMove(AudioClip clip, bool Loop = false)
+    {
+        movementSource.clip = clip;
+
+        if (Loop)
+        {
+            //Loops
+            movementSource.loop = true;
+            movementSource.Play();
+        }
+        else
+        {
+            //Plays once
+            movementSource.PlayOneShot(clip);
+        }
+    }
+    
+    public void stopSFXLoop(bool stopNow = true)
     {
         //Stop a looped sound
         sfxSource.loop = false;
@@ -124,5 +135,15 @@ public class AudioManager : MonoBehaviour
             sfxSource.Stop();
         }
         //Else will stop when its done playing
+    }
+
+    public void stopMoveLoop(bool stopNow = true)
+    {
+        movementSource.loop= false;
+
+        if (stopNow)
+        {
+            movementSource.Stop();
+        }
     }
 }

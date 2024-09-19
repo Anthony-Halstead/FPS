@@ -48,14 +48,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 5928188308584385047}
   sfxSource: {fileID: 4989875812704928581}
+  movementSource: {fileID: 0}
   musicForest: {fileID: 8300000, guid: 259d8bf4eb42cde4ebd12c4eaf760916, type: 3}
   musicTown: {fileID: 0}
   musicIndustrial: {fileID: 0}
   musicBoss: {fileID: 0}
-  footStepWalking: {fileID: 0}
-  footStepRunning: {fileID: 0}
+  footStepWalking: {fileID: 8300000, guid: 0609acde86b59a2458aaf135531f8756, type: 3}
+  footStepRunning: {fileID: 8300000, guid: 7a1da8275935858428d3af22a10ab810, type: 3}
   crouchDown: {fileID: 0}
   crouchUp: {fileID: 0}
+  jump: {fileID: 0}
   explosion: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
   explosionLanding: {fileID: 0}
   shootPistol: {fileID: 8300000, guid: 24c7070b369c71542a9acedbbfee4857, type: 3}
@@ -75,18 +77,20 @@ MonoBehaviour:
   potionHealth: {fileID: 0}
   trapPlace: {fileID: 8300000, guid: 68058b7dc40be724cb1ac5a1be3265ba, type: 3}
   trapActivate: {fileID: 8300000, guid: 5aa948679296f2649802b2f562804537, type: 3}
-  jump: {fileID: 0}
   land: {fileID: 8300000, guid: 684d90e2defae1547a1d51bec24e6e9d, type: 3}
   playerHurt: {fileID: 0}
   enemyHurt: {fileID: 0}
   dropBox: {fileID: 0}
   UpgradePickUp: {fileID: 0}
+  checkPointTrigger: {fileID: 0}
   menuUp: {fileID: 8300000, guid: 80d3799791748ac42b3ec097c17a2383, type: 3}
   menuDown: {fileID: 8300000, guid: 52104bc3637e70540be457e0ba1ba9cd, type: 3}
   menuClick: {fileID: 8300000, guid: 245965889d0a183438ef3478b27122c0, type: 3}
   menuWin: {fileID: 0}
   menuLose: {fileID: 0}
   menuSlider: {fileID: 8300000, guid: f10e7ff812627164fa39911459400577, type: 3}
+  walkSpeedMod: 0.8
+  sprintSpeedMod: 0
 --- !u!1 &5204907862931005161
 GameObject:
   m_ObjectHideFlags: 0
