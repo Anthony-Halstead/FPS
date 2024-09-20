@@ -257,6 +257,7 @@ MonoBehaviour:
   sprintMod: 2
   crouchMod: 0.5
   visibility: 0
+  sprintVisMod: 15
   jumpMax: 1
   jumpSpeed: 9
   gravity: 28
@@ -264,6 +265,7 @@ MonoBehaviour:
   crouchHeight: 0.65
   originalHeight: 0
   newHeight: 0
+  crouchVisMod: 25
   originalAngle: 0
   leanAngle: 20
   leanTime: 5
@@ -303,6 +305,7 @@ MonoBehaviour:
   muzzleFlashSpawnPoint: {fileID: 0}
   damageFlashDuration: 0.1
   _isSprinting: 0
+  _isWalking: 0
   _isShooting: 0
   _isCrouching: 0
   _isLeaning: 0

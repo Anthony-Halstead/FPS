@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider sensitivitySlider;
 
     [SerializeField] TMP_Text waveText;
+    public TMP_Text visText;
 
     //References for taking damage
     public GameObject damagePanel;
@@ -247,6 +248,7 @@ public class GameManager : MonoBehaviour
         moneyText.text = "$" + playerScript.money;
         enemyCountText.text = "" + enemyCount;
         healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
+        visText.text = playerScript.getPlayerVisibility().ToString("F0") + "%";
 
 
         //closing out of tutorial screen

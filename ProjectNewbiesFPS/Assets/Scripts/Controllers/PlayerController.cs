@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private float originalSpeed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float crouchMod;
-    [SerializeField] private int visibility;
+    [SerializeField] private float visibility;
+    [SerializeField] private float sprintVisMod;
     [SerializeField] private int jumpMax;
     [SerializeField] private int jumpSpeed;
     [SerializeField] private int gravity;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private float crouchHeight;
     [SerializeField] private float originalHeight;
     [SerializeField] private float newHeight;
+    [SerializeField] private float crouchVisMod;
 
     [Header("Player Stats - Lean/Sway")]
     [SerializeField] private float originalAngle;
@@ -140,6 +142,7 @@ public class PlayerController : MonoBehaviour, IDamage
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);
         horizInput = Input.GetAxis("Horizontal");
         vertInput = Input.GetAxis("Vertical");
+        visibility = 0;
         
         movement();
         sprint();
@@ -171,11 +174,28 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
-    public int getPlayerVisibility()
+    public float getPlayerVisibility()
     {
-        return visibility;
+        return visibility * 100;
     }
-    
+
+    public void modPlayerVisibility(float lightPercent)
+    {
+        visibility = Mathf.Max(visibility, lightPercent);
+        
+
+        if (_isCrouching)
+        {
+            visibility -= (crouchVisMod / 100);
+        }
+
+        if (_isSprinting)
+        {
+            visibility += (sprintVisMod / 100);
+        }
+
+        visibility = Mathf.Clamp(visibility, 0, 1);
+    }
 
     #region Movement
 
