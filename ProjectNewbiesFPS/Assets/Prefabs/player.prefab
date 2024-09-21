@@ -785,14 +785,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponObject: {fileID: 11400000, guid: b0bb736fbd007fa49a29a031b9db4c81, type: 2}
-  gunSpeed: 0
-  shootDamage: 0
-  shootDist: 0
-  shootRate: 0
-  magazineSize: 0
+  gunSpeed: 1
+  shootDamage: 2
+  shootDist: 20
+  shootRate: 0.5
+  magazineSize: 50
   firePoint: {fileID: 1485873672261950923}
-  startingAmmo: 0
-  currentAmmo: 0
+  startingAmmo: 50
+  currentAmmo: 50
   interactionText: 
 --- !u!4 &7023442029728352736 stripped
 Transform:
