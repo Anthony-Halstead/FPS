@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.Serialization;
 using Debug = UnityEngine.Debug;
 
@@ -85,7 +86,9 @@ public class PlayerController : MonoBehaviour, IDamage
 
     [Header("Damage Effects")]
     [SerializeField] private float damageFlashDuration;
-    
+    [Header("Night Vision")]
+    [SerializeField] PostProcessVolume nightVision;
+
     private Vector3 _moveDir;
     private Vector3 _playerVelocity;
     private float _currentVelocity;
@@ -154,7 +157,7 @@ public class PlayerController : MonoBehaviour, IDamage
         addNewWeapon();
         dropCurrentWeapon();
         swapWeapon();
-
+        SetNightVision();
         prevPos = GameManager.instance.player.transform.position;
     }
 
@@ -582,6 +585,21 @@ public class PlayerController : MonoBehaviour, IDamage
         if (grenadeRb != null)
         {
             grenadeRb.AddForce(firePoint.forward * grenadeForce, ForceMode.Impulse);
+        }
+    }
+    #endregion
+
+    #region Night Vision
+    public void SetNightVision()
+    {
+        if (Input.GetButtonDown("NightVision"))
+        {
+            if (nightVision.weight > 0)
+            {
+                nightVision.weight = 0;
+            }
+            else
+                nightVision.weight = 1f;
         }
     }
     #endregion
