@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private LayerMask ignoreMask;
     [SerializeField] private Transform cameraPivotTransform;
     public AudioManager audioManager;
+    
 
     [Header("Player Stats - General")]
     public int HP;
