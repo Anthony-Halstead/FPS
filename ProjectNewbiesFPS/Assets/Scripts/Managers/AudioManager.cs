@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource sfxSource;
     [SerializeField] AudioSource movementSource;
+    [SerializeField] AudioSource enemySource;
 
     [Header("------------------- Music/Backgrounds")]
     public AudioClip musicForest;
@@ -145,6 +146,31 @@ public class AudioManager : MonoBehaviour
         if (stopNow)
         {
             movementSource.Stop();
+        }
+    }
+
+    public void playEnemy(AudioClip clip, bool Loop = false)
+    {
+        //Enemy Sounds (Should cover all without problems)
+        enemySource.clip = clip;
+
+        if (Loop)
+        {
+            enemySource.loop = true;
+            enemySource.Play();
+        } else
+        {
+            enemySource.PlayOneShot(clip);
+        }
+    }
+
+    public void stopEnemy(bool stopNow = true)
+    {
+        enemySource.loop = false;
+
+        if (stopNow)
+        {
+            enemySource.Stop();
         }
     }
 }

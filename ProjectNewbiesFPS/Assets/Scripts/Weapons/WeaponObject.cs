@@ -18,6 +18,7 @@ public class WeaponObject : ScriptableObject
     public float rate;
     public float fireSpeed;
     public int magazineCount;
+    public float reloadTime;
 
     public AudioClip[] shootSFX;
     public int shootVol;

@@ -10,11 +10,13 @@ public class damage : MonoBehaviour
     [SerializeField] private damageType type;
     [SerializeField] private Rigidbody rb;
 
-    [SerializeField] private int damageAmount;
+    public int damageAmount;
     [SerializeField] private int speed;
     [SerializeField] private int destroyTime;
 
     [SerializeField] private bool shouldTrack;
+
+    private bool hasDamaged;
 
     private void Start()
     {
@@ -41,12 +43,18 @@ public class damage : MonoBehaviour
 
         if (dmg != null)
         {
-            dmg.TakeDamage(damageAmount, Vector3.zero);
+            if (!hasDamaged)
+            {
+                dmg.TakeDamage(damageAmount, Vector3.zero);
+                hasDamaged = true;
+            }
+            
+            if (type == damageType.moving)
+            {
+                Destroy(gameObject);
+            }
         }
 
-        if (type == damageType.moving)
-        {
-            Destroy(gameObject);
-        }
+
     }
 }

@@ -21,3 +21,6 @@ MonoBehaviour:
   rate: 0.1
   fireSpeed: 5
   magazineCount: 30
+  reloadTime: 0
+  shootSFX: []
+  shootVol: 0
