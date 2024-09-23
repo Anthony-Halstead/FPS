@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         enemyCount = value;
             if(enemyCount <= 0)
             {
-                NextWave();
+                //NextWave();
                 WinGame();
             }
         } }
