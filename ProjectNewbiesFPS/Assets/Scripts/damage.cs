@@ -42,11 +42,13 @@ public class damage : MonoBehaviour
         if (dmg != null)
         {
             dmg.TakeDamage(damageAmount, Vector3.zero);
+            
+            if (type == damageType.moving)
+            {
+                Destroy(gameObject);
+            }
         }
 
-        if (type == damageType.moving)
-        {
-            Destroy(gameObject);
-        }
+
     }
 }
