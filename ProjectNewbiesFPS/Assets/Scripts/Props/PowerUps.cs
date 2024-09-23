@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PowerUps : MonoBehaviour, IPowerUps
 {
+    [Header("Pickup Items bools")]
     [SerializeField] bool killEnemiesUpgrade;
     [SerializeField] bool shootRateUpgrade;
     [SerializeField] bool doubleDamageUpgrade;
@@ -14,10 +15,13 @@ public class PowerUps : MonoBehaviour, IPowerUps
     [SerializeField] bool magazineUpgrade;
     [SerializeField] bool refillUpgrade;
     [SerializeField] bool redKey;
-    [SerializeField] bool blackKey;
+   // [SerializeField] bool blackKey;
     [SerializeField] bool greenKey;
 
- 
+    //[SerializeField] GameObject greenKeyPrefab;
+    //[SerializeField] QuestMarkers greenKeyMarker;
+
+    [Header("Upgrade Amounts")]
     public int killEnemiesUpgradeAmount;
     public float shootRateUpgradeAmount;
     public int doubleDamageUpgradeAmount;
@@ -39,6 +43,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
         
     }
 
+    //Pick Up items and store and change stats
     public void OnTriggerEnter(Collider other)
     {
          
@@ -100,13 +105,8 @@ public class PowerUps : MonoBehaviour, IPowerUps
             GameManager.instance.redKeyFound = true;
             GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
             GameManager.instance.redkeySpriteImage.SetActive(true);
-            Destroy(gameObject);
-        }
-        else if (other.CompareTag("Player") && blackKey)
-        {
-            GameManager.instance.blackKeyFound = true;
-            GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
-            GameManager.instance.blackkeySpriteImage.SetActive(true);
+            QuestManager.instance.AddForestGateMarker();
+            QuestManager.instance.RemoveRedKeyMarker();
             Destroy(gameObject);
         }
         else if (other.CompareTag("Player") && greenKey)
@@ -114,6 +114,8 @@ public class PowerUps : MonoBehaviour, IPowerUps
             GameManager.instance.greenKeyFound = true;
             GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
             GameManager.instance.greenkeySpriteImage.SetActive(true);
+            QuestManager.instance.RemoveGreenKeyMarker();
+            QuestManager.instance.AddIndustrialGateMarker();
             Destroy(gameObject);
         }
     }

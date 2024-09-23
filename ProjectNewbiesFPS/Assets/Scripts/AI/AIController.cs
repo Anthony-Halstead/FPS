@@ -96,7 +96,7 @@ public class AIController : Spawnable, IDamage
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
         
-        GameManager.instance.EnemyCount++;
+        //GameManager.instance.EnemyCount++;
         StopRig();
         TransitionToState(_defaultState);
     }
@@ -275,7 +275,7 @@ public class AIController : Spawnable, IDamage
             GameManager.instance.enemyAIScript.Remove(this);
             GameManager.instance.enemyAI.Remove(this.gameObject);
            
-            GameManager.instance.EnemyCount--;
+           // GameManager.instance.EnemyCount--;
             Destroy(gameObject);
         }
     }

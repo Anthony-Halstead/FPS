@@ -28,7 +28,7 @@ public class LoadingSceneManager : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
 
-            loadingBar.fillAmount = progress / 100f;
+            loadingBar.fillAmount = progress / 1f;
 
             yield return null;
         }

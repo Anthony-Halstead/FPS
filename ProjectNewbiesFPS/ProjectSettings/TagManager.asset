@@ -12,6 +12,15 @@ TagManager:
   - Interactable
   - AudioManager
   - PlayerSpawnPos
+  - FxTemporaire
+  - GateA
+  - Floor
+  - GateB
+  - GreenKey
+  - RedKey
+  - ForestGate
+  - BossGate
+  - IndustrialGate
   layers:
   - Default
   - TransparentFX
