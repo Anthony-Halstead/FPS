@@ -280,7 +280,7 @@ public class AIController : Spawnable, IDamage
         }
     }
 
-    void footStepSound()
+    void enemyFootSteps()
     {
         AudioManager.instance.playEnemy(AudioManager.instance.footStepWalking);
     }
