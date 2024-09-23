@@ -304,6 +304,7 @@ MonoBehaviour:
   muzzleFlashPrefab: {fileID: 100006, guid: c888f0c922d622147bbdbe2ca794142b, type: 3}
   muzzleFlashSpawnPoint: {fileID: 0}
   damageFlashDuration: 0.1
+  nightVision: {fileID: 0}
   _isSprinting: 0
   _isWalking: 0
   _isShooting: 0
@@ -710,6 +711,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1607842698364364049}
     m_Modifications:
+    - target: {fileID: 1840133916407411591, guid: 19c49b3d58f32b844af18779b47b32f9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840133916407411591, guid: 19c49b3d58f32b844af18779b47b32f9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840133916407411591, guid: 19c49b3d58f32b844af18779b47b32f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 5369336037070358837, guid: 19c49b3d58f32b844af18779b47b32f9, type: 3}
       propertyPath: m_Name
       value: Pistol

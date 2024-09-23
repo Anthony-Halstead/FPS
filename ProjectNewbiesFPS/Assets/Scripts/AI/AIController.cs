@@ -280,6 +280,11 @@ public class AIController : Spawnable, IDamage
         }
     }
 
+    void footStepSound()
+    {
+        AudioManager.instance.playEnemy(AudioManager.instance.footStepWalking);
+    }
+
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
