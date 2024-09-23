@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 56b14b6ecf5491641966fbc4a40a7e48, type: 2}
     - target: {fileID: 5416725119114855856, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 404.91193
+      value: 668.247
       objectReference: {fileID: 0}
     - target: {fileID: 5416725119114855856, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000004053116
+      value: 329.37994
       objectReference: {fileID: 0}
     - target: {fileID: 5416725119114855856, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 399.21063
+      value: -3.663
       objectReference: {fileID: 0}
     - target: {fileID: 5416725119114855856, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -60,9 +60,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6087436837747900094, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_MaxLimit
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087436837747900094, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_MinLimit
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087436837747900094, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Length
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042288535295444253, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_MaxLimit
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042288535295444253, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_MinLimit
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7042288535295444253, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Length
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149020681214061432, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.098
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149020681214061432, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.263
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149020681214061432, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218005160631159764, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c581a0634d2569848822a1d54b9224c2, type: 2}
+    - target: {fileID: 7272147645442146525, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c581a0634d2569848822a1d54b9224c2, type: 2}
+    - target: {fileID: 8272615348856049223, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_MaxLimit
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272615348856049223, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_MinLimit
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272615348856049223, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Length
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8493574111644994232, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
       propertyPath: m_Name
-      value: IntermediateEnemy
+      value: HeavyEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 8570601105125320743, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
       propertyPath: HP

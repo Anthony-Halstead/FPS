@@ -12,6 +12,8 @@ TagManager:
   - Interactable
   - AudioManager
   - PlayerSpawnPos
+  - GateA
+  - Cover
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - Spawnable
   - PostProcessing
   - Interactable
-  - 
+  - Cover
   - 
   - 
   - 
