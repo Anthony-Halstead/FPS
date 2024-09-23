@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 767761c65475fd54f923f81d5a304f57, type: 3}
+  m_Name: HeavyMG
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  prefab_rb: {fileID: 0}
+  sprite: {fileID: 0}
+  name: HeavyMG
+  dmg: 1
+  dist: 1
+  rate: 1
+  fireSpeed: 1
+  magazineCount: 0
+  reloadTime: 0
+  shootSFX: []
+  shootVol: 0
