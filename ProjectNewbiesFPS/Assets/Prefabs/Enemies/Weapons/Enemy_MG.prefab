@@ -249,7 +249,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1040217637181371408}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 93023328452415158}
   - component: {fileID: 6456493575181747630}
   m_Layer: 0
-  m_Name: Enemy_Rifle
+  m_Name: Enemy_MG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,7 +769,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.034, y: 0, z: 2.835}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2906415426957834367}
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a75f6e10d11be4188e288bc5dc828b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponObject: {fileID: 11400000, guid: 71f750cc531e7a74d87168607f047b69, type: 2}
+  _weaponObject: {fileID: 11400000, guid: 5e6deb26a6d295643bca6d32b8fba058, type: 2}
   gunSpeed: 0
   shootDamage: 0
   shootDist: 0
@@ -1205,7 +1205,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7619529312349623753}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1290,7 +1290,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7739192759878670099}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
