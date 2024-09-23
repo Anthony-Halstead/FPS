@@ -35,6 +35,7 @@ public class AIController : Spawnable, IDamage
     [SerializeField] private float shootRate;
     [SerializeField] float shootRange;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private Weapon weapon;
 
     [SerializeField, Tooltip("How long the AI should wait at each point when searching?")] private float timeToWait = 3;
     public Coroutine searchRoutine = null;
@@ -92,6 +93,12 @@ public class AIController : Spawnable, IDamage
         GameManager.instance.enemyAIScript.Add(this);
         GameManager.instance.enemyHealthBar.Add(healthBar);
         GameManager.instance.enemyHealthBarVisibility.Add(healthBarVisibility);
+        
+        weapon = GetComponentInChildren<Weapon>();
+        shootPos = weapon.GetFirePoint();
+        shootRate = weapon.GetShootRate();
+        shootRange = weapon.GetShootDist(); 
+
               
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
@@ -253,7 +260,8 @@ public class AIController : Spawnable, IDamage
     {
         IsShooting = true;   
         _animator.SetTrigger("Shoot");
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        GameObject clone = Instantiate(bullet, shootPos.position, transform.rotation);
+        clone.GetComponent<damage>().damageAmount = weapon.GetGunDamage();
         AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
         yield return new WaitForSeconds(shootRate);
         IsShooting = false;
