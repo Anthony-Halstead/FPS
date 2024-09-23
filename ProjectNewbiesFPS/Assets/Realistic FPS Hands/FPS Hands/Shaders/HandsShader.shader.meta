@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6715f195a6045e849a5b575d506671e6
+timeCreated: 1513771775
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107409
+  packageName: Realistic FPS Hands
+  packageVersion: 1.0
+  assetPath: Assets/Realistic FPS Hands/FPS Hands/Shaders/HandsShader.shader
+  uploadId: 225459

@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] CharacterController charController;
     [SerializeField] private LayerMask ignoreMask;
     [SerializeField] private Transform cameraPivotTransform;
-    public AudioManager audioManager;
+    public Animator animator;
     
 
     [Header("Player Stats - General")]
@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private List<WeaponObject> weaponsInInventory;
     [SerializeField] private List<GameObject> weaponsObjects;
     [SerializeField] private WeaponObject equippedWeapon;
+    [SerializeField] private Weapon currentWeapon;
     public int shootDamage;
     [SerializeField] private int shootDist;
     public float shootRate;
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour, IDamage
     public bool _isCrouching;
     public bool _isLeaning;
     public bool _canInteract;
+    public bool _isReloading;
     
     private Camera _mainCam;
 
@@ -137,6 +139,7 @@ public class PlayerController : MonoBehaviour, IDamage
         transform.position = GameManager.instance.playerSpawnPos.transform.position;
         charController.enabled = true;
         HP = HPMax;
+        currentWeapon = gun.GetComponent<Weapon>();
     }
 
     // Update is called once per frame
@@ -167,13 +170,12 @@ public class PlayerController : MonoBehaviour, IDamage
         if (gun == null) return;
         if (Input.GetMouseButton(1))
         {
-            gun.transform.position = Vector3.Lerp(gun.transform.position, adsPos.position, Time.deltaTime * gunSpeed);
+            animator.SetBool("ads", true);
             _mainCam.fieldOfView = 50f;
         }
         else
         {
-     
-            gun.transform.position = Vector3.Lerp(gun.transform.position, hipPos.position, Time.deltaTime * gunSpeed);
+            animator.SetBool("ads", false);
             _mainCam.fieldOfView = 60f;
         }
     }
@@ -232,10 +234,18 @@ public class PlayerController : MonoBehaviour, IDamage
         charController.Move(_playerVelocity * Time.deltaTime);
         _playerVelocity.y -= gravity * Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && !_isShooting)
+        if (Input.GetButton("Fire1") && !_isShooting && !_isReloading)
         {
             StartCoroutine(shoot());
         }
+
+        if (Input.GetButton("Reload") && !_isReloading && !_isShooting && currentWeapon.GetCurrentAmmo() > 0)
+        {
+            if (currentWeapon.GetCurrentClip() < currentWeapon.GetMagazineSize())
+            {
+                StartCoroutine(reload());
+            }
+        } 
     }
 
     IEnumerator walking()
@@ -427,7 +437,8 @@ public class PlayerController : MonoBehaviour, IDamage
             clone.transform.parent = gunSpawnPos;
             clone.transform.localRotation = Quaternion.Euler(0,0,0);
             gun = clone;
-            bulletsLeft = gun.GetComponent<Weapon>().GetCurrentAmmo();
+            currentWeapon = gun.GetComponent<Weapon>();
+            bulletsLeft = currentWeapon.GetCurrentAmmo();
             equippedWeapon = newWeapon;
             weaponsObjects.Add(clone);
             SendPickupDataToPlayerWeapon();
@@ -468,6 +479,7 @@ public class PlayerController : MonoBehaviour, IDamage
         equippedWeapon = weaponsInInventory[weaponIndex];
         gun.SetActive(false);
         gun = weaponsObjects[weaponIndex];
+        currentWeapon = gun.GetComponent<Weapon>();
         gun.SetActive(true);
         setGunValuesToPlayerValues(equippedWeapon);
 
@@ -521,9 +533,12 @@ public class PlayerController : MonoBehaviour, IDamage
     
     IEnumerator shoot()
     {
-        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentAmmo();
+        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
         if (bulletsLeft > 0)
         {
+
+            gun.GetComponent<Weapon>().UpdateCurrentClip(-1);
+            animator.SetTrigger("shoot");
             _isShooting = true;
 
             // for returning damage on what was hit
@@ -532,8 +547,7 @@ public class PlayerController : MonoBehaviour, IDamage
             // fire raycast in camera forward by shootDist variable and return info from hit
             if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
             {
-                gun.GetComponent<Weapon>().UpdateCurrentAmmo(-1);
-                bulletsLeft = gun.GetComponent<Weapon>().GetCurrentAmmo();
+                bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
                 
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -544,11 +558,11 @@ public class PlayerController : MonoBehaviour, IDamage
 
             }
             // Instantiate bullet
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+            //GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            //Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
             // Play bullet sound
-            audioManager.playSFX(audioManager.shootPistol);
+            AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
 
             // Instantiate muzzle flash
             GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
@@ -559,9 +573,20 @@ public class PlayerController : MonoBehaviour, IDamage
         }
     }
 
+    IEnumerator reload()
+    {
+        _isReloading = true;
+        animator.SetTrigger("reload");
+        
+        yield return new WaitForSeconds(gun.GetComponent<Weapon>().GetReloadTime());
+        
+        gun.GetComponent<Weapon>().ReloadAmmo();
+        _isReloading = false;
+    }
+
     public void TakeDamage(int amount, Vector3 origin)
     {
-        audioManager.playSFX(audioManager.playerHurt);
+        AudioManager.instance.playSFX(AudioManager.instance.playerHurt);
 
         HP -= amount;
         StartCoroutine(damageFlash());

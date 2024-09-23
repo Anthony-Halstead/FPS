@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f4a27eaccbccd914fa5542985aa111db
+timeCreated: 1513687082
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107409
+  packageName: Realistic FPS Hands
+  packageVersion: 1.0
+  assetPath: Assets/Realistic FPS Hands/FPS Hands/Materials/Detail.mat
+  uploadId: 225459
