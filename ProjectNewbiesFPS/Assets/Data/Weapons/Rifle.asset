@@ -16,9 +16,9 @@ MonoBehaviour:
   prefab_rb: {fileID: 0}
   sprite: {fileID: 0}
   name: Rifle
-  dmg: 20
+  dmg: 5
   dist: 1000
-  rate: 2
+  rate: 0.9
   fireSpeed: 2
   magazineCount: 8
   reloadTime: 5

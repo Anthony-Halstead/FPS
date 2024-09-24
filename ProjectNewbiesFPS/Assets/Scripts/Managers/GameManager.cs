@@ -268,7 +268,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Updating UI items during game
-        ammoText.text = playerScript.bulletsLeft + "/" + playerScript.magazineSize;
+        ammoText.text = playerScript.bulletsLeft + "/" + playerScript.ammoTotal;
       //  waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
        // enemyCountText.text = "" + enemyCount;

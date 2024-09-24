@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour, IDamage
     
   //  [SerializeField] private float shootRate;
     public int magazineSize;
+    public int ammoTotal;
 
     [Header("Interactable Settings")] 
     [SerializeField] private float interactDistance;
@@ -104,7 +105,8 @@ public class PlayerController : MonoBehaviour, IDamage
     public bool _isLeaning;
     public bool _canInteract;
     public bool _isReloading;
-    
+    public bool _isPlayingSprintAudio = false;
+
     private Camera _mainCam;
 
     private float horizInput;
@@ -132,6 +134,7 @@ public class PlayerController : MonoBehaviour, IDamage
         GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
         SpawnPlayer();
         bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
     }
 
     public void SpawnPlayer()
@@ -213,6 +216,13 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             _playerVelocity = Vector3.zero;
             _jumpCount = 0;
+
+            // Resume sprint audio if still sprinting and sprint audio is not playing
+            if (_isSprinting && !_isPlayingSprintAudio)
+            {
+                AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
+                _isPlayingSprintAudio = true; // Track that sprint audio is now playing
+            }
         }
         
         _moveDir = horizInput * transform.right +
@@ -228,9 +238,15 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
             AudioManager.instance.playSFX(AudioManager.instance.jump);
-
+           
             _jumpCount++;
             _playerVelocity.y = jumpSpeed;
+
+            if (_isSprinting)
+            { 
+                AudioManager.instance.stopMoveLoop();
+                _isPlayingSprintAudio = false;
+            }
         }
 
         charController.Move(_playerVelocity * Time.deltaTime);
@@ -261,7 +277,7 @@ public class PlayerController : MonoBehaviour, IDamage
     // handles player sprinting
     void sprint()
     {
-        
+
         if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
             //Play sprint loop
@@ -270,12 +286,15 @@ public class PlayerController : MonoBehaviour, IDamage
 
             speed *= sprintMod;
             _isSprinting = true;
-        } else if (Input.GetButtonUp("Sprint") && !_isCrouching)
+            _isPlayingSprintAudio = true;
+        } 
+        else if (Input.GetButtonUp("Sprint") && !_isCrouching)
         {
             AudioManager.instance.stopMoveLoop();
 
             speed = originalSpeed;
             _isSprinting = false;
+            _isPlayingSprintAudio = false;
         }
     }
 
@@ -442,6 +461,7 @@ public class PlayerController : MonoBehaviour, IDamage
             currentWeapon = gun.GetComponent<Weapon>();
             bulletsLeft = currentWeapon.GetCurrentAmmo();
             equippedWeapon = newWeapon;
+            animator = gun.GetComponent<Animator>();
             weaponsObjects.Add(clone);
             SendPickupDataToPlayerWeapon();
             setGunValuesToPlayerValues(equippedWeapon);
@@ -483,6 +503,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gun = weaponsObjects[weaponIndex];
         currentWeapon = gun.GetComponent<Weapon>();
         gun.SetActive(true);
+        animator = gun.GetComponent<Animator>();
         setGunValuesToPlayerValues(equippedWeapon);
 
     }
@@ -519,6 +540,7 @@ public class PlayerController : MonoBehaviour, IDamage
             if (weaponsInInventory.Count == 0)
             {
                 equippedWeapon = null;
+                animator = null;
             }
             else
             {
@@ -550,7 +572,8 @@ public class PlayerController : MonoBehaviour, IDamage
             if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
             {
                 bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
-                
+                ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
+
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
                 if (dmg != null)
@@ -585,6 +608,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gun.GetComponent<Weapon>().ReloadAmmo();
         _isReloading = false;
         bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
     }
 
     public void TakeDamage(int amount, Vector3 origin)
@@ -616,6 +640,12 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             grenadeRb.AddForce(firePoint.forward * grenadeForce, ForceMode.Impulse);
         }
+    }
+
+    public void UpdateTotalAmmo(int amount)
+    {
+        gun.GetComponent<Weapon>().UpdateCurrentAmmo(amount);
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
     }
     #endregion
 
