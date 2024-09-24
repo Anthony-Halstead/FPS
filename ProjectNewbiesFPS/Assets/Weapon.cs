@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour, IInteractable
     [SerializeField] private int shootDist;
     [SerializeField] private float shootRate;
     [SerializeField] private int magazineSize;
-
+  
     [SerializeField] private float reloadTime;
 
     [SerializeField] private Transform firePoint;
@@ -57,7 +57,7 @@ public class Weapon : MonoBehaviour, IInteractable
 
     public void ReloadAmmo()
     {
-        currentAmmo += currentClip - magazineSize;
+        currentAmmo = magazineSize;
         currentClip = magazineSize;
 
     }
