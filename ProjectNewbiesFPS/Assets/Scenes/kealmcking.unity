@@ -2460,6 +2460,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e60b9bdfa5d189e44b91680db5645e86, type: 3}
+--- !u!1 &730818781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3857622231843517732, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
+  m_PrefabInstance: {fileID: 804337926}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &740947272
 GameObject:
   m_ObjectHideFlags: 0
@@ -3013,6 +3018,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4e96a2d4117845148b484c5dd0f0ce4d, type: 2}
+    - target: {fileID: 3469880763529422470, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
+      propertyPath: _weaponObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 71f750cc531e7a74d87168607f047b69, type: 2}
     - target: {fileID: 3857622231843517732, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3025,6 +3034,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4633859767327297079, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
+      propertyPath: weaponsObjects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633859767327297079, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
+      propertyPath: 'weaponsObjects.Array.data[1]'
+      value: 
+      objectReference: {fileID: 730818781}
+    - target: {fileID: 4633859767327297079, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
+      propertyPath: weaponsInInventory.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633859767327297079, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
+      propertyPath: 'weaponsInInventory.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 71f750cc531e7a74d87168607f047b69, type: 2}
     - target: {fileID: 5561272319853728535, guid: 9b7285312bafa814ebb90594a61694da, type: 3}
       propertyPath: m_Controller
       value: 

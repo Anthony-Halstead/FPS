@@ -461,6 +461,7 @@ public class PlayerController : MonoBehaviour, IDamage
             currentWeapon = gun.GetComponent<Weapon>();
             bulletsLeft = currentWeapon.GetCurrentAmmo();
             equippedWeapon = newWeapon;
+            animator = gun.GetComponent<Animator>();
             weaponsObjects.Add(clone);
             SendPickupDataToPlayerWeapon();
             setGunValuesToPlayerValues(equippedWeapon);
@@ -502,6 +503,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gun = weaponsObjects[weaponIndex];
         currentWeapon = gun.GetComponent<Weapon>();
         gun.SetActive(true);
+        animator = gun.GetComponent<Animator>();
         setGunValuesToPlayerValues(equippedWeapon);
 
     }
@@ -538,6 +540,7 @@ public class PlayerController : MonoBehaviour, IDamage
             if (weaponsInInventory.Count == 0)
             {
                 equippedWeapon = null;
+                animator = null;
             }
             else
             {
