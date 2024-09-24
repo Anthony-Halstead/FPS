@@ -42,8 +42,6 @@ public class QuestManager : MonoBehaviour
         tower1Prefab = GameObject.FindWithTag("Tower1");
         tower2Prefab = GameObject.FindWithTag("Tower2");
 
-        
-
         //Getting Marker Scripts
         redKeyMarker = redKeyPrefab.GetComponent<QuestMarkers>();
         greenKeyMarker = greenKeyPrefab.GetComponent<QuestMarkers>();
@@ -52,6 +50,12 @@ public class QuestManager : MonoBehaviour
         bossGateMarker = bossGatePrefab.GetComponent<QuestMarkers>();
         tower1Marker = tower1Prefab.GetComponent<QuestMarkers>();
         tower2Marker = tower2Prefab.GetComponent<QuestMarkers>();
+
+    }
+    private void Start()
+    {
+
+        
     }
 
     // Update is called once per frame
