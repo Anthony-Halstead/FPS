@@ -1,22 +1,25 @@
+using NUnit.Framework.Constraints;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class AIController : Spawnable, IDamage
 {
     [Header("AnimationRig")]
     [SerializeField] Rig rig;
     [SerializeField] Transform defaultRigTarget;
+    public Transform DefaultRigTarget => defaultRigTarget;  
     [SerializeField] MultiAimConstraint head;
     [SerializeField] MultiAimConstraint body;
     [SerializeField] MultiAimConstraint rArm;
- 
+    [Tooltip("For dual weild use only"),SerializeField] MultiAimConstraint lArm;
+
 
     [Header("AI")]
     [SerializeField] private Renderer model;
@@ -24,63 +27,66 @@ public class AIController : Spawnable, IDamage
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform shootPos;
+    [Tooltip("For dual wield use only"), SerializeField] private Transform shootPosTwo;
     [SerializeField] private Transform headPos;
     [SerializeField] LayerMask playerLayerMask;
     [SerializeField] private int HP;
     [SerializeField] private int HPMax;
-    public Image healthBar;
+    public UnityEngine.UI.Image healthBar;
     public GameObject healthBarVisibility;
     [SerializeField] private int faceTargetSpeed;
     [SerializeField] float sightRange;
     [SerializeField] private float shootRate;
     [SerializeField] float shootRange;
     [SerializeField] private GameObject bullet;
+    private bool isTakingDamage = false;
+    public bool IsTakingDamage { get => isTakingDamage; set => isTakingDamage = value; }
+    private bool canTransition = false;
+    public bool CanTransition { get => canTransition; set => canTransition = value;}
     [SerializeField] private Weapon weapon;
 
     [SerializeField, Tooltip("How long the AI should wait at each point when searching?")] private float timeToWait = 3;
     public Coroutine searchRoutine = null;
     public Coroutine positionRoutine = null;
     [SerializeField, Tooltip("How long should the AI stay in the search state?")] private float searchLength = 20;
-    [SerializeField] private float actionCooldownTimer = 0f;
-    public float ActionCooldownTimer { get { return actionCooldownTimer; } set { actionCooldownTimer = Mathf.Max(value,0); } }
+    [Header("Cooldown Timers")]
+    [SerializeField] private float dodgeCooldownTimer = 0f;
+
+    public float DodgeCooldownTimer { get { return dodgeCooldownTimer; } set { if (value < 0) dodgeCooldownTimer = 0; else dodgeCooldownTimer = value; } }
+    [SerializeField] private float sweepCooldownTimer = 0f;
+    [SerializeField] float notificationLength = .5f;
+    public float SweepCooldownTimer { get { return sweepCooldownTimer; } set { if (value < 0) sweepCooldownTimer = 0; else sweepCooldownTimer = value; } }
+
     public float SearchLength => searchLength;
     private float currentTime;
     public float CurrentTime {  get { return currentTime; } set { currentTime = value; } }
     public bool IsShooting { get; set; }
 
     private Vector3 playerDir;
+    public Vector3 PlayerDirection => playerDir;
     public Vector3 playerPos { get; set; }
     public Vector3 lastSeenPlayerPos { get; set; }
-    private bool canMove = true;
-    public bool CanMove
-    {
-        get { return canMove; }
-        set
-        {
-
-            canMove = value;
-           
-        }
-    }
+   
     public bool PathFound { get; set; } = false;
     public NavMeshAgent Agent => agent;
     public Animator Anim => _animator;
- 
+    [SerializeField] float animSpeedTransition;
     [SerializeField] private State _defaultState;
     public State DefaultState => _defaultState;
-    [SerializeField] private State _chaseState;
+    //[SerializeField] private State _chaseState;
     [SerializeField,Tooltip("Do not add a state here from the inspector!")] private State _currentState;
     public State PreviousState { get;  set; }
 
     public Vector3 target = Vector3.zero;
     public Vector3 lookTarget = Vector3.zero;
     private float originalStopDistance;
+    public float duration;
     void Awake()
     {
         rig ??= GetComponentInChildren<Rig>();
         model ??= GetComponentInChildren<Renderer>();
         agent ??= GetComponent<NavMeshAgent>();
-
+        
 
         StopRig();
         originalStopDistance = agent.stoppingDistance;
@@ -93,6 +99,13 @@ public class AIController : Spawnable, IDamage
         GameManager.instance.enemyAIScript.Add(this);
         GameManager.instance.enemyHealthBar.Add(healthBar);
         GameManager.instance.enemyHealthBarVisibility.Add(healthBarVisibility);
+        head.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
+        body.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
+        rArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
+        if(lArm != null)
+        {
+            lArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
+        }
         
         weapon = GetComponentInChildren<Weapon>();
         shootPos = weapon.GetFirePoint();
@@ -102,8 +115,6 @@ public class AIController : Spawnable, IDamage
               
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
-        
-        //GameManager.instance.EnemyCount++;
         StopRig();
         TransitionToState(_defaultState);
     }
@@ -117,12 +128,18 @@ public class AIController : Spawnable, IDamage
 
     void TrackedStats()
     {
-        if(actionCooldownTimer > 0)
+        if(DodgeCooldownTimer > 0)
         {
-            actionCooldownTimer -= Time.deltaTime;
+            DodgeCooldownTimer -= Time.deltaTime;
         }
-        float clampedVelocity = Mathf.Clamp01(agent.velocity.magnitude);
-        _animator.SetFloat("AgentSpeed", clampedVelocity);
+        if (SweepCooldownTimer > 0)
+        {
+            SweepCooldownTimer -= Time.deltaTime;
+        }
+        float agentSpeed = agent.velocity.normalized.magnitude;
+        float animSpeed = _animator.GetFloat("AgentSpeed");
+
+        _animator.SetFloat("AgentSpeed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * animSpeedTransition));
         playerDir = GameManager.instance.player.transform.position - headPos.position;
         agent.SetDestination(target);        
         faceTarget(lookTarget - headPos.position);  
@@ -134,8 +151,6 @@ public class AIController : Spawnable, IDamage
         _currentState = state;
         _currentState?.EnterState(this);
     }
-
-
     public bool TargetIsVisible()
     {
         
@@ -171,7 +186,6 @@ public class AIController : Spawnable, IDamage
 
     public IEnumerator SearchSpot()
     {
-        Debug.Log("In coroutine");
         Vector3 final = Vector3.zero;
 
     
@@ -220,17 +234,17 @@ public class AIController : Spawnable, IDamage
             randomDirection += transform.position;  
             NavMeshPath path = new NavMeshPath();
             NavMeshHit hit;      
-            if (NavMesh.SamplePosition(randomDirection, out hit, range, 1 << walkableMask))
+            if (NavMesh.SamplePosition(randomDirection, out hit, range,1 << walkableMask))
             {
                 agent.CalculatePath(hit.position, path);
-
-                if (path.status == NavMeshPathStatus.PathComplete)
+                float distance = Vector3.Distance(transform.position, hit.position);
+                if (path.status == NavMeshPathStatus.PathComplete && distance <= range && distance >= 4 && path.corners.Length <= 3)
                 {
                     final = hit.position;
-                    agent.stoppingDistance = .2f;
+                    agent.stoppingDistance = 0f;
                     target = hit.position;
                     lookTarget = hit.position;
-                    
+                    PathFound = true;
                 }
             }
             else
@@ -242,7 +256,7 @@ public class AIController : Spawnable, IDamage
 
         yield return new WaitForSeconds(.5f);
         agent.stoppingDistance = originalStopDistance;
-        searchRoutine = null;
+        positionRoutine = null;
     }
     public IEnumerator GetOpenCoverPosition()
     {
@@ -266,16 +280,71 @@ public class AIController : Spawnable, IDamage
         yield return new WaitForSeconds(shootRate);
         IsShooting = false;
     }
-    
+    public IEnumerator SweepAttack(Vector3[] sweepPoints, float sweepSpeed)
+    {
+        IsShooting = true;
+        if(sweepPoints.Length < 2)
+        {
+            IsShooting = false;
+            yield break;
+        }
+       
+        
+        int randomStart = UnityEngine.Random.Range(0, sweepPoints.Length);
+        int randomFinish = (randomStart == 0) ? 1 : 0;
+
+        Vector3 startPoint  = sweepPoints[randomStart];
+        Vector3 finishPoint = sweepPoints[randomFinish];
+       
+        GameObject followObj = new GameObject("FollowTarget");
+        followObj.transform.position = startPoint;
+       
+      
+        float elapsedTime = 0f;
+        float totalDistance = Vector3.Distance(startPoint,finishPoint);
+        duration = totalDistance / sweepSpeed;
+        if (!_animator.GetBool("IsAttacking"))
+            _animator.SetBool("IsAttacking", true);
+        while (elapsedTime < duration)
+        {        
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            followObj.transform.position = Vector3.Lerp(startPoint, finishPoint, t);
+            
+            lookTarget = followObj.transform.position;
+            
+            AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+            yield return new WaitForSeconds(shootRate);
+        }
+        _animator.SetBool("IsAttacking", false);
+      
+        lookTarget = Vector3.zero;
+        Destroy(followObj);
+        IsShooting = false;
+    }
+    public IEnumerator TookDamageTimer()
+    {
+        isTakingDamage = true;
+        yield return new WaitForSeconds(notificationLength);
+        isTakingDamage = false;
+    }
+    public void CreateBullet()
+    {
+        Instantiate(bullet, shootPos.position, transform.rotation);
+    }
+    public void CreateBullets()
+    {
+        Instantiate(bullet, shootPos.position, shootPos.rotation);
+        Instantiate(bullet, shootPosTwo.position, shootPos.rotation);
+    }
     public void TakeDamage(int amount, Vector3 shooterPos)
     {
         StartCoroutine(flashColor());
-        
+        StartCoroutine(TookDamageTimer());
         
         HP -= amount;
         healthBar.fillAmount = (float)HP / HPMax;
-        if(!IsShooting)
-        TransitionToState(_chaseState);
+        
         if (HP <= 0)
         {
             healthBar.fillAmount = (float)HP / HPMax;
@@ -283,7 +352,7 @@ public class AIController : Spawnable, IDamage
             GameManager.instance.enemyAIScript.Remove(this);
             GameManager.instance.enemyAI.Remove(this.gameObject);
            
-           // GameManager.instance.EnemyCount--;
+    
             Destroy(gameObject);
         }
     }
@@ -311,6 +380,11 @@ public class AIController : Spawnable, IDamage
         body.data.sourceObjects.SetWeight(1, 1);
         rArm.data.sourceObjects.SetWeight(0, 0);
         rArm.data.sourceObjects.SetWeight(1, 1);
+        if(lArm != null)
+        {
+            lArm.data.sourceObjects.SetWeight(0, 0);
+            lArm.data.sourceObjects.SetWeight(1, 1);
+        }
         rig.weight = 1.0f;
     }
     public void StopRig()
@@ -321,6 +395,29 @@ public class AIController : Spawnable, IDamage
         body.data.sourceObjects.SetWeight(1, 0);
         rArm.data.sourceObjects.SetWeight(0, 1);
         rArm.data.sourceObjects.SetWeight(1, 0);
+        if (lArm != null)
+        {
+            lArm.data.sourceObjects.SetWeight(0, 1);
+            lArm.data.sourceObjects.SetWeight(1, 0);
+        }
         rig.weight = 0f;
     }
+    public void SetDualWeildRig()
+    {
+        head.data.sourceObjects.SetWeight(0, 1);
+        head.data.sourceObjects.SetWeight(1, 0);
+        body.data.sourceObjects.SetWeight(0, 1);
+        body.data.sourceObjects.SetWeight(1, 0);
+        rArm.data.sourceObjects.SetWeight(0, 1);
+        rArm.data.sourceObjects.SetWeight(1, 0);
+        lArm.data.sourceObjects.SetWeight(0, 1);
+        lArm.data.sourceObjects.SetWeight(1, 0);
+        rig.weight = 1.0f;
+    }
+    public void AwaitAnimation()
+    {
+        if(canTransition == false)
+            canTransition = true;
+    }
+   
 }

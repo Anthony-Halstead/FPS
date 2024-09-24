@@ -20,7 +20,7 @@ public class ChaseState : State
             controller.lookTarget = controller.lastSeenPlayerPos;
             controller.TransitionToState(searchState);
         }
-        if (controller.TargetIsVisible() && controller.TargetInShootRange()) 
+        if (controller.TargetIsVisible() && controller.TargetInShootRange() && !controller.IsShooting) 
         {
             controller.TransitionToState(attackState);
         }

@@ -12,6 +12,8 @@ TagManager:
   - Interactable
   - AudioManager
   - PlayerSpawnPos
+  - GateA
+  - Cover
   - FxTemporaire
   - GateA
   - Floor
@@ -36,7 +38,7 @@ TagManager:
   - Spawnable
   - PostProcessing
   - Interactable
-  - 
+  - Cover
   - 
   - 
   - 
