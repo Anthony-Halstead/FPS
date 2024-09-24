@@ -55,6 +55,10 @@ public class Weapon : MonoBehaviour, IInteractable
     {
         return currentAmmo;
     }
+    public void UpdateCurrentAmmo(int bullets)
+    {
+        currentAmmo += bullets;
+    }
 
     public void ReloadAmmo()
     {

@@ -621,6 +621,12 @@ public class PlayerController : MonoBehaviour, IDamage
             grenadeRb.AddForce(firePoint.forward * grenadeForce, ForceMode.Impulse);
         }
     }
+
+    public void UpdateTotalAmmo(int amount)
+    {
+        gun.GetComponent<Weapon>().UpdateCurrentAmmo(amount);
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
+    }
     #endregion
 
     #region Night Vision

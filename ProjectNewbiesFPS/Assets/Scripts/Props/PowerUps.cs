@@ -72,9 +72,9 @@ public class PowerUps : MonoBehaviour, IPowerUps
         }
         else if(other.CompareTag("Player") && magazineUpgrade)
         {
-            
-            GameManager.instance.playerScript.magazineSize += 30;
-            GameManager.instance.playerScript.bulletsLeft = GameManager.instance.playerScript.magazineSize;
+            int _magSize = GameManager.instance.playerScript.magazineSize;
+            GameManager.instance.playerScript.UpdateTotalAmmo(_magSize * 3);
+
             
             Destroy(gameObject);
         }
