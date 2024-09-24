@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour, IDamage
     
   //  [SerializeField] private float shootRate;
     public int magazineSize;
+    public int ammoTotal;
 
     [Header("Interactable Settings")] 
     [SerializeField] private float interactDistance;
@@ -132,6 +133,7 @@ public class PlayerController : MonoBehaviour, IDamage
         GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
         SpawnPlayer();
         bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
     }
 
     public void SpawnPlayer()
@@ -550,7 +552,8 @@ public class PlayerController : MonoBehaviour, IDamage
             if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
             {
                 bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
-                
+                ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
+
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
                 if (dmg != null)
@@ -585,6 +588,7 @@ public class PlayerController : MonoBehaviour, IDamage
         gun.GetComponent<Weapon>().ReloadAmmo();
         _isReloading = false;
         bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
     }
 
     public void TakeDamage(int amount, Vector3 origin)

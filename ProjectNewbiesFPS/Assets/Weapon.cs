@@ -19,6 +19,7 @@ public class Weapon : MonoBehaviour, IInteractable
     [SerializeField] private int startingAmmo;
     [SerializeField] private int currentAmmo;
     [SerializeField] private int currentClip;
+    [SerializeField] private int maxAmmo;
 
     public string interactionText;
     // Start is called before the first frame update
@@ -57,9 +58,17 @@ public class Weapon : MonoBehaviour, IInteractable
 
     public void ReloadAmmo()
     {
-        currentAmmo = magazineSize;
-        currentClip = magazineSize;
+        if (currentAmmo - magazineSize <= 0)
+        {
+            currentClip = currentAmmo;
+            currentAmmo = 0;
 
+        }
+        else
+        {
+            currentClip = magazineSize;
+            currentAmmo -= magazineSize;
+        }
     }
 
     public void UpdateCurrentClip(int bullets)
