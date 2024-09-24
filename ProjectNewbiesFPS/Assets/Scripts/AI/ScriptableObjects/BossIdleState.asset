@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 100aa79bf65c4b949bded17ceb2a2ab0, type: 3}
-  m_Name: GaurdStateWithDodge
+  m_Name: BossIdleState
   m_EditorClassIdentifier: 
   chaseState: {fileID: 11400000, guid: 50d97d50a58a83a4093474dd2a1daa03, type: 2}
   dodgeState: {fileID: 11400000, guid: 8ba18a0fa726b30499da18b5633371cd, type: 2}

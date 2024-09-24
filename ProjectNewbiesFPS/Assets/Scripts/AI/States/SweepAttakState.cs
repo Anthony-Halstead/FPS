@@ -2,12 +2,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SweepAttackState", menuName = "AI/State/SweepAttack")]
 public class SweepAttackState : State
 {
-    public State gaurdState;
+    public State idleState;
     [SerializeField] float sweepCooldown = 10f;
     [SerializeField] float sweepSpeed = 5f;
-    [SerializeField] float sweepDistance = 10f;
     [SerializeField] float sweepAngle = 45f;
-    [SerializeField] float sweepHeight = 1f;
+
 
     public override void EnterState(AIController controller)
     {
@@ -21,7 +20,7 @@ public class SweepAttackState : State
         if (!controller.IsShooting)
         {
             controller.SweepCooldownTimer = sweepCooldown;
-            controller.TransitionToState(gaurdState);
+            controller.TransitionToState(idleState);
         }
             
     }

@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GaurdState",menuName ="AI/State/Guard")]
-public class GuardState : State
+[CreateAssetMenu(fileName = "IdleState",menuName ="AI/State/Idle")]
+public class IdleState : State
 {
     public State chaseState;
     public State dodgeState;
