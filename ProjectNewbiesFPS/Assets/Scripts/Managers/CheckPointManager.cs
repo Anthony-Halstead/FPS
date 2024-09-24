@@ -8,11 +8,14 @@ public class CheckPointManager : MonoBehaviour
     //[SerializeField] GameObject industrialGate;
     //[SerializeField] GameObject bossGate;
     Animator animA;
+    Animator animB;
 
     [Header("Gate Bools")]
     [SerializeField] bool forestGateBool;
     [SerializeField] bool industrialGateBool;
     [SerializeField] bool bossGateBool;
+    [SerializeField] bool tower1Bool;
+    [SerializeField] bool tower2Bool;
 
     [Header("Colliders")]
     [SerializeField] BoxCollider collider;
@@ -23,7 +26,7 @@ public class CheckPointManager : MonoBehaviour
 
        // forestGate = GameObject.FindWithTag("GateA");
         animA = QuestManager.instance.forestGatePrefab.GetComponent<Animator>();
-
+        animB = QuestManager.instance.industrialGatePrefab.GetComponent<Animator>();
        
         collider = QuestManager.instance.industrialGatePrefab.GetComponent<BoxCollider>();
         
@@ -36,9 +39,9 @@ public class CheckPointManager : MonoBehaviour
         if (other.CompareTag("Player") && GameManager.instance.redKeyFound && GameManager.instance.playerSpawnPos.transform.position != transform.position && forestGateBool)
         {
             GameManager.instance.redkeySpriteImage.SetActive(false);
-            GameManager.instance.objectivesText.text = "OBJECTIVE: Find Green Key";
+            GameManager.instance.objectivesText.text = "OBJECTIVE: Destroy Communication Tower 2";
             GameManager.instance.playerSpawnPos.transform.position = transform.position;
-            
+
             animA.SetTrigger("OpenGate");
             QuestManager.instance.RemoveForestGateMarker();
             StartCoroutine(CheckpointPopup());
@@ -49,24 +52,36 @@ public class CheckPointManager : MonoBehaviour
             GameManager.instance.greenkeySpriteImage.SetActive(false);
             GameManager.instance.objectivesText.text = "OBJECTIVE:Find The Warehouse";
             GameManager.instance.playerSpawnPos.transform.position = transform.position;
-            collider.enabled = false;
+            animB.SetTrigger("OpenGate");
             QuestManager.instance.RemoveIndustrialGateMarker();
 
             StartCoroutine(CheckpointPopup());
         }
-        else if(other.CompareTag("Player") && GameManager.instance.playerSpawnPos.transform.position != transform.position && bossGateBool)
+        else if (other.CompareTag("Player") && GameManager.instance.playerSpawnPos.transform.position != transform.position && bossGateBool)
         {
             GameManager.instance.objectivesText.text = "OBJECTIVE: Defeat The Boss";
             GameManager.instance.playerSpawnPos.transform.position = transform.position;
             QuestManager.instance.RemoveBossGateMarker();
-            StartCoroutine (CheckpointPopup());
+            StartCoroutine(CheckpointPopup());
+        }
+        else if (other.CompareTag("Player") && tower1Bool)
+        {
+            GameManager.instance.playerSpawnPos.transform.position = transform.position;
+            StartCoroutine(CheckpointPopup());
+        }
+        else if(other.CompareTag("Player") && tower2Bool)
+        {
+            GameManager.instance.playerSpawnPos.transform.position = transform.position;
+            StartCoroutine(CheckpointPopup());
         }
     }
+
+
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Player") && forestGateBool)
         {
-            QuestManager.instance.AddGreenKeyMarker();
+            QuestManager.instance.AddTower2Marker();
             
         }
         else if(other.CompareTag("Player") && industrialGateBool)
@@ -77,6 +92,16 @@ public class CheckPointManager : MonoBehaviour
         else if(other.CompareTag("Player") && bossGateBool)
         {
             
+        }
+        else if(other.CompareTag("Player") && tower1Bool && GameManager.instance.isTower1Dead)
+        {
+            GameManager.instance.objectivesText.text = "OBJECTIVE: Find Red Key";
+            QuestManager.instance.AddRedKeyMarker();
+        }
+        else if (other.CompareTag("Player") && tower2Bool && GameManager.instance.isTower2Dead)
+        {
+            GameManager.instance.objectivesText.text = "OBJECTIVE: Find Green Key";
+            QuestManager.instance.AddGreenKeyMarker();
         }
     }
 

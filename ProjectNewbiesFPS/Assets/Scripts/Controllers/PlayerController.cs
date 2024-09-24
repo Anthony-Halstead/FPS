@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour, IDamage
         HP = HPMax;
         GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
         SpawnPlayer();
+        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
     }
 
     public void SpawnPlayer()
@@ -163,6 +164,7 @@ public class PlayerController : MonoBehaviour, IDamage
         swapWeapon();
         SetNightVision();
         prevPos = GameManager.instance.player.transform.position;
+        
     }
 
     public void swapFire()
@@ -582,6 +584,7 @@ public class PlayerController : MonoBehaviour, IDamage
         
         gun.GetComponent<Weapon>().ReloadAmmo();
         _isReloading = false;
+        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
     }
 
     public void TakeDamage(int amount, Vector3 origin)
