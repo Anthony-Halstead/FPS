@@ -105,7 +105,8 @@ public class PlayerController : MonoBehaviour, IDamage
     public bool _isLeaning;
     public bool _canInteract;
     public bool _isReloading;
-    
+    public bool _isPlayingSprintAudio = false;
+
     private Camera _mainCam;
 
     private float horizInput;
@@ -215,6 +216,13 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             _playerVelocity = Vector3.zero;
             _jumpCount = 0;
+
+            // Resume sprint audio if still sprinting and sprint audio is not playing
+            if (_isSprinting && !_isPlayingSprintAudio)
+            {
+                AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
+                _isPlayingSprintAudio = true; // Track that sprint audio is now playing
+            }
         }
         
         _moveDir = horizInput * transform.right +
@@ -230,9 +238,15 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
             AudioManager.instance.playSFX(AudioManager.instance.jump);
-
+           
             _jumpCount++;
             _playerVelocity.y = jumpSpeed;
+
+            if (_isSprinting)
+            { 
+                AudioManager.instance.stopMoveLoop();
+                _isPlayingSprintAudio = false;
+            }
         }
 
         charController.Move(_playerVelocity * Time.deltaTime);
@@ -263,7 +277,7 @@ public class PlayerController : MonoBehaviour, IDamage
     // handles player sprinting
     void sprint()
     {
-        
+
         if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
             //Play sprint loop
@@ -272,12 +286,15 @@ public class PlayerController : MonoBehaviour, IDamage
 
             speed *= sprintMod;
             _isSprinting = true;
-        } else if (Input.GetButtonUp("Sprint") && !_isCrouching)
+            _isPlayingSprintAudio = true;
+        } 
+        else if (Input.GetButtonUp("Sprint") && !_isCrouching)
         {
             AudioManager.instance.stopMoveLoop();
 
             speed = originalSpeed;
             _isSprinting = false;
+            _isPlayingSprintAudio = false;
         }
     }
 
