@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class QuestManager : MonoBehaviour
     public GameObject forestGatePrefab;
     public GameObject industrialGatePrefab;
     public GameObject bossGatePrefab;
+    public GameObject tower1Prefab;
+    public GameObject tower2Prefab;
 
     [Header("Markers")]
     public QuestMarkers redKeyMarker;
@@ -20,6 +23,8 @@ public class QuestManager : MonoBehaviour
     public QuestMarkers forestGateMarker;
     public QuestMarkers industrialGateMarker;
     public QuestMarkers bossGateMarker;
+    public QuestMarkers tower1Marker;
+    public QuestMarkers tower2Marker;
 
     public GameObject newMarker;
 
@@ -34,6 +39,10 @@ public class QuestManager : MonoBehaviour
         forestGatePrefab = GameObject.FindWithTag("GateA");
         industrialGatePrefab = GameObject.FindWithTag("IndustrialGate");
         bossGatePrefab = GameObject.FindWithTag("BossGate");
+        tower1Prefab = GameObject.FindWithTag("Tower1");
+        tower2Prefab = GameObject.FindWithTag("Tower2");
+
+        
 
         //Getting Marker Scripts
         redKeyMarker = redKeyPrefab.GetComponent<QuestMarkers>();
@@ -41,6 +50,8 @@ public class QuestManager : MonoBehaviour
         forestGateMarker = forestGatePrefab.GetComponent<QuestMarkers>();
         industrialGateMarker = industrialGatePrefab.GetComponent<QuestMarkers>();
         bossGateMarker = bossGatePrefab.GetComponent<QuestMarkers>();
+        tower1Marker = tower1Prefab.GetComponent<QuestMarkers>();
+        tower2Marker = tower2Prefab.GetComponent<QuestMarkers>();
     }
 
     // Update is called once per frame
@@ -63,14 +74,17 @@ public class QuestManager : MonoBehaviour
     }
     private void RemoveQuestMarker(QuestMarkers marker)
     {
-
-        foreach (QuestMarkers questMarker in GameManager.instance.questMarkers)
+        if (GameManager.instance.questMarkers.Count > 0)
         {
-            if (questMarker == marker)
-            {
-                GameManager.instance.questMarkers.Remove(marker);
-                Destroy(newMarker);
-            }
+            // foreach (QuestMarkers questMarker in GameManager.instance.questMarkers)
+            // {
+            // if (questMarker == marker)
+            // {
+            GameManager.instance.questMarkers.Clear();
+            Destroy(newMarker);
+            newMarker = null;
+              //  }
+           // }
         }
     }
 
@@ -87,7 +101,7 @@ public class QuestManager : MonoBehaviour
     //Add and Remove GreenKeyMarker
     public void AddGreenKeyMarker()
     {
-        Debug.Log("GreenKey Quest Added");
+        //Debug.Log("GreenKey Quest Added");
         AddQuestMarker(greenKeyMarker);
     }
     public void RemoveGreenKeyMarker()
@@ -123,5 +137,25 @@ public class QuestManager : MonoBehaviour
     public void RemoveBossGateMarker()
     {
         RemoveQuestMarker(bossGateMarker);
+    }
+
+    //Add and Remove tower1Marker
+    public void AddTower1Marker()
+    {
+        AddQuestMarker(tower1Marker);
+    }
+    public void RemoveTower1Marker()
+    {
+        RemoveQuestMarker(tower1Marker);
+    }
+
+    //Add and Remove tower2Marker
+    public void AddTower2Marker()
+    {
+        AddQuestMarker(tower2Marker);
+    }
+    public void RemoveTower2Marker()
+    {
+        RemoveQuestMarker(tower2Marker);
     }
 }

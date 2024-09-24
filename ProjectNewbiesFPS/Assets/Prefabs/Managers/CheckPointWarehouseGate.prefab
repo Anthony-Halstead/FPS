@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766891865394452586}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0065744882, y: -0.018161986, z: -0.003909823, w: 0.9998058}
+  m_LocalRotation: {x: 0.0065734913, y: -0.018158507, z: -0.0039127655, w: 0.9998059}
   m_LocalPosition: {x: 670.17, y: 331.79, z: 26.84}
   m_LocalScale: {x: 4.851184, y: 4.281545, z: 3.3953567}
   m_ConstrainProportionsScale: 0
@@ -67,6 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forestGateBool: 0
-  industrialGateBool: 1
+  industrialGateBool: 0
   bossGateBool: 1
+  tower1Bool: 0
+  tower2Bool: 0
   collider: {fileID: 0}

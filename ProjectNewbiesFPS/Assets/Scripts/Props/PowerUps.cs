@@ -72,9 +72,9 @@ public class PowerUps : MonoBehaviour, IPowerUps
         }
         else if(other.CompareTag("Player") && magazineUpgrade)
         {
-            
-            GameManager.instance.playerScript.magazineSize += 30;
-            GameManager.instance.playerScript.bulletsLeft = GameManager.instance.playerScript.magazineSize;
+            int _magSize = GameManager.instance.playerScript.magazineSize;
+            GameManager.instance.playerScript.UpdateTotalAmmo(_magSize * 3);
+
             
             Destroy(gameObject);
         }
@@ -105,8 +105,9 @@ public class PowerUps : MonoBehaviour, IPowerUps
             GameManager.instance.redKeyFound = true;
             GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
             GameManager.instance.redkeySpriteImage.SetActive(true);
-            QuestManager.instance.AddForestGateMarker();
+            
             QuestManager.instance.RemoveRedKeyMarker();
+            QuestManager.instance.AddForestGateMarker();
             Destroy(gameObject);
         }
         else if (other.CompareTag("Player") && greenKey)
@@ -114,6 +115,8 @@ public class PowerUps : MonoBehaviour, IPowerUps
             GameManager.instance.greenKeyFound = true;
             GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
             GameManager.instance.greenkeySpriteImage.SetActive(true);
+            
+            
             QuestManager.instance.RemoveGreenKeyMarker();
             QuestManager.instance.AddIndustrialGateMarker();
             Destroy(gameObject);
