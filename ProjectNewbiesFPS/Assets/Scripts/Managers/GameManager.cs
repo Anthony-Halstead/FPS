@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     //References for menu Objects, characterUI and money Text
+    [Header("Menu Objects")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
@@ -21,9 +23,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject tutorialMenu;
     [SerializeField] GameObject characterUI;
 
+    [Header("Compass")]
+    public RawImage compassImage;
+    public GameObject questIconPrefab;
+    //quest markers
+    public List<QuestMarkers> questMarkers = new List<QuestMarkers>();
+
+    float compassUnit;
+    public float maxDistance = 4000f;
+
+    [Header("InteractUI")]
     [SerializeField] private GameObject interactUI;
     [SerializeField] private TMP_Text interactText;
 
+    [Header("PickUp Objects")]
     [SerializeField] GameObject healthUpgrade;
     [SerializeField] GameObject magazineUpgrade;
     [SerializeField] GameObject shootRateUpgrade;
@@ -31,19 +44,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject killEnemiesUpgrade;
     [SerializeField] GameObject refillUpgrade;
 
+
+
     //Key Sprite Images
+    [Header("Key Sprites")]
     public GameObject redkeySpriteImage;
     public GameObject blackkeySpriteImage;
     public GameObject greenkeySpriteImage;
 
+
+
+    [Header("Checkpoint UI")]
     public GameObject checkpointPopUp;
 
-
-[SerializeField] GameObject dropBox;
-
+    [Header("DropBox")]
+    [SerializeField] GameObject dropBox;
     [SerializeField] Transform dropBoxSpawnPos;
     [SerializeField] Transform upgradeBoughtSpawnPos;
 
+    [Header("Shop Item Toggles")]
     [SerializeField] Toggle healthUpgrageToggle;
     [SerializeField] Toggle magazineUpgrageToggle;
     [SerializeField] Toggle shootRateUpgrageToggle;
@@ -51,21 +70,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] Toggle killEnemiesUpgrageToggle;
     [SerializeField] Toggle refillUpgradeToggle;
 
-    
-
-    [SerializeField] Toggle enemyHealthBarToggle;
-
-
+    [Header("Enemy Health Bar")]
     public List<GameObject> enemyHealthBarVisibility;
 
+    [Header("Texts")]
     public TextMeshProUGUI storeMoneyText;
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI enemyCountText;
     public TextMeshProUGUI objectivesText;
-    
+    public TMP_Text visText;
+    //[SerializeField] TMP_Text waveText;
 
-
+    [Header("Shop Item Costs")]
     [SerializeField] int healthUpgradeCost;
     [SerializeField] int magezineUpgradeCost;
     [SerializeField] int shootRateUpgradeCost;
@@ -73,20 +90,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] int killEnemiesUpgradeCost;
     [SerializeField] int refillUpgradeCost;
 
+    [Header("Options Menu Items")]
+    [SerializeField] Toggle enemyHealthBarToggle;
     [SerializeField] Slider masterVolumeSlider;
     [SerializeField] Slider musicVolumeSlider;
     [SerializeField] Slider sfxVolumeSlider;
     [SerializeField] Slider sensitivitySlider;
 
-    [SerializeField] TMP_Text waveText;
-    public TMP_Text visText;
 
+
+    [Header("Player UI")]
     //References for taking damage
     public GameObject damagePanel;
     public Image healthBar;
     public TextMeshProUGUI healthBarText;
     public List<Image> enemyHealthBar;
 
+    [Header("Script References")]
     //Player and script references
     public GameObject player;
     public PlayerController playerScript;
@@ -97,8 +117,12 @@ public class GameManager : MonoBehaviour
     public CameraController mainCameraController;
     public GameObject dropBoxObjectSpawned;
     public GameObject playerSpawnPos;
-    
 
+
+
+
+
+    [Header("Waves")]
     //Tracking Waves
     public static Action<int>WaveCount;
 
@@ -117,16 +141,8 @@ public class GameManager : MonoBehaviour
     public bool greenKeyFound;
 
     //Enemy Reference
-    private int enemyCount;
-    public int EnemyCount { get { return enemyCount; } set { 
-        enemyCount = value;
-            if(enemyCount <= 0)
-            {
-                NextWave();
-                WinGame();
-            }
-        } }
-    int wave = 1;
+   
+   // int wave = 1;
     
 
     //Time Reference
@@ -187,6 +203,13 @@ public class GameManager : MonoBehaviour
         //Show Tutorial Screen at start of game
        TutorialMenu();
 
+        
+    }
+
+    private void Start()
+    {
+        compassUnit = compassImage.rectTransform.rect.width / 360f;
+        QuestManager.instance.AddRedKeyMarker();
     }
 
     public void ToggleInteractionUI(bool toggle, string text)
@@ -244,9 +267,9 @@ public class GameManager : MonoBehaviour
 
         //Updating UI items during game
         ammoText.text = playerScript.bulletsLeft + "/" + playerScript.magazineSize;
-        waveText.text = "" + wave;
+      //  waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
-        enemyCountText.text = "" + enemyCount;
+       // enemyCountText.text = "" + enemyCount;
         healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
         visText.text = playerScript.getPlayerVisibility().ToString("F0") + "%";
 
@@ -260,6 +283,37 @@ public class GameManager : MonoBehaviour
                 
             }
         }
+
+        //Compass UI
+        compassImage.uvRect = new Rect(player.transform.localEulerAngles.y / 360, 0f, 1f, 1f);
+        
+        foreach(QuestMarkers marker in questMarkers)
+        {
+            marker.image.rectTransform.anchoredPosition = GetPosOnCompass(marker);
+
+            float dst = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), marker.position);
+            float scale = 0f;
+
+            if(dst < maxDistance)
+            {
+                scale = 1f - (dst / maxDistance);
+            }
+
+            marker.image.rectTransform.localScale = Vector3.one * scale;
+        }
+    }
+
+    //Methods for Quest Markers
+    
+
+    Vector2 GetPosOnCompass(QuestMarkers marker)
+    {
+        Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.z);
+        Vector2 playerFwd = new Vector2(player.transform.forward.x, player.transform.forward.z);
+
+        float angle = Vector2.SignedAngle(marker.position - playerPos, playerFwd);
+
+        return new Vector2(compassUnit * angle, 0f);
     }
 
     //Pausing Game Method
@@ -274,6 +328,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         characterUI.SetActive(false);
+        
     }
 
     //Unpausing Game Method
@@ -286,24 +341,25 @@ public class GameManager : MonoBehaviour
         menuActive.SetActive(isPaused);
         menuActive = null;
         characterUI.SetActive(true);
+
     }
 
     //Winning Game Method
     public void WinGame()
     {
-        if (wave == 10)
-        {
-            statePause();
-            menuActive = menuWin;
-            menuWin.SetActive(true);
-        }
+        //if (wave == 10)
+        //{
+        //    statePause();
+        //    menuActive = menuWin;
+        //    menuWin.SetActive(true);
+        //}
     }
 
-    public void NextWave()
-    {  
-        wave++;
-        SpawnWave();
-    }
+    //public void NextWave()
+    //{  
+    //    wave++;
+    //    SpawnWave();
+    //}
 
 
     //Losing Game Method
@@ -486,12 +542,12 @@ public class GameManager : MonoBehaviour
     }
 
     //Spawning a wave
-    void SpawnWave()
-    {
-        WaveCount.Invoke(wave);
+    //void SpawnWave()
+    //{
+    //    WaveCount.Invoke(wave);
         
-            SpawnManager.instance.TriggerAllSpawnPoints();
-    }
+    //        SpawnManager.instance.TriggerAllSpawnPoints();
+    //}
 
     //Opening Tutorial Menu from Options menu
     public void TutorialMenu()

@@ -36,7 +36,6 @@ public class lightDetection : MonoBehaviour
             float playerDistance = Vector3.Distance(collider.bounds.center, player.transform.position);
             float lightPercent = Mathf.InverseLerp(maxVisDist, minVisDist, playerDistance);
             player.modPlayerVisibility(lightPercent);
-            Debug.Log("Light contribution: " + lightPercent);
         }
     }
 

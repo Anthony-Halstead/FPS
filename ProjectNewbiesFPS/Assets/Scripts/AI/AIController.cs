@@ -43,6 +43,8 @@ public class AIController : Spawnable, IDamage
     public bool IsTakingDamage { get => isTakingDamage; set => isTakingDamage = value; }
     private bool canTransition = false;
     public bool CanTransition { get => canTransition; set => canTransition = value;}
+    [SerializeField] private Weapon weapon;
+
     [SerializeField, Tooltip("How long the AI should wait at each point when searching?")] private float timeToWait = 3;
     public Coroutine searchRoutine = null;
     public Coroutine positionRoutine = null;
@@ -104,6 +106,13 @@ public class AIController : Spawnable, IDamage
         {
             lArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         }
+        
+        weapon = GetComponentInChildren<Weapon>();
+        shootPos = weapon.GetFirePoint();
+        shootRate = weapon.GetShootRate();
+        shootRange = weapon.GetShootDist(); 
+
+              
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
         StopRig();
@@ -265,7 +274,8 @@ public class AIController : Spawnable, IDamage
     {
         IsShooting = true;   
         _animator.SetTrigger("Shoot");
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        GameObject clone = Instantiate(bullet, shootPos.position, transform.rotation);
+        clone.GetComponent<damage>().damageAmount = weapon.GetGunDamage();
         AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
         yield return new WaitForSeconds(shootRate);
         IsShooting = false;
@@ -345,6 +355,11 @@ public class AIController : Spawnable, IDamage
     
             Destroy(gameObject);
         }
+    }
+
+    void enemyFootSteps()
+    {
+        AudioManager.instance.playEnemy(AudioManager.instance.footStepWalking);
     }
 
     IEnumerator flashColor()

@@ -12,10 +12,13 @@ public class Weapon : MonoBehaviour, IInteractable
     [SerializeField] private float shootRate;
     [SerializeField] private int magazineSize;
 
+    [SerializeField] private float reloadTime;
+
     [SerializeField] private Transform firePoint;
 
     [SerializeField] private int startingAmmo;
     [SerializeField] private int currentAmmo;
+    [SerializeField] private int currentClip;
 
     public string interactionText;
     // Start is called before the first frame update
@@ -27,12 +30,19 @@ public class Weapon : MonoBehaviour, IInteractable
         shootDist = _weaponObject.dist;
         shootRate = _weaponObject.rate;
         magazineSize = _weaponObject.magazineCount;
+        currentClip = magazineSize;
+        reloadTime = _weaponObject.reloadTime;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public float GetReloadTime()
+    {
+        return reloadTime;
     }
 
     public int GetStartingAmmo()
@@ -45,9 +55,22 @@ public class Weapon : MonoBehaviour, IInteractable
         return currentAmmo;
     }
 
-    public void UpdateCurrentAmmo(int bullets)
+    public void ReloadAmmo()
     {
-        currentAmmo += bullets;
+        currentAmmo += currentClip - magazineSize;
+        currentClip = magazineSize;
+
+    }
+
+    public void UpdateCurrentClip(int bullets)
+    {
+        currentClip += bullets;
+    }
+    
+
+    public int GetCurrentClip()
+    {
+        return currentClip;
     }
 
     public Transform GetFirePoint()

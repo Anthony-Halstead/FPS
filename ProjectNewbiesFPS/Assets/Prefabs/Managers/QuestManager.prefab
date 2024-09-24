@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8559728175079313077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5079484450111123317}
+  - component: {fileID: 6236222582563314663}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5079484450111123317
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8559728175079313077}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 670.4746, y: 336.4551, z: 49.75252}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6236222582563314663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8559728175079313077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fed96e5e4264d24eacd0d8af8fd538e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redKeyPrefab: {fileID: 0}
+  greenKeyPrefab: {fileID: 0}
+  forestGatePrefab: {fileID: 0}
+  industrialGatePrefab: {fileID: 0}
+  bossGatePrefab: {fileID: 0}
+  redKeyMarker: {fileID: 0}
+  greenKeyMarker: {fileID: 0}
+  forestGateMarker: {fileID: 0}
+  industrialGateMarker: {fileID: 0}
+  bossGateMarker: {fileID: 0}
+  newMarker: {fileID: 0}
