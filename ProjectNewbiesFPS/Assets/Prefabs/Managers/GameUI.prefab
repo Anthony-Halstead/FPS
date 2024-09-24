@@ -4391,6 +4391,8 @@ MonoBehaviour:
   redkeySpriteImage: {fileID: 1817360533793328968}
   blackkeySpriteImage: {fileID: 5799877084218216914}
   greenkeySpriteImage: {fileID: 5202942922756231844}
+  isTower1Dead: 0
+  isTower2Dead: 0
   checkpointPopUp: {fileID: 904659443328488943}
   dropBox: {fileID: 3258043981817652478, guid: ea798177e8448864d8907f510bacc5e4, type: 3}
   dropBoxSpawnPos: {fileID: 0}
