@@ -4378,6 +4378,8 @@ MonoBehaviour:
   characterUI: {fileID: 3837279532293607209}
   compassImage: {fileID: 8924407218547977212}
   questIconPrefab: {fileID: 4020273501246502302, guid: a75e0f65c376e934fb647b74208b956b, type: 3}
+  questMarkers: []
+  maxDistance: 3000
   interactUI: {fileID: 3126880823924783586}
   interactText: {fileID: 8461737315924169648}
   healthUpgrade: {fileID: 378334508266577950, guid: e94711451283b5e4ea97dd9bec1c8506, type: 3}
@@ -4399,24 +4401,24 @@ MonoBehaviour:
   doubleDamageUpgrageToggle: {fileID: 6920314406641366536}
   killEnemiesUpgrageToggle: {fileID: 7439562094428676142}
   refillUpgradeToggle: {fileID: 2934689945238405222}
-  enemyHealthBarToggle: {fileID: 6247043700406937495}
   enemyHealthBarVisibility: []
   storeMoneyText: {fileID: 7895465084879178766}
   moneyText: {fileID: 1975954776784877933}
   ammoText: {fileID: 3417271937118077337}
   enemyCountText: {fileID: 0}
   objectivesText: {fileID: 5594239366997227971}
+  visText: {fileID: 5958612153146163270}
   healthUpgradeCost: 0
   magezineUpgradeCost: 0
   shootRateUpgradeCost: 0
   doubleDamageUpgradeCost: 0
   killEnemiesUpgradeCost: 0
   refillUpgradeCost: 0
+  enemyHealthBarToggle: {fileID: 6247043700406937495}
   masterVolumeSlider: {fileID: 1298132453453976932}
   musicVolumeSlider: {fileID: 4179781333572610897}
   sfxVolumeSlider: {fileID: 2156383365191196648}
   sensitivitySlider: {fileID: 5547400268542423906}
-  visText: {fileID: 5958612153146163270}
   damagePanel: {fileID: 7856800314696884222}
   healthBar: {fileID: 1754476414932783031}
   healthBarText: {fileID: 7438074085316124514}
@@ -4430,8 +4432,6 @@ MonoBehaviour:
   mainCameraController: {fileID: 0}
   dropBoxObjectSpawned: {fileID: 0}
   playerSpawnPos: {fileID: 0}
-  questMarkers: []
-  maxDistance: 3000
   redKeyFound: 0
   blackKeyFound: 0
   greenKeyFound: 0
