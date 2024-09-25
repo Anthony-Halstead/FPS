@@ -23,4 +23,5 @@ public class WeaponObject : ScriptableObject
     public AudioClip[] shootSFX;
     public AudioClip[] reloadSFX;
     public float shootVol;
+    public float reloadVol;
 }

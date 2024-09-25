@@ -116,6 +116,26 @@ public class Weapon : MonoBehaviour, IInteractable
         return magazineSize;
     }
 
+    public AudioClip[] GetShootClip()
+    {
+        return _weaponObject.shootSFX;
+    }
+
+    public float GetShootVol()
+    {
+        return _weaponObject.shootVol;
+    }
+
+    public AudioClip[] GetReloadClip()
+    {
+        return _weaponObject.reloadSFX;
+    }
+
+    public float GetReloadVol()
+    {
+        return _weaponObject.reloadVol;
+    }
+
     public WeaponObject GetWeaponObject()
     {
         return _weaponObject;

@@ -276,7 +276,7 @@ public class AIController : Spawnable, IDamage
         _animator.SetTrigger("Shoot");
         GameObject clone = Instantiate(bullet, shootPos.position, transform.rotation);
         clone.GetComponent<damage>().damageAmount = weapon.GetGunDamage();
-        //AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+        AudioManager.instance.playEnemy(AudioManager.instance.enemyShoot, AudioManager.instance.enemyShootVol);
         yield return new WaitForSeconds(shootRate);
         IsShooting = false;
     }
@@ -313,7 +313,7 @@ public class AIController : Spawnable, IDamage
             
             lookTarget = followObj.transform.position;
             
-            //AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+            AudioManager.instance.playEnemy(AudioManager.instance.enemyShoot, AudioManager.instance.enemyShootVol);
             yield return new WaitForSeconds(shootRate);
         }
         _animator.SetBool("IsAttacking", false);
@@ -359,13 +359,13 @@ public class AIController : Spawnable, IDamage
 
     void enemyFootSteps()
     {
-        //AudioManager.instance.playEnemy(AudioManager.instance.footStepsGrass);
+        AudioManager.instance.playEnemy(AudioManager.instance.footStepsForest[UnityEngine.Random.Range(0, AudioManager.instance.footStepsForest.Length)], AudioManager.instance.footStepsVol);
     }
 
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
-        //AudioManager.instance.playSFX(AudioManager.instance.enemyHurt);
+        AudioManager.instance.playEnemy(AudioManager.instance.hurt[UnityEngine.Random.Range(0, AudioManager.instance.footStepsForest.Length)], AudioManager.instance.hurtVol);
 
         yield return new WaitForSeconds(0.1f);
         

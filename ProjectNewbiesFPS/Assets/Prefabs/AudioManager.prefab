@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 6776676642200378293, guid: 9701eabff8b358346a147aff03a1e502, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -89,7 +89,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   musicTown: {fileID: 0}
   musicIndustrial: {fileID: 0}
   musicBoss: {fileID: 0}
-  musicVol: 0
+  musicVol: 0.5
   footStepsForest:
   - {fileID: 8300000, guid: 0609acde86b59a2458aaf135531f8756, type: 3}
   - {fileID: 8300000, guid: fdfa07727ba18e146b0d737f16110ba5, type: 3}
@@ -230,18 +230,32 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0810c6bbffb6c0143984f3145f710f69, type: 3}
   - {fileID: 8300000, guid: ebd381bfafa32b844a6954fc40a08c2e, type: 3}
   - {fileID: 8300000, guid: 5c3c2c44515d6fe44a395faf0741edc0, type: 3}
-  footStepsVol: 0
+  footStepsVol: 0.5
   crouchDown: {fileID: 8300000, guid: 4d4ef7516a431934681038a3dc391e55, type: 3}
   crouchUp: {fileID: 8300000, guid: 482611fe6bc559142a00be6e726b4862, type: 3}
-  crouchVol: 0
+  crouchVol: 0.5
   jump:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  jumpVol: 0
-  explosion: {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
-  explosionVol: 0
-  shootBow: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
+  - {fileID: 8300000, guid: e9c38dea2cb800e4cb2c3c047977bcc5, type: 3}
+  - {fileID: 8300000, guid: cb5fc1d775e6d274db17d79d19805c6c, type: 3}
+  - {fileID: 8300000, guid: 34188cfc462a54a4c890a4a5d8cffb20, type: 3}
+  jumpVol: 0.5
+  explosion:
+  - {fileID: 8300000, guid: fc96116dc3c141440aabb5605744fea2, type: 3}
+  explosionVol: 0.5
+  playerThrow:
+  - {fileID: 8300000, guid: 7b38b1b758f207b48a4a78cd0b7b94fa, type: 3}
+  - {fileID: 8300000, guid: 705d9285ed4fbf44bb8de3b4f75ff969, type: 3}
+  - {fileID: 8300000, guid: da94ae3b663d65d479e5cc2233043cb4, type: 3}
+  - {fileID: 8300000, guid: ada4319dc7b507547bfefbeda133745b, type: 3}
+  - {fileID: 8300000, guid: 2dfa86b34e1ee444587f27ba295aa46b, type: 3}
+  - {fileID: 8300000, guid: 8ad8e1b7041dd394aa92aad52c8636e5, type: 3}
+  - {fileID: 8300000, guid: 79f48574cbf0be842b5c7133147f3f9f, type: 3}
+  - {fileID: 8300000, guid: 425b173908d24124facd5a0b17af5f52, type: 3}
+  - {fileID: 8300000, guid: 63b52e0320e1cd54788f1e7495d101c1, type: 3}
+  - {fileID: 8300000, guid: ac1cb04ab9cfeb74c8de45aa81c06351, type: 3}
+  throwVol: 0.5
+  enemyShoot: {fileID: 8300000, guid: 24c7070b369c71542a9acedbbfee4857, type: 3}
+  enemyShootVol: 0.5
   meleeUnarmedHit: {fileID: 8300000, guid: 1f53a5fc6bd934e46a5d8cfa8fd27b64, type: 3}
   meleeUnarmedMiss: {fileID: 8300000, guid: 4d4ef7516a431934681038a3dc391e55, type: 3}
   meleeBluntHit: {fileID: 8300000, guid: 1e3312d22540aa14597a1fb4739f2782, type: 3}
@@ -252,29 +266,55 @@ MonoBehaviour:
   potionHealth: {fileID: 0}
   trapPlace: {fileID: 8300000, guid: 68058b7dc40be724cb1ac5a1be3265ba, type: 3}
   trapActivate: {fileID: 8300000, guid: 5aa948679296f2649802b2f562804537, type: 3}
-  trapVol: 0
-  landForest: []
-  landWood: []
-  landConcrete: []
-  landRocky: []
-  landVol: 0
-  hurt: []
-  hurtVol: 0
-  dropBox: {fileID: 8300000, guid: aba3270755269dc4b834dde6e1d3cae9, type: 3}
-  keyPickUp: {fileID: 0}
-  upgradePickUp: {fileID: 0}
-  pickUpVol: 0
+  trapVol: 0.5
+  landForest:
+  - {fileID: 8300000, guid: c025c43d1749af5469c7dd8af13e162f, type: 3}
+  - {fileID: 8300000, guid: 65713fdea647c1949961f91d42bed416, type: 3}
+  - {fileID: 8300000, guid: 684d90e2defae1547a1d51bec24e6e9d, type: 3}
+  - {fileID: 8300000, guid: 419336aa8912ae0468e104596863a0a1, type: 3}
+  - {fileID: 8300000, guid: 68058b7dc40be724cb1ac5a1be3265ba, type: 3}
+  - {fileID: 8300000, guid: ea59d39fa74faef4691d27695d8fd0bb, type: 3}
+  - {fileID: 8300000, guid: c7b9c820050cb3b429a80eac208e1376, type: 3}
+  landWood:
+  - {fileID: 8300000, guid: 82ef6eaed5d940240a305b0266087f97, type: 3}
+  - {fileID: 8300000, guid: 419336aa8912ae0468e104596863a0a1, type: 3}
+  landConcrete:
+  - {fileID: 8300000, guid: 64baa1f44691afc42a584e482cd9a27d, type: 3}
+  - {fileID: 8300000, guid: 419336aa8912ae0468e104596863a0a1, type: 3}
+  - {fileID: 8300000, guid: 738e3bff6c9edfe409dcb5b68d82d66a, type: 3}
+  landRocky:
+  - {fileID: 8300000, guid: 622f42e8d781b8a44b119174e4ed9708, type: 3}
+  - {fileID: 8300000, guid: 18524d7f295d11b40a2b7bd3d9ef3561, type: 3}
+  - {fileID: 8300000, guid: 419336aa8912ae0468e104596863a0a1, type: 3}
+  - {fileID: 8300000, guid: 29536eb6a0b57b04596917e9e6193bcb, type: 3}
+  landVol: 0.5
+  hurt:
+  - {fileID: 8300000, guid: e7e68999e5d01fa44bd1b54990d08d1b, type: 3}
+  - {fileID: 8300000, guid: 2008b82462e6c064a9c0f7466aa7e67f, type: 3}
+  - {fileID: 8300000, guid: 524a250978f8ab341ba94dcb29377d6f, type: 3}
+  - {fileID: 8300000, guid: 550b3b30d8b68b4428f606bbd7e9864f, type: 3}
+  - {fileID: 8300000, guid: fbe7524b8863352449e9edbd9b4d192b, type: 3}
+  - {fileID: 8300000, guid: 29cca252146a6194aa873695d1dddf7b, type: 3}
+  hurtVol: 0.5
+  dropBox:
+  - {fileID: 8300000, guid: 1e3312d22540aa14597a1fb4739f2782, type: 3}
+  - {fileID: 8300000, guid: d0f166575306db84091dc03fce0eff69, type: 3}
+  - {fileID: 8300000, guid: 58a5d36d6b134014ea5623d9802082e2, type: 3}
+  pickUp:
+  - {fileID: 8300000, guid: a8cc663b2ae453149904b8ccb93a10c2, type: 3}
+  - {fileID: 8300000, guid: 589a846869d8372499390ba6b22e9a26, type: 3}
+  pickUpVol: 0.5
   checkPointTrigger: {fileID: 8300000, guid: f5c5f438581b89c4b96789e177c6254a, type: 3}
-  checkPointVol: 0
+  checkPointVol: 0.5
   menuUp: {fileID: 8300000, guid: 80d3799791748ac42b3ec097c17a2383, type: 3}
   menuDown: {fileID: 8300000, guid: 52104bc3637e70540be457e0ba1ba9cd, type: 3}
   menuClick: {fileID: 8300000, guid: 245965889d0a183438ef3478b27122c0, type: 3}
   menuWin: {fileID: 8300000, guid: 06a0420f8524f54458b313c29fbfd2b1, type: 3}
   menuLose: {fileID: 8300000, guid: 15e9f634e944e104dab8ac20d84b5e12, type: 3}
   menuSlider: {fileID: 8300000, guid: f10e7ff812627164fa39911459400577, type: 3}
-  menuVol: 0
+  menuVol: 0.5
   walkSpeedMod: 0.8
-  sprintSpeedMod: 0
+  sprintSpeedMod: 0.3
 --- !u!82 &-6782015543472707791
 AudioSource:
   m_ObjectHideFlags: 0
@@ -287,7 +327,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 9701eabff8b358346a147aff03a1e502, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -418,7 +458,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 6776676642200378293, guid: 9701eabff8b358346a147aff03a1e502, type: 2}
   m_audioClip: {fileID: 8300000, guid: 245965889d0a183438ef3478b27122c0, type: 3}
   m_Resource: {fileID: 8300000, guid: 245965889d0a183438ef3478b27122c0, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -547,7 +587,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 6776676642200378293, guid: 9701eabff8b358346a147aff03a1e502, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -37,7 +37,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] explosion;         //Bombs/traps
     [Range(0, 1)] public float explosionVol;
     public AudioClip[] playerThrow;
-    [Range(0, 1)] public float throwVol; 
+    [Range(0, 1)] public float throwVol;
+    public AudioClip enemyShoot;
+    [Range(0, 1)] public float enemyShootVol;
 
     [Header("------------------- Melee SFX")]
     public AudioClip meleeUnarmedHit;   //Fists

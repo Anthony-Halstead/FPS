@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour, IDamage
     public int HPMax;
     public float speed;
     public int money = 50;
-    private Vector3 prevPos;
     [SerializeField] private float originalSpeed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float crouchMod;
@@ -166,8 +165,6 @@ public class PlayerController : MonoBehaviour, IDamage
         dropCurrentWeapon();
         swapWeapon();
         SetNightVision();
-        prevPos = GameManager.instance.player.transform.position;
-        
     }
 
     public void swapFire()
@@ -230,9 +227,9 @@ public class PlayerController : MonoBehaviour, IDamage
         charController.Move(_moveDir * (speed * Time.deltaTime));
 
         //Player has moved
-        if (prevPos != GameManager.instance.player.transform.position && !_isSprinting && !_isWalking && charController.isGrounded)
+        if (charController.isGrounded && _moveDir.magnitude > 0.3f && !_isWalking)
         {
-            StartCoroutine(walking());
+            StartCoroutine(playFootSteps());
         }
 
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
@@ -266,11 +263,19 @@ public class PlayerController : MonoBehaviour, IDamage
         } 
     }
 
-    IEnumerator walking()
+    IEnumerator playFootSteps()
     {
         _isWalking = true;
-        //AudioManager.instance.playMove(AudioManager.instance.footStepsGrass);
-        yield return new WaitForSeconds(0.8f); //Reset this later
+        AudioClip footstepClip = AudioManager.instance.footStepsForest[Random.Range(0, AudioManager.instance.footStepsForest.Length)];
+        AudioManager.instance.playMove(footstepClip, AudioManager.instance.footStepsVol);
+
+        if (!_isSprinting)
+        {
+            yield return new WaitForSeconds(AudioManager.instance.walkSpeedMod);
+        } else
+        {
+            yield return new WaitForSeconds(AudioManager.instance.sprintSpeedMod);
+        }
         _isWalking = false;
     }
 
@@ -280,10 +285,6 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
-            //Play sprint loop
-            //AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
-
-
             speed *= sprintMod;
             _isSprinting = true;
             _isPlayingSprintAudio = true;
@@ -303,7 +304,7 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         if (Input.GetButtonDown("Crouch") && !_isSprinting)
         {
-            AudioManager.instance.playMove(AudioManager.instance.crouchDown);
+            AudioManager.instance.playMove(AudioManager.instance.crouchDown, AudioManager.instance.crouchVol);
 
             speed *= crouchMod;
             newHeight = crouchHeight;
@@ -311,7 +312,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
         else if (Input.GetButtonUp("Crouch") && !_isSprinting)
         {
-            AudioManager.instance.playMove(AudioManager.instance.crouchUp);
+            AudioManager.instance.playMove(AudioManager.instance.crouchUp, AudioManager.instance.crouchVol);
 
             speed = originalSpeed;
             newHeight = originalHeight;
@@ -587,7 +588,9 @@ public class PlayerController : MonoBehaviour, IDamage
             //Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
             // Play bullet sound
-            //AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+            AudioClip shootClip = gun.GetComponent<Weapon>().GetShootClip()[Random.Range(0, gun.GetComponent<Weapon>().GetShootClip().Length)];
+            float shootVol = gun.GetComponent<Weapon>().GetShootVol();
+            AudioManager.instance.playSFX(shootClip, shootVol);
 
             // Instantiate muzzle flash
             GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
