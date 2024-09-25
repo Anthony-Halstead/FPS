@@ -598,7 +598,8 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         _isReloading = true;
         animator.SetTrigger("reload");
-        
+
+        AudioManager.instance.playSFX(gun.GetComponent<Weapon>().GetReloadClip()[Random.Range(0, gun.GetComponent<Weapon>().GetReloadClip().Length)], gun.GetComponent<Weapon>().GetReloadVol());
         yield return new WaitForSeconds(gun.GetComponent<Weapon>().GetReloadTime());
         
         gun.GetComponent<Weapon>().ReloadAmmo();
