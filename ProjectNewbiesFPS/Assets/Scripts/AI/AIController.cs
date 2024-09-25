@@ -276,7 +276,7 @@ public class AIController : Spawnable, IDamage
         _animator.SetTrigger("Shoot");
         GameObject clone = Instantiate(bullet, shootPos.position, transform.rotation);
         clone.GetComponent<damage>().damageAmount = weapon.GetGunDamage();
-        AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+        //AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
         yield return new WaitForSeconds(shootRate);
         IsShooting = false;
     }
@@ -313,7 +313,7 @@ public class AIController : Spawnable, IDamage
             
             lookTarget = followObj.transform.position;
             
-            AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+            //AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
             yield return new WaitForSeconds(shootRate);
         }
         _animator.SetBool("IsAttacking", false);
@@ -359,13 +359,13 @@ public class AIController : Spawnable, IDamage
 
     void enemyFootSteps()
     {
-        AudioManager.instance.playEnemy(AudioManager.instance.footStepWalking);
+        //AudioManager.instance.playEnemy(AudioManager.instance.footStepsGrass);
     }
 
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
-        AudioManager.instance.playSFX(AudioManager.instance.enemyHurt);
+        //AudioManager.instance.playSFX(AudioManager.instance.enemyHurt);
 
         yield return new WaitForSeconds(0.1f);
         

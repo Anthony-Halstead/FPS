@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour, IDamage
             // Resume sprint audio if still sprinting and sprint audio is not playing
             if (_isSprinting && !_isPlayingSprintAudio)
             {
-                AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
+                //AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
                 _isPlayingSprintAudio = true; // Track that sprint audio is now playing
             }
         }
@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
-            AudioManager.instance.playSFX(AudioManager.instance.jump);
+            //AudioManager.instance.playSFX(AudioManager.instance.jump);
            
             _jumpCount++;
             _playerVelocity.y = jumpSpeed;
@@ -269,8 +269,8 @@ public class PlayerController : MonoBehaviour, IDamage
     IEnumerator walking()
     {
         _isWalking = true;
-        AudioManager.instance.playMove(AudioManager.instance.footStepWalking);
-        yield return new WaitForSeconds(AudioManager.instance.footStepWalking.length);
+        //AudioManager.instance.playMove(AudioManager.instance.footStepsGrass);
+        yield return new WaitForSeconds(0.8f); //Reset this later
         _isWalking = false;
     }
 
@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
             //Play sprint loop
-            AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
+            //AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
 
 
             speed *= sprintMod;
@@ -587,7 +587,7 @@ public class PlayerController : MonoBehaviour, IDamage
             //Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
             // Play bullet sound
-            AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+            //AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
 
             // Instantiate muzzle flash
             GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
@@ -613,7 +613,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     public void TakeDamage(int amount, Vector3 origin)
     {
-        AudioManager.instance.playSFX(AudioManager.instance.playerHurt);
+        //AudioManager.instance.playSFX(AudioManager.instance.playerHurt);
 
         HP -= amount;
         StartCoroutine(damageFlash());

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -18,26 +19,25 @@ public class AudioManager : MonoBehaviour
     public AudioClip musicTown;
     public AudioClip musicIndustrial;
     public AudioClip musicBoss;
+    [Range(0, 1)] public float musicVol;
 
     [Header("------------------- Character movement")]
-    public AudioClip footStepWalking;
-    public AudioClip footStepRunning;
+    public AudioClip[] footStepsForest;
+    public AudioClip[] footStepsWood;
+    public AudioClip[] footStepsConcrete;
+    public AudioClip[] footStepsRocky;
+    [Range(0, 1)] public float footStepsVol;
     public AudioClip crouchDown;
     public AudioClip crouchUp;
-    public AudioClip jump;
+    [Range(0, 1)] public float crouchVol;
+    public AudioClip[] jump;
+    [Range(0, 1)] public float jumpVol;
 
     [Header("------------------- Ranged SFX")]
-    public AudioClip explosion;         //Bombs/traps
-    public AudioClip explosionLanding;
-    public AudioClip shootPistol;
-    public AudioClip shootMachineGun;
-    public AudioClip shootShotGun;
-    public AudioClip shootBow;          //Shoot and reload
-
-    //Reloads
-    public AudioClip reloadPistol;
-    public AudioClip reloadMachineGun;
-    public AudioClip reloadShotGun;
+    public AudioClip[] explosion;         //Bombs/traps
+    [Range(0, 1)] public float explosionVol;
+    public AudioClip[] playerThrow;
+    [Range(0, 1)] public float throwVol; 
 
     [Header("------------------- Melee SFX")]
     public AudioClip meleeUnarmedHit;   //Fists
@@ -54,12 +54,19 @@ public class AudioManager : MonoBehaviour
     [Header("------------------- Misc")]
     public AudioClip trapPlace;
     public AudioClip trapActivate;
-    public AudioClip land;
-    public AudioClip playerHurt;
-    public AudioClip enemyHurt;
-    public AudioClip dropBox;
-    public AudioClip UpgradePickUp;
+    [Range(0, 1)] public float trapVol;
+    public AudioClip[] landForest;
+    public AudioClip[] landWood;
+    public AudioClip[] landConcrete;
+    public AudioClip[] landRocky;
+    [Range(0, 1)] public float landVol;
+    public AudioClip[] hurt;
+    [Range(0, 1)] public float hurtVol;
+    public AudioClip[] dropBox;
+    public AudioClip[] pickUp;
+    [Range(0, 1)] public float pickUpVol;
     public AudioClip checkPointTrigger;
+    [Range(0, 1)] public float checkPointVol;
 
     [Header("------------------- UI SFX")]
     public AudioClip menuUp;
@@ -68,10 +75,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip menuWin;
     public AudioClip menuLose;
     public AudioClip menuSlider;
+    [Range(0, 1)] public float menuVol;
 
     [Header("------------------- Stats")]
-    public float walkSpeedMod;
-    public float sprintSpeedMod;
+    [Range(0, 1)] public float walkSpeedMod;
+    [Range(0, 1)] public float sprintSpeedMod;
 
     private void Awake()
     {
@@ -92,7 +100,7 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void playSFX(AudioClip clip, bool Loop = false)
+    public void playSFX(AudioClip clip, float vol = 0.5f, bool Loop = false)
     {
         sfxSource.clip = clip;
         
@@ -108,7 +116,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void playMove(AudioClip clip, bool Loop = false)
+    public void playMove(AudioClip clip, float vol = 0.5f, bool Loop = false)
     {
         movementSource.clip = clip;
 
@@ -124,7 +132,23 @@ public class AudioManager : MonoBehaviour
             movementSource.PlayOneShot(clip);
         }
     }
-    
+
+    public void playEnemy(AudioClip clip, float vol = 0.5f, bool Loop = false)
+    {
+        //Enemy Sounds (Should cover all without problems)
+        enemySource.clip = clip;
+
+        if (Loop)
+        {
+            enemySource.loop = true;
+            enemySource.Play();
+        }
+        else
+        {
+            enemySource.PlayOneShot(clip);
+        }
+    }
+
     public void stopSFXLoop(bool stopNow = true)
     {
         //Stop a looped sound
@@ -146,21 +170,6 @@ public class AudioManager : MonoBehaviour
         if (stopNow)
         {
             movementSource.Stop();
-        }
-    }
-
-    public void playEnemy(AudioClip clip, bool Loop = false)
-    {
-        //Enemy Sounds (Should cover all without problems)
-        enemySource.clip = clip;
-
-        if (Loop)
-        {
-            enemySource.loop = true;
-            enemySource.Play();
-        } else
-        {
-            enemySource.PlayOneShot(clip);
         }
     }
 

@@ -19,7 +19,7 @@ public class DropBoxCollider : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
-            audioManager.playSFX(audioManager.dropBox);
+            audioManager.playSFX(audioManager.dropBox[Random.Range(0,audioManager.dropBox.Length)]);
             Debug.Log("Collided");
 
             //Activate Animation
