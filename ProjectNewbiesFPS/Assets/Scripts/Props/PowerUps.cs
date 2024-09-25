@@ -28,7 +28,8 @@ public class PowerUps : MonoBehaviour, IPowerUps
     public int healthUpgradeUpAmount;
     public int magezineUpgradeUpAmount;
     int refillUpgradeUpAmount;
-    
+
+   
 
     // Start is called before the first frame update
     void Start()

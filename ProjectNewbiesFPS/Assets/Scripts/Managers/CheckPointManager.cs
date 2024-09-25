@@ -19,6 +19,8 @@ public class CheckPointManager : MonoBehaviour
 
     [Header("Colliders")]
     [SerializeField] BoxCollider collider;
+
+    
    
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,7 @@ public class CheckPointManager : MonoBehaviour
         animB = QuestManager.instance.industrialGatePrefab.GetComponent<Animator>();
        
         collider = QuestManager.instance.industrialGatePrefab.GetComponent<BoxCollider>();
-        
+
         
     }
 
@@ -96,11 +98,13 @@ public class CheckPointManager : MonoBehaviour
         else if(other.CompareTag("Player") && tower1Bool && GameManager.instance.isTower1Dead)
         {
             GameManager.instance.objectivesText.text = "OBJECTIVE: Find Red Key";
+            QuestManager.instance.redKeyPrefab.SetActive(true);
             QuestManager.instance.AddRedKeyMarker();
         }
         else if (other.CompareTag("Player") && tower2Bool && GameManager.instance.isTower2Dead)
         {
             GameManager.instance.objectivesText.text = "OBJECTIVE: Find Green Key";
+            QuestManager.instance.greenKeyPrefab.SetActive(true);
             QuestManager.instance.AddGreenKeyMarker();
         }
     }
@@ -108,7 +112,7 @@ public class CheckPointManager : MonoBehaviour
     IEnumerator CheckpointPopup()
     {
         GameManager.instance.checkpointPopUp.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.7f);
         GameManager.instance.checkpointPopUp.SetActive(false);
     }
 }

@@ -54,7 +54,8 @@ public class QuestManager : MonoBehaviour
     }
     private void Start()
     {
-
+        redKeyPrefab.SetActive(false);
+        greenKeyPrefab.SetActive(false);
         
     }
 
