@@ -6,7 +6,7 @@ using UnityEngine;
 public class grenadeScripty : MonoBehaviour
 {
     [SerializeField] float explosionRadius;
-    public GameObject explosionFX;
+    [SerializeField] GameObject explosionFX;
     [SerializeField] float explostionForce;
     [SerializeField] int explosionDmg;
 
@@ -33,7 +33,7 @@ public class grenadeScripty : MonoBehaviour
 
     void explode()
     {
-        //Instantiate(explosionFX, transform.position, transform.rotation); this is for if and when we get an effect for the grenade explosion
+        Instantiate(explosionFX, transform.position, transform.rotation);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);  //checks for all the overlapping things in the provided radius of the grenade
 

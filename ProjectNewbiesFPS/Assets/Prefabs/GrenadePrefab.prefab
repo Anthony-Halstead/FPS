@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionRadius: 10
-  explosionFX: {fileID: 0}
+  explosionFX: {fileID: 100002, guid: 872363974360b1540b92d8d9e0453afa, type: 3}
   explostionForce: 10
   explosionDmg: 3
   explosionDelay: 3
