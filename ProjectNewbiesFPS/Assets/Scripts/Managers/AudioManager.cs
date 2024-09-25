@@ -110,11 +110,12 @@ public class AudioManager : MonoBehaviour
         {
             //Loops
             sfxSource.loop = true;
+            sfxSource.volume = vol;
             sfxSource.Play();
         } else
         {
             //Plays once
-            sfxSource.PlayOneShot(clip);
+            sfxSource.PlayOneShot(clip, vol);
         }
     }
 
@@ -126,12 +127,13 @@ public class AudioManager : MonoBehaviour
         {
             //Loops
             movementSource.loop = true;
+            movementSource.volume = vol;
             movementSource.Play();
         }
         else
         {
             //Plays once
-            movementSource.PlayOneShot(clip);
+            movementSource.PlayOneShot(clip, vol);
         }
     }
 
@@ -143,11 +145,12 @@ public class AudioManager : MonoBehaviour
         if (Loop)
         {
             enemySource.loop = true;
+            enemySource.volume = vol;
             enemySource.Play();
         }
         else
         {
-            enemySource.PlayOneShot(clip);
+            enemySource.PlayOneShot(clip, vol);
         }
     }
 

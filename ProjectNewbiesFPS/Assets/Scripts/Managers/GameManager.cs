@@ -238,7 +238,7 @@ public class GameManager : MonoBehaviour
             //pausing the game
             if (menuActive == null)
             {
-                AudioManager.instance.playSFX(AudioManager.instance.menuUp);
+                AudioManager.instance.playSFX(AudioManager.instance.menuUp, AudioManager.instance.menuVol);
 
                 statePause();
                 menuActive = menuPause;
@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour
             //Unpausing the game
             else if (menuActive == menuPause)
             {
-                AudioManager.instance.playSFX(AudioManager.instance.menuDown);
+                AudioManager.instance.playSFX(AudioManager.instance.menuDown, AudioManager.instance.menuVol);
 
                 stateUnpause();
             }

@@ -213,13 +213,6 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             _playerVelocity = Vector3.zero;
             _jumpCount = 0;
-
-            // Resume sprint audio if still sprinting and sprint audio is not playing
-            if (_isSprinting && !_isPlayingSprintAudio)
-            {
-                //AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
-                _isPlayingSprintAudio = true; // Track that sprint audio is now playing
-            }
         }
         
         _moveDir = horizInput * transform.right +
@@ -234,7 +227,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
-            //AudioManager.instance.playSFX(AudioManager.instance.jump);
+            AudioManager.instance.playMove(AudioManager.instance.jump[Random.Range(0, AudioManager.instance.jump.Length)], AudioManager.instance.jumpVol);
            
             _jumpCount++;
             _playerVelocity.y = jumpSpeed;
@@ -616,7 +609,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     public void TakeDamage(int amount, Vector3 origin)
     {
-        //AudioManager.instance.playSFX(AudioManager.instance.playerHurt);
+        AudioManager.instance.playSFX(AudioManager.instance.hurt[Random.Range(0, AudioManager.instance.hurt.Length)], AudioManager.instance.hurtVol);
 
         HP -= amount;
         StartCoroutine(damageFlash());
