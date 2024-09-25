@@ -14,6 +14,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource movementSource;
     [SerializeField] AudioSource enemySource;
 
+    public enum regions { Forest, Town, Industry, Boss }
+    [SerializeField] private regions currentRegion;
+
     [Header("------------------- Music/Backgrounds")]
     public AudioClip musicForest;
     public AudioClip musicTown;
@@ -47,7 +50,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip meleeBluntHit;     //Bats, maces, bombs(if hit before explosion)
     public AudioClip meleeBluntMiss;
     public AudioClip meleeSharpHit;     //Sword, axes, daggers
-    public AudioClip meleeSharpMiss; 
+    public AudioClip meleeSharpMiss;
     public AudioClip meleePierce;       //Spears, arrows, darts, throwing stars
 
     [Header("------------------- Potions")]
@@ -99,14 +102,15 @@ public class AudioManager : MonoBehaviour
     {
         //Play Music
         musicSource.clip = musicForest;
+        musicSource.volume = musicVol;
         musicSource.Play();
     }
 
     public void playSFX(AudioClip clip, float vol = 0.5f, bool Loop = false)
     {
         sfxSource.clip = clip;
-        
-        if(Loop)
+
+        if (Loop)
         {
             //Loops
             sfxSource.loop = true;
@@ -170,7 +174,7 @@ public class AudioManager : MonoBehaviour
     public void stopMoveLoop(bool stopNow = true)
     {
         //Same as the other stopLoop method
-        movementSource.loop= false;
+        movementSource.loop = false;
 
         if (stopNow)
         {
@@ -186,5 +190,15 @@ public class AudioManager : MonoBehaviour
         {
             enemySource.Stop();
         }
+    }
+
+    public regions GetRegion()
+    {
+        return currentRegion;
+    }
+
+    public void SetRegion(regions newRegion)       
+    {
+        currentRegion = newRegion;
     }
 }
