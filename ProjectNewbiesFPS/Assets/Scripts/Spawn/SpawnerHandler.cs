@@ -19,6 +19,7 @@ public class SpawnerHandler : MonoBehaviour
 
     Spawner<Spawnable> spawner;
     Timer timerInstance;
+    private bool hasSpawned;
     
     int counter;
     [SerializeField] int  numberOfWaves = 0;
@@ -39,37 +40,51 @@ public class SpawnerHandler : MonoBehaviour
 
     public void Awake()
     {
-        SpawnStrategy instance = Instantiate(strategyTemplate);
-        instance.SetPoints(spawnPoints);
-        spawner = new Spawner<Spawnable>(new Factory<Spawnable>(objsData), instance);
-        timerInstance = Instantiate(timerTemplate);
 
-        timerInstance.OnStopTimer += () =>
-        {
-            
-                if (counter++ >= spawnPoints.Length)
-                {
-                --numberOfWaves;
-                if (numberOfWaves <= 0)
-                   {
-                    timerInstance.StopTimer(this);
-                    counter = 0;
-                    return;
-                   }
-                   else
-                   {
-                    
-                    counter = 0;
-                   }
-                }
-                Spawn();
-                timerInstance.StartTimer(this, spawnInterval);
-            
-
-        };
-        if(spawnPositionType == SpawnPositionType.NavMesh) 
-        OnSendSpawner.Invoke(spawnPoints);
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (!hasSpawned)
+            {
+                SpawnStrategy instance = Instantiate(strategyTemplate);
+                instance.SetPoints(spawnPoints);
+                spawner = new Spawner<Spawnable>(new Factory<Spawnable>(objsData), instance);
+                timerInstance = Instantiate(timerTemplate);
+
+                timerInstance.OnStopTimer += () =>
+                {
+                    
+                    if (counter++ >= spawnPoints.Length)
+                    {
+                        --numberOfWaves;
+                        if (numberOfWaves <= 0)
+                        {
+                            timerInstance.StopTimer(this);
+                            counter = 0;
+                            return;
+                        }
+                        else
+                        {
+                            
+                            counter = 0;
+                        }
+                    }
+                    Spawn();
+                    timerInstance.StartTimer(this, spawnInterval);
+                    
+
+                };
+
+                
+                if(spawnPositionType == SpawnPositionType.NavMesh) 
+                    OnSendSpawner.Invoke(spawnPoints);
+            }
+        }
+    }
+
     private void Start() => timerInstance.StartTimer(this,spawnInterval);
     /// <summary>
     /// Spawns an instance of an object
