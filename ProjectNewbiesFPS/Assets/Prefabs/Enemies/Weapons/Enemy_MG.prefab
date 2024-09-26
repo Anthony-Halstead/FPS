@@ -807,7 +807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponObject: {fileID: 11400000, guid: 5e6deb26a6d295643bca6d32b8fba058, type: 2}
   gunSpeed: 0
-  shootDamage: 0
+  shootDamage: 1
   shootDist: 0
   shootRate: 0
   magazineSize: 0

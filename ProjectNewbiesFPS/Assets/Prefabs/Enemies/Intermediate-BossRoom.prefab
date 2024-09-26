@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: fca5944ce4ed77b4098ae288089264b6, type: 2}
     - target: {fileID: 8493574111644994232, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
       propertyPath: m_Name
-      value: IntermediateEnemy
+      value: Intermediate-BossRoom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

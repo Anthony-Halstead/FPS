@@ -1175,9 +1175,9 @@ MonoBehaviour:
   healthBar: {fileID: 3567824452564833587}
   healthBarVisibility: {fileID: 2306770743594264205}
   faceTargetSpeed: 8
-  sightRange: 30
+  sightRange: 15
   shootRate: 0.6
-  shootRange: 30
+  shootRange: 20
   bullet: {fileID: 8737397164380214915, guid: 05a7fb2e1b1b0d24682e1d576411d9ba, type: 3}
   playerPositionOffsetHeight: -0.4
   weapon: {fileID: 0}

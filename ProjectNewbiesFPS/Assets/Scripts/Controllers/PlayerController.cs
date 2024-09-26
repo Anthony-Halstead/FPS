@@ -9,15 +9,15 @@ using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour, IDamage
 {
-    
+
     #region Variables
-    
+
     [Header("References")]
     [SerializeField] CharacterController charController;
     [SerializeField] private LayerMask ignoreMask;
     [SerializeField] private Transform cameraPivotTransform;
     public Animator animator;
-    
+
 
     [Header("Player Stats - General")]
     public int HP;
@@ -32,8 +32,8 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private int jumpMax;
     [SerializeField] private int jumpSpeed;
     [SerializeField] private int gravity;
-    
-    
+
+
     [Header("Player Stats - Crouching")]
     [SerializeField] private float crouchTime;
     [SerializeField] private float crouchHeight;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private bool toggleSwayFwdBck;
     [SerializeField] private bool toggleSwayLeftRight;
 
-    [Header("Player Stats - Shooting")] 
+    [Header("Player Stats - Shooting")]
     [SerializeField] private List<WeaponObject> weaponsInInventory;
     [SerializeField] private List<GameObject> weaponsObjects;
     [SerializeField] public WeaponObject equippedWeapon;
@@ -65,12 +65,12 @@ public class PlayerController : MonoBehaviour, IDamage
     [SerializeField] private float gunSpeed;
     public int bulletsLeft;
     [SerializeField] private Vector3 weaponDropOffset;
-    
-  //  [SerializeField] private float shootRate;
+
+    //  [SerializeField] private float shootRate;
     public int magazineSize;
     public int ammoTotal;
 
-    [Header("Interactable Settings")] 
+    [Header("Interactable Settings")]
     [SerializeField] private float interactDistance;
     [SerializeField] private LayerMask interactMask;
     [SerializeField] private GameObject currentHoveredInteractable;
@@ -110,9 +110,9 @@ public class PlayerController : MonoBehaviour, IDamage
 
     private float horizInput;
     private float vertInput;
-    
+
     #endregion
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour, IDamage
         horizInput = Input.GetAxis("Horizontal");
         vertInput = Input.GetAxis("Vertical");
         visibility = 0;
-        
+
         movement();
         sprint();
         crouch();
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour, IDamage
     public void modPlayerVisibility(float lightPercent)
     {
         visibility = Mathf.Max(visibility, lightPercent);
-        
+
 
         if (_isCrouching)
         {
@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour, IDamage
             _playerVelocity = Vector3.zero;
             _jumpCount = 0;
         }
-        
+
         _moveDir = horizInput * transform.right +
                    vertInput * transform.forward;
         charController.Move(_moveDir * (speed * Time.deltaTime));
@@ -228,12 +228,12 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
             AudioManager.instance.playMove(AudioManager.instance.jump[Random.Range(0, AudioManager.instance.jump.Length)], AudioManager.instance.jumpVol);
-           
+
             _jumpCount++;
             _playerVelocity.y = jumpSpeed;
 
             if (_isSprinting)
-            { 
+            {
                 AudioManager.instance.stopMoveLoop();
                 _isPlayingSprintAudio = false;
             }
@@ -253,7 +253,7 @@ public class PlayerController : MonoBehaviour, IDamage
             {
                 StartCoroutine(reload());
             }
-        } 
+        }
     }
 
     IEnumerator playFootSteps()
@@ -266,7 +266,8 @@ public class PlayerController : MonoBehaviour, IDamage
         if (!_isSprinting)
         {
             yield return new WaitForSeconds(AudioManager.instance.walkSpeedMod);
-        } else
+        }
+        else
         {
             yield return new WaitForSeconds(AudioManager.instance.sprintSpeedMod);
         }
@@ -282,7 +283,7 @@ public class PlayerController : MonoBehaviour, IDamage
             speed *= sprintMod;
             _isSprinting = true;
             _isPlayingSprintAudio = true;
-        } 
+        }
         else if (Input.GetButtonUp("Sprint") && !_isCrouching)
         {
             AudioManager.instance.stopMoveLoop();
@@ -312,10 +313,10 @@ public class PlayerController : MonoBehaviour, IDamage
             newHeight = originalHeight;
             _isCrouching = false;
         }
-        
-        
+
+
         // updates the player character controller height to be the original height or crouch height, depending on if the crouch input is held
-        charController.height = Mathf.SmoothDamp(charController.height, newHeight, ref _currentVelocity,crouchTime);
+        charController.height = Mathf.SmoothDamp(charController.height, newHeight, ref _currentVelocity, crouchTime);
 
     }
 
@@ -326,33 +327,34 @@ public class PlayerController : MonoBehaviour, IDamage
     void leanCameraPivot()
     {
         bool isMoving = Mathf.Abs(horizInput) > leanMovingThreshold || Mathf.Abs(vertInput) > leanMovingThreshold;
-        
-        
+
+
         if (isMoving && !_isCrouching)
         {
-            handleLean(0,0,originalAngle, leanTime, Vector3.zero);
+            handleLean(0, 0, originalAngle, leanTime, Vector3.zero);
             _isLeaning = false;
         }
         else
         {
             if (Input.GetButton("LeanL"))
             {
-                
-                handleLean(0,0,leanAngle, leanTime, -leanPos);
+
+                handleLean(0, 0, leanAngle, leanTime, -leanPos);
                 _isLeaning = true;
-            } else if (Input.GetButton("LeanR"))
+            }
+            else if (Input.GetButton("LeanR"))
             {
-                handleLean(0,0,-leanAngle, leanTime, leanPos);
+                handleLean(0, 0, -leanAngle, leanTime, leanPos);
                 _isLeaning = true;
             }
             else
             {
-                handleLean(0,0,originalAngle, leanTime, Vector3.zero);
+                handleLean(0, 0, originalAngle, leanTime, Vector3.zero);
                 _isLeaning = false;
             }
         }
     }
-    
+
     // sways player head based on movement input
     void headSway()
     {
@@ -364,10 +366,11 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (horizInput > 0.25f)
             {
-                handleLean(0,0,-swayAngle, swayTime, Vector3.zero);
-            } else if (horizInput < -0.25f)
+                handleLean(0, 0, -swayAngle, swayTime, Vector3.zero);
+            }
+            else if (horizInput < -0.25f)
             {
-                handleLean(0,0,swayAngle, swayTime, Vector3.zero);
+                handleLean(0, 0, swayAngle, swayTime, Vector3.zero);
             }
         }
 
@@ -375,14 +378,14 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             if (vertInput > 0.25f)
             {
-                handleLean(swayAngle,0,0,swayTime, Vector3.zero);
+                handleLean(swayAngle, 0, 0, swayTime, Vector3.zero);
             }
             else if (vertInput < -0.25f)
             {
-                handleLean(-swayAngle,0,0,swayTime, Vector3.zero); 
+                handleLean(-swayAngle, 0, 0, swayTime, Vector3.zero);
             }
         }
- 
+
     }
 
     // helper function for doing leaning calculations
@@ -393,9 +396,9 @@ public class PlayerController : MonoBehaviour, IDamage
         cameraPivotTransform.localPosition =
             Vector3.Lerp(cameraPivotTransform.localPosition, _leanPos, Time.deltaTime * leanTime);
     }
-    
+
     #endregion
-    
+
     #region Interactables
 
     void checkForInteractable()
@@ -404,14 +407,21 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             GameManager.instance.ToggleInteractionUI(false, "");
         }
-        
+
         RaycastHit hit;
 
         if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, interactDistance, ~interactMask))
         {
             _canInteract = true;
             currentHoveredInteractable = hit.transform.gameObject;
-            GameManager.instance.ToggleInteractionUI(true, currentHoveredInteractable.GetComponent<Weapon>().interactionText);
+            if (currentHoveredInteractable != null)
+            {
+                if (currentHoveredInteractable.GetComponent<Weapon>() != null)
+                {
+                    GameManager.instance.ToggleInteractionUI(true, currentHoveredInteractable.GetComponent<Weapon>().interactionText);
+                }
+            }
+
             //Debug.Log(hit.transform.name);
         }
         else
@@ -426,7 +436,7 @@ public class PlayerController : MonoBehaviour, IDamage
     void grappleEnemy()
     {
         // Enter Grapple State
-                
+
         // If Key 1, knock out.
         // Else if Key 2, Kill.
     }
@@ -442,12 +452,12 @@ public class PlayerController : MonoBehaviour, IDamage
         if (weaponsInInventory.Count >= 3) return;
         if (currentHoveredInteractable == null) return;
         WeaponObject newWeapon;
-        if(currentHoveredInteractable.GetComponent<Weapon>() )
+        if (currentHoveredInteractable.GetComponent<Weapon>())
         {
             newWeapon = currentHoveredInteractable.GetComponent<Weapon>().GetWeaponObject();
         }
         else { return; }
-        
+
         if (Input.GetButtonDown("Interact"))
         {
 
@@ -459,7 +469,7 @@ public class PlayerController : MonoBehaviour, IDamage
             weaponsInInventory.Add(newWeapon);
             GameObject clone = Instantiate(newWeapon.prefab, gunSpawnPos.transform.position, Quaternion.identity);
             clone.transform.parent = gunSpawnPos;
-            clone.transform.localRotation = Quaternion.Euler(0,0,0);
+            clone.transform.localRotation = Quaternion.Euler(0, 0, 0);
             gun = clone;
             currentWeapon = gun.GetComponent<Weapon>();
             bulletsLeft = currentWeapon.GetCurrentAmmo();
@@ -480,17 +490,17 @@ public class PlayerController : MonoBehaviour, IDamage
                     swap(i);
                 }
             }
-            
+
 
         }
-        
+
     }
 
     void SendPickupDataToPlayerWeapon()
     {
         Weapon pickedUpWeapon = currentHoveredInteractable.GetComponent<Weapon>();
         Weapon spawnedWeapon = gun.GetComponent<Weapon>();
-        
+
         spawnedWeapon.SetCurrentAmmo(pickedUpWeapon.GetCurrentAmmo());
         spawnedWeapon.SetStartingAmmo(pickedUpWeapon.GetStartingAmmo());
         spawnedWeapon.SetGunDamage(pickedUpWeapon.GetGunDamage());
@@ -505,7 +515,8 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             swap(0);
-        } else if (Input.GetKeyDown(KeyCode.Alpha2))
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             swap(1);
         }
@@ -513,7 +524,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void swap(int weaponIndex)
     {
-        if (weaponsInInventory.Count < weaponIndex) return; 
+        if (weaponsInInventory.Count < weaponIndex) return;
         equippedWeapon = weaponsInInventory[weaponIndex];
         gun.SetActive(false);
         gun = weaponsObjects[weaponIndex];
@@ -542,13 +553,13 @@ public class PlayerController : MonoBehaviour, IDamage
         if (Input.GetButtonDown("Drop"))
         {
             Vector3 dropPosition = _mainCam.transform.position + transform.TransformDirection(weaponDropOffset);
-            
+
             GameObject clone = Instantiate(equippedWeapon.prefab_rb, dropPosition, Quaternion.identity);
-            
+
             Rigidbody rb = clone.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.velocity = _mainCam.transform.forward; 
+                rb.velocity = _mainCam.transform.forward;
             }
 
             weaponsInInventory.Remove(equippedWeapon);
@@ -570,11 +581,11 @@ public class PlayerController : MonoBehaviour, IDamage
             }
         }
     }
-    
+
     #endregion
-    
+
     #region Shooting And Damage
-    
+
     IEnumerator shoot()
     {
         bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
@@ -584,7 +595,7 @@ public class PlayerController : MonoBehaviour, IDamage
             gun.GetComponent<Weapon>().UpdateCurrentClip(-1);
             animator.SetTrigger("shoot");
             _isShooting = true;
-            
+
             GameManager.instance.ammoText.text = bulletsLeft + "/" + ammoTotal;
 
             // for returning damage on what was hit
@@ -630,7 +641,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
         AudioManager.instance.playSFX(gun.GetComponent<Weapon>().GetReloadClip()[Random.Range(0, gun.GetComponent<Weapon>().GetReloadClip().Length)], gun.GetComponent<Weapon>().GetReloadVol());
         yield return new WaitForSeconds(gun.GetComponent<Weapon>().GetReloadTime());
-        
+
         gun.GetComponent<Weapon>().ReloadAmmo();
         _isReloading = false;
         bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();

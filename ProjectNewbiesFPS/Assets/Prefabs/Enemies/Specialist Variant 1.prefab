@@ -53,6 +53,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8251186814012561020, guid: 35dc51f061b4af940af55f8b12285e6c, type: 3}
+      propertyPath: shootRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251186814012561020, guid: 35dc51f061b4af940af55f8b12285e6c, type: 3}
+      propertyPath: sightRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251186814012561020, guid: 35dc51f061b4af940af55f8b12285e6c, type: 3}
       propertyPath: _defaultState
       value: 
       objectReference: {fileID: 11400000, guid: 1f6936f15215f1344b2f4aa71276645b, type: 2}

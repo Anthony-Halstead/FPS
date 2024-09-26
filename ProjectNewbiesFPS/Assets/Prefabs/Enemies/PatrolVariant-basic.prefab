@@ -9,6 +9,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 866472294170842943, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: shootRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 866472294170842943, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
+      propertyPath: sightRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 866472294170842943, guid: 6bb03d94ae8a53c4380b88adfb4b90fd, type: 3}
       propertyPath: _defaultState
       value: 
       objectReference: {fileID: 11400000, guid: 82ae896eda3545c439c65c0b3a4cd6bf, type: 2}

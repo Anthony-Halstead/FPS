@@ -676,7 +676,7 @@ public class AIController : Spawnable, IDamage
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
-        AudioManager.instance.playEnemy(AudioManager.instance.hurt[UnityEngine.Random.Range(0, AudioManager.instance.footStepsForest.Length)], AudioManager.instance.hurtVol);
+      //  AudioManager.instance.playEnemy(AudioManager.instance.hurt[UnityEngine.Random.Range(0, AudioManager.instance.footStepsForest.Length)], AudioManager.instance.hurtVol);
 
         yield return new WaitForSeconds(0.1f);
         
