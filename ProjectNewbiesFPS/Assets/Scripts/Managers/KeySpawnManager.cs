@@ -10,6 +10,7 @@ public class KeySpawnManager : MonoBehaviour
     [SerializeField] GameObject[] keySpawnPoints;
     //[SerializeField] GameObject spawnPos;
     [SerializeField] GameObject key;
+    [SerializeField] GameObject weaponObject;
     
    
     [SerializeField] int randomSpawnPoints;
@@ -24,9 +25,11 @@ public class KeySpawnManager : MonoBehaviour
         randomSpawnPoints = Random.Range(0, MaxSpawnPoints);
 
         Instantiate(key, keySpawnPoints[randomSpawnPoints].transform.position + new Vector3(0, 1, 0), keySpawnPoints[randomSpawnPoints].transform.localRotation);
-
         
-
+        if( weaponObject != null )
+        {
+            Instantiate(weaponObject, keySpawnPoints[randomSpawnPoints].transform.position + new Vector3(0, 1, 0), keySpawnPoints[randomSpawnPoints].transform.localRotation);
+        }
     }
 
    
