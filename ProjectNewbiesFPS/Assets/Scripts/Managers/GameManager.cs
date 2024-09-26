@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
          shootRateUpgrageToggle.isOn = false;
          doubleDamageUpgrageToggle.isOn = false;
          killEnemiesUpgrageToggle.isOn = false;
-        // refillUpgradeToggle.isOn = false;
+         refillUpgradeToggle.isOn = false;
 
         //Initializing Slider values on Options menu to a default
         sensitivitySlider.value = 300f;
@@ -352,12 +352,11 @@ public class GameManager : MonoBehaviour
     //Winning Game Method
     public void WinGame()
     {
-        //if (wave == 10)
-        //{
-        //    statePause();
-        //    menuActive = menuWin;
-        //    menuWin.SetActive(true);
-        //}
+        
+          statePause();
+           menuActive = menuWin;
+           menuWin.SetActive(true);
+       
     }
 
     //public void NextWave()
