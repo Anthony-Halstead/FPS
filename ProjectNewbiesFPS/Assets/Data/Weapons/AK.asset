@@ -24,6 +24,7 @@ MonoBehaviour:
   reloadTime: 0
   shootSFX:
   - {fileID: 8300000, guid: 25bc8c7c04ed81844b4f9140e70213dd, type: 3}
-  reloadSFX: []
+  reloadSFX:
+  - {fileID: 8300000, guid: f90a4e57bec0a8548a61a84e70f7a889, type: 3}
   shootVol: 0.5
   reloadVol: 0
