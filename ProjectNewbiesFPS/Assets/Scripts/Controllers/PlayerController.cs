@@ -258,7 +258,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     IEnumerator playFootSteps()
     {
-        Debug.Log("Walking");
+        //Debug.Log("Walking");
         _isWalking = true;
         AudioClip footstepClip = AudioManager.instance.footStepsForest[Random.Range(0, AudioManager.instance.footStepsForest.Length)];
         AudioManager.instance.playMove(footstepClip, AudioManager.instance.footStepsVol);
@@ -412,14 +412,14 @@ public class PlayerController : MonoBehaviour, IDamage
             _canInteract = true;
             currentHoveredInteractable = hit.transform.gameObject;
             GameManager.instance.ToggleInteractionUI(true, currentHoveredInteractable.GetComponent<Weapon>().interactionText);
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
         }
         else
         {
             _canInteract = false;
             currentHoveredInteractable = null;
             GameManager.instance.ToggleInteractionUI(false, "");
-            Debug.Log("No Longer Interacting");
+            //Debug.Log("No Longer Interacting");
         }
 
     }
@@ -600,7 +600,8 @@ public class PlayerController : MonoBehaviour, IDamage
 
                 if (dmg != null)
                 {
-                    dmg.TakeDamage(shootDamage, transform.position);
+                    int totalDamage = gun.GetComponent<Weapon>().GetGunDamage();
+                    dmg.TakeDamage(totalDamage, transform.position);
                 }
 
             }
@@ -671,6 +672,32 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         gun.GetComponent<Weapon>().UpdateCurrentAmmo(amount);
         ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<Attachment>(out Attachment attachment))
+        {
+            Debug.Log($"Collided with attachment: {attachment.GetAttachType()}");
+            if (attachment.GetAttachType() == Attachment.AttachTypes.SILENCER)
+            {
+                AddSilencer(attachment);
+            }
+        }
+    }
+
+    void AddSilencer(Attachment silencer)
+    {
+        if (gun != null)
+        {
+            gun.GetComponent<Weapon>().EquipAttachment(silencer);
+            Destroy(silencer.gameObject);
+
+            //Debug.Log("Silencer equipped, updating gun stats.");
+            // Debug the gun's stats
+            // var weapon = gun.GetComponent<Weapon>();
+            // Debug.Log($"New Damage: {weapon.GetGunDamage()}");
+            // Debug.Log($"New Range: {weapon.GetShootDist()}");          
+        }
     }
     #endregion
 
