@@ -22,6 +22,9 @@ public class Weapon : MonoBehaviour, IInteractable
     [SerializeField] private int maxAmmo;
 
     public string interactionText;
+
+    private Attachment[] equippedAttachments = new Attachment[3];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -179,5 +182,36 @@ public class Weapon : MonoBehaviour, IInteractable
     public void Interact()
     {
         Destroy(gameObject);
+    }
+     public void EquipAttachment(Attachment attachment)
+    {
+        for (int i = 0; i < equippedAttachments.Length; i++)
+        {
+            if (equippedAttachments[i] == null) 
+            {
+                equippedAttachments[i] = attachment;
+                UpdateWeaponStats();
+                return; 
+            }
+        }
+    }
+
+    private void UpdateWeaponStats()
+    {
+        int totalFlatDamage = 0;
+        int totalFlatRange = 0;
+
+        // Assuming flat damage and range are combined
+        for (int i = 0; i < equippedAttachments.Length; i++)
+        {
+            if (equippedAttachments[i] != null)
+            {
+                totalFlatDamage += equippedAttachments[i].GetFlatDamage();
+                totalFlatRange += equippedAttachments[i].GetFlatRange();
+            }
+        }
+
+        shootDamage += totalFlatDamage; 
+        shootDist += totalFlatRange; 
     }
 }
