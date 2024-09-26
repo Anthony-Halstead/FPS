@@ -18,6 +18,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
    // [SerializeField] bool blackKey;
     [SerializeField] bool greenKey;
 
+    [SerializeField] WeaponObject weaponObject;
     //[SerializeField] GameObject greenKeyPrefab;
     //[SerializeField] QuestMarkers greenKeyMarker;
 
@@ -48,17 +49,17 @@ public class PowerUps : MonoBehaviour, IPowerUps
     public void OnTriggerEnter(Collider other)
     {
          
-         if (other.CompareTag("Player") && doubleDamageUpgrade)
+         if (other.CompareTag("Player") && doubleDamageUpgrade && GameManager.instance.playerScript.equippedWeapon.dmg <= 6)
         {
 
-            GameManager.instance.playerScript.shootDamage *= doubleDamageUpgradeAmount;
+            GameManager.instance.playerScript.equippedWeapon.dmg *= doubleDamageUpgradeAmount;
 
             Destroy(gameObject);
 
         }
-        else if (other.CompareTag("Player") && shootRateUpgrade)
+        else if (other.CompareTag("Player") && shootRateUpgrade && GameManager.instance.playerScript.equippedWeapon.rate > 0)
         {
-            GameManager.instance.playerScript.shootRate -= shootRateUpgradeAmount;
+            GameManager.instance.playerScript.equippedWeapon.rate -= shootRateUpgradeAmount;
             
             Destroy(gameObject);
 

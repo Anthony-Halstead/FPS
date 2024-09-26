@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100aa79bf65c4b949bded17ceb2a2ab0, type: 3}
   m_Name: BossIdleState
   m_EditorClassIdentifier: 
-  chaseState: {fileID: 11400000, guid: 50d97d50a58a83a4093474dd2a1daa03, type: 2}
+  chaseState: {fileID: 0}
   dodgeState: {fileID: 11400000, guid: 8ba18a0fa726b30499da18b5633371cd, type: 2}
   sweepState: {fileID: 11400000, guid: 919c47707ba5bf246a5e8c822b6a8c47, type: 2}
+  holdGroundState: {fileID: 11400000, guid: aa10f1d198606a141b1581bc305b44f2, type: 2}
+  attackState: {fileID: 11400000, guid: d6e9e90353f0740418a79d623551bebd, type: 2}
+  searchState: {fileID: 11400000, guid: 4d7cd26e1a03e814cb55296a5e63773c, type: 2}

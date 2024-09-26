@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cc068d229125f0f408754c52befa8f7e
+guid: 459f69f0c2deb3d45940cccc9c7614e6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -733,8 +733,8 @@ ModelImporter:
       name: Pistol-Attack-Dual2
       takeName: Take 001
       internalID: 7400000
-      firstFrame: 5.9
-      lastFrame: 11.7
+      firstFrame: 6.6
+      lastFrame: 11.8
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -742,7 +742,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
@@ -754,7 +754,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.67341435
+      - time: 0.66910297
         functionName: CreateBullets
         data: 
         objectReferenceParameter: {instanceID: 0}

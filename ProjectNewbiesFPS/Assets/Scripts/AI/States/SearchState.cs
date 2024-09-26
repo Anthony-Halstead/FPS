@@ -4,36 +4,26 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SearchState", menuName = "AI/State/Search")]
 public class SearchState : State
 {
-    public State chaseState;
-
+    [SerializeField] float timeToWait = 1f;
+    [Min(0),SerializeField, Tooltip("How long should the AI stay in the search state?")] float searchLength = 20f;
+    
     public override void EnterState(AIController controller)
     {
-        controller.StopRig();
-       controller.searchRoutine = controller.StartCoroutine(controller.SearchSpot());
+        controller.target = controller.lastSeenPlayerPos;
+        controller.lookTarget = controller.lastSeenPlayerPos;
+        controller.StartCoroutine(controller.SearchSpot(timeToWait, searchLength));
     }
     public override void UpdateState(AIController controller)
     {
-        controller.CurrentTime += Time.deltaTime;
-        if(controller.CurrentTime >= controller.SearchLength)
+       
+        if(!controller.IsSearching)
         {
-            controller.CurrentTime = 0;
             controller.TransitionToState(controller.DefaultState);
         }
         if (controller.TargetIsVisible())
         {
-            controller.CurrentTime = 0;
-            controller.TransitionToState(chaseState);
+            controller.TransitionToState(controller.PreviousState);
         }
-        if(controller.searchRoutine == null)
-        {
-            controller.searchRoutine = controller.StartCoroutine(controller.SearchSpot());
-        }
-
     }
-    public override void ExitState(AIController controller)
-    {
-        controller.StopAllCoroutines();
-    }
-
-    
+    public override void ExitState(AIController controller) {}  
 }
