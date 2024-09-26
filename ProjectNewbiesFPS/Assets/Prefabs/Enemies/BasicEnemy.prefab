@@ -529,7 +529,7 @@ Transform:
   m_GameObject: {fileID: 2129715127015828923}
   serializedVersion: 2
   m_LocalRotation: {x: -0.58147556, y: -0.70165235, z: 0.16500315, w: 0.37728536}
-  m_LocalPosition: {x: -0.0878, y: 0.2829, z: 0.113}
+  m_LocalPosition: {x: 0.002, y: 0.025, z: -0.01}
   m_LocalScale: {x: 0.09090909, y: 0.09090911, z: 0.09090911}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2885,10 +2885,18 @@ MonoBehaviour:
   head: {fileID: 6087436837747900094}
   body: {fileID: 8272615348856049223}
   rArm: {fileID: 7042288535295444253}
+  lArm: {fileID: 0}
+  enemyType: 1
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   model: {fileID: 3546219067477559232}
   agent: {fileID: 7314199239144694577}
   _animator: {fileID: 1616148811330995109}
-  shootPos: {fileID: 0}
+  shootPos: {fileID: 2346346230329789563}
+  shootPosTwo: {fileID: 0}
   headPos: {fileID: 6972567056590239992}
   playerLayerMask:
     serializedVersion: 2
@@ -2902,14 +2910,17 @@ MonoBehaviour:
   shootRate: 1
   shootRange: 30
   bullet: {fileID: 8737397164380214915, guid: 05a7fb2e1b1b0d24682e1d576411d9ba, type: 3}
-  timeToWait: 3
-  searchLength: 20
-  actionCooldownTimer: 0
-  _defaultState: {fileID: 11400000, guid: 10b0998c19422184e8a2ff56e0a66f8d, type: 2}
-  _chaseState: {fileID: 11400000, guid: 50d97d50a58a83a4093474dd2a1daa03, type: 2}
+  weapon: {fileID: 0}
+  dodgeCooldownTimer: 0
+  notificationLength: 0.5
+  sweepCooldownTimer: 0
+  holdCoverCooldownTimer: 0
+  PathFound: 0
+  _defaultState: {fileID: 11400000, guid: c2a7be56c8205b74bbc01cf687b0079e, type: 2}
   _currentState: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
   lookTarget: {x: 0, y: 0, z: 0}
+  maxCoverHistory: 5
 --- !u!195 &7314199239144694577
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2919,14 +2930,14 @@ NavMeshAgent:
   m_GameObject: {fileID: 8493574111644994232}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3
-  m_Acceleration: 12.51
+  m_Radius: 0.4
+  m_Speed: 3.5
+  m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 110.5
-  m_StoppingDistance: 10.5
-  m_AutoTraverseOffMeshLink: 0
-  m_AutoBraking: 0
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0.2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -3804,5 +3815,10 @@ PrefabInstance:
 --- !u!4 &1805028307265832510 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5604773531383284630, guid: 86461ba543e667846828a3118a3ef56e, type: 3}
+  m_PrefabInstance: {fileID: 6108174645457192360}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2346346230329789563 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8379929027689073107, guid: 86461ba543e667846828a3118a3ef56e, type: 3}
   m_PrefabInstance: {fileID: 6108174645457192360}
   m_PrefabAsset: {fileID: 0}
