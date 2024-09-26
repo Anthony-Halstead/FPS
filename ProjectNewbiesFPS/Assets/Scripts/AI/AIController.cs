@@ -173,7 +173,7 @@ public class AIController : Spawnable, IDamage
         }    
        // Vector3 storedPosition = GameManager.instance.player.transform.position;
        // storedPosition.y += playerPositionOffsetHeight;
-        playerPos = GameManager.instance.playerHitTransform.position;
+        playerPos = GameManager.instance.player.transform.position;
         playerDir = playerPos - headPos.position;
         agent.SetDestination(target);
         /*if(lookTarget != Vector3.zero)*/faceTarget(lookTarget);
@@ -724,10 +724,6 @@ public class AIController : Spawnable, IDamage
             lArm.data.sourceObjects.SetWeight(1, 0);
             rig.weight = 1.0f;
         }*/
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, playerPos); // Line from AI to player
-    }
+ 
 
 }

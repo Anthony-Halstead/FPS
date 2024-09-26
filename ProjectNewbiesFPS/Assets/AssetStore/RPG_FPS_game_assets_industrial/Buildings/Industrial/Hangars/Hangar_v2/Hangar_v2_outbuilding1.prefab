@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000013707206762}
   - component: {fileID: 33000014108600474}
   - component: {fileID: 23000011866295152}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_outbuilding1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3387254}
   - component: {fileID: 2309898}
   - component: {fileID: 6513224}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: IndBuilding1_Base_Cor_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000011695308040}
   - component: {fileID: 33000011149123222}
   - component: {fileID: 23000012931840882}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_7_gate4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4000011955032794}
   - component: {fileID: 33000014003885172}
   - component: {fileID: 23000013422727778}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_7_gate3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 4000014162100260}
   - component: {fileID: 33000010857997036}
   - component: {fileID: 23000013882898844}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_7_gate2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 4000014287333496}
   - component: {fileID: 33000012104702622}
   - component: {fileID: 23000011442212792}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_7_supports
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 4000013443886618}
   - component: {fileID: 33000010833825134}
   - component: {fileID: 23000012271803398}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_7_inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 4000012968404420}
   - component: {fileID: 33000012613047822}
   - component: {fileID: 23000012151314832}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_7_door1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 4000013447336630}
   - component: {fileID: 33000014039157224}
   - component: {fileID: 23000010884104158}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_7_gate1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 4000010806657880}
   - component: {fileID: 33000013096079074}
   - component: {fileID: 23000010947240236}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}

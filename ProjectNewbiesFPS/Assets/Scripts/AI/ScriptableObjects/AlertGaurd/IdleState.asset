@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100aa79bf65c4b949bded17ceb2a2ab0, type: 3}
+  m_Name: IdleState
+  m_EditorClassIdentifier: 
+  chaseState: {fileID: 0}
+  dodgeState: {fileID: 0}
+  sweepState: {fileID: 0}
+  holdGroundState: {fileID: 11400000, guid: d484c02fb73dfa24497c57463bad9ebc, type: 2}
+  attackState: {fileID: 11400000, guid: 0bf0dd6abd069824e96037d636aa391e, type: 2}
+  spawnReinforcement: {fileID: 11400000, guid: 60d6d29a9d72fe648963c5c7765568b2, type: 2}

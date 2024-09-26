@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000011159568186}
   - component: {fileID: 33000011550186842}
   - component: {fileID: 23000014238206020}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hangar_v2_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

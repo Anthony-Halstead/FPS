@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3304470}
   - component: {fileID: 2356436}
   - component: {fileID: 6513208}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Indbuilding1_Door_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}

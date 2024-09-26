@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3377524}
   - component: {fileID: 2360644}
   - component: {fileID: 6454522}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Barn1_Mid_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}

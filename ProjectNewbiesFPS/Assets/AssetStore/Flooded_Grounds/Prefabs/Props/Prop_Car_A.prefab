@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 477712}
   - component: {fileID: 20574888}
   - component: {fileID: 706110639671719742}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Prop_Car_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}

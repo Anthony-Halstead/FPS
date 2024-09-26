@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528403630731149286}
   serializedVersion: 2
-  m_LocalRotation: {x: 1.4210855e-14, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 1.2524018e-14, y: 0.47255826, z: -6.7154568e-15, w: 0.88129944}
   m_LocalPosition: {x: -0.8474851, y: 1.4368114, z: 1.1388291}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7066738055900061832}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 56.401, z: 0}
 --- !u!33 &5152086101154002829
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -591,13 +591,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989678085730216637}
   serializedVersion: 2
-  m_LocalRotation: {x: 1.4210855e-14, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 1.1935822e-14, y: -0.5427276, z: 7.712623e-15, w: 0.8399088}
   m_LocalPosition: {x: 0.8537497, y: 1.4382514, z: 1.1388294}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7066738055900061832}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -65.739, z: 0}
 --- !u!33 &699217917393600127
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -771,13 +771,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3237343769719362146}
   serializedVersion: 2
-  m_LocalRotation: {x: 1.4210855e-14, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.9974719, y: -0, z: -0, w: 0.071062475}
   m_LocalPosition: {x: 0.0004613296, y: 1.1480821, z: -3.7374096}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7066738055900061832}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -171.85, y: 0, z: 0}
 --- !u!33 &431041154971942191
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 7066738055900061832}
   - component: {fileID: 6178308974885433133}
   - component: {fileID: 8239674231117814759}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ZIL130_NoCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}

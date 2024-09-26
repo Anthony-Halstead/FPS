@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 405862}
   - component: {fileID: 3397070}
   - component: {fileID: 2380698}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BrickHouse_Deco_WindowGlass_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}

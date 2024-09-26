@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3338386}
   - component: {fileID: 2372070}
   - component: {fileID: 6446052}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Villa2_Deco_RoofPiece_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

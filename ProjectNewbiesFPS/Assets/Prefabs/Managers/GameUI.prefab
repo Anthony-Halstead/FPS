@@ -4426,7 +4426,6 @@ MonoBehaviour:
   healthBarText: {fileID: 7438074085316124514}
   enemyHealthBar: []
   player: {fileID: 0}
-  playerHitTransform: {fileID: 0}
   playerScript: {fileID: 0}
   projectiles: {fileID: 0}
   enemyAI: []

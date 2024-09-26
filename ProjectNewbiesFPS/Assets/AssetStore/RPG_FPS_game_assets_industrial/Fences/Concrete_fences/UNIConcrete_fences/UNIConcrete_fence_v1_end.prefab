@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33000011057328418}
   - component: {fileID: 23000014094639036}
   - component: {fileID: 65000010804722738}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: UNIConcrete_fence_v1_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}

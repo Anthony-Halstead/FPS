@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 3380234}
   - component: {fileID: 2393040}
   - component: {fileID: 5193647791554151823}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TreeCreator_Tall_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &495364
 Transform:

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 402812}
   - component: {fileID: 20503620}
+  - component: {fileID: 1204312645755758988}
   m_Layer: 0
   m_Name: Struct_WoodPath_A
   m_TagString: Untagged
@@ -62,6 +63,27 @@ LODGroup:
     renderers:
     - renderer: {fileID: 2305642}
   m_Enabled: 1
+--- !u!65 &1204312645755758988
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121634}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.090951, y: 0.21743774, z: 3.6980317}
+  m_Center: {x: 3.698684, y: 0.021621704, z: -0.20535026}
 --- !u!1 &144736
 GameObject:
   m_ObjectHideFlags: 0

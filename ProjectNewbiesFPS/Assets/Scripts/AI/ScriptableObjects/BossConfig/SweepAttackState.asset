@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SweepAttackState
   m_EditorClassIdentifier: 
   sweepCooldown: 10
-  sweepSpeed: 35
+  sweepSpeed: 15
   sweepAngle: 60
   type: 1

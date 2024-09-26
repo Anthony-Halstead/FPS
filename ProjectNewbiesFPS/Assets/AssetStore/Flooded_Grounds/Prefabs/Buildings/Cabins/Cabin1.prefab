@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3398124}
   - component: {fileID: 2373744}
   - component: {fileID: 6452266}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cabin1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7966429478803853470}
   - component: {fileID: 6123821138631709471}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,6 +219,10 @@ PrefabInstance:
       value: Lamp1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: fa9ed3fdd6aeb9b44bc232be22bc821c, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: fa9ed3fdd6aeb9b44bc232be22bc821c, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -286,6 +290,10 @@ PrefabInstance:
     - target: {fileID: 144994, guid: de27278e60c8d8b42a3ae02c5da3edf8, type: 3}
       propertyPath: m_Name
       value: Cabin2_Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 144994, guid: de27278e60c8d8b42a3ae02c5da3edf8, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 417640, guid: de27278e60c8d8b42a3ae02c5da3edf8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -390,6 +398,10 @@ PrefabInstance:
       value: CabinInteriorLight
       objectReference: {fileID: 0}
     - target: {fileID: 5689503435714352852, guid: 05e9c39e1596e4c449dcd9279221e19f, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689503435714352852, guid: 05e9c39e1596e4c449dcd9279221e19f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -414,6 +426,10 @@ PrefabInstance:
     - target: {fileID: 172424, guid: 198a7384312e9d7418c7d2b63e402e12, type: 3}
       propertyPath: m_Name
       value: ATM_InteriorDust
+      objectReference: {fileID: 0}
+    - target: {fileID: 172424, guid: 198a7384312e9d7418c7d2b63e402e12, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 496966, guid: 198a7384312e9d7418c7d2b63e402e12, type: 3}
       propertyPath: m_LocalScale.z
@@ -520,6 +536,10 @@ PrefabInstance:
     - target: {fileID: 5689503435714352852, guid: 531ec802ca216f148b3375127eb3a0e7, type: 3}
       propertyPath: m_Name
       value: CabinInteriorNoLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689503435714352852, guid: 531ec802ca216f148b3375127eb3a0e7, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

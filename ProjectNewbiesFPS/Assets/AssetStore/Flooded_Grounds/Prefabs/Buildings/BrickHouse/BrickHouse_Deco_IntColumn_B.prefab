@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3367326}
   - component: {fileID: 2318494}
   - component: {fileID: 6585396}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BrickHouse_Deco_IntColumn_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
