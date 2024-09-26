@@ -562,7 +562,7 @@ public class AIController : Spawnable, IDamage
                 do
                 {
                     _animator.SetTrigger("Shoot");
-                    AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+                    AudioManager.instance.playSFX(weapon.GetShootClip()[UnityEngine.Random.Range(0, weapon.GetShootClip().Length)], weapon.GetShootVol());
                     yield return new WaitForSeconds(shootRate);
                     shootTime -= Time.deltaTime;
                 } while (shootTime > 0);
@@ -613,7 +613,7 @@ public class AIController : Spawnable, IDamage
             do
             {
                 _animator.SetTrigger("Shoot");
-                AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+                AudioManager.instance.playSFX(weapon.GetShootClip()[UnityEngine.Random.Range(0, weapon.GetShootClip().Length)], weapon.GetShootVol());
                 yield return new WaitForSeconds(shootRate);
                 shootTime -= Time.deltaTime;
             } while (shootTime > 0);
