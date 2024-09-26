@@ -55,12 +55,12 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("Player Stats - Shooting")] 
     [SerializeField] private List<WeaponObject> weaponsInInventory;
     [SerializeField] private List<GameObject> weaponsObjects;
-    [SerializeField] private WeaponObject equippedWeapon;
+    [SerializeField] public WeaponObject equippedWeapon;
     [SerializeField] private Weapon currentWeapon;
     public int shootDamage;
     [SerializeField] private int shootDist;
     public float shootRate;
-    [SerializeField] private GameObject gun;
+    [SerializeField] public GameObject gun;
     [SerializeField] private Transform hipPos, adsPos, gunSpawnPos;
     [SerializeField] private float gunSpeed;
     public int bulletsLeft;
@@ -439,7 +439,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void addNewWeapon()
     {
-        if (weaponsInInventory.Count >= 2) return;
+        if (weaponsInInventory.Count >= 3) return;
         if (currentHoveredInteractable == null) return;
         WeaponObject newWeapon;
         if(currentHoveredInteractable.GetComponent<Weapon>() )

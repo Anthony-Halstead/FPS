@@ -121,8 +121,12 @@ MonoBehaviour:
   doubleDamageUpgrade: 0
   healthUpgrade: 0
   magazineUpgrade: 1
+  refillUpgrade: 0
+  redKey: 0
+  greenKey: 0
+  weaponObject: {fileID: 0}
   killEnemiesUpgradeAmount: 0
-  shootRateUpgradeAmount: 0.2
+  shootRateUpgradeAmount: 0.02
   doubleDamageUpgradeAmount: 0
   healthUpgradeUpAmount: 0
   magezineUpgradeUpAmount: 0
