@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour, IDamage
     public int HPMax;
     public float speed;
     public int money = 50;
-    private Vector3 prevPos;
     [SerializeField] private float originalSpeed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float crouchMod;
@@ -56,12 +55,12 @@ public class PlayerController : MonoBehaviour, IDamage
     [Header("Player Stats - Shooting")] 
     [SerializeField] private List<WeaponObject> weaponsInInventory;
     [SerializeField] private List<GameObject> weaponsObjects;
-    [SerializeField] private WeaponObject equippedWeapon;
+    [SerializeField] public WeaponObject equippedWeapon;
     [SerializeField] private Weapon currentWeapon;
     public int shootDamage;
     [SerializeField] private int shootDist;
     public float shootRate;
-    [SerializeField] private GameObject gun;
+    [SerializeField] public GameObject gun;
     [SerializeField] private Transform hipPos, adsPos, gunSpawnPos;
     [SerializeField] private float gunSpeed;
     public int bulletsLeft;
@@ -69,6 +68,7 @@ public class PlayerController : MonoBehaviour, IDamage
     
   //  [SerializeField] private float shootRate;
     public int magazineSize;
+    public int ammoTotal;
 
     [Header("Interactable Settings")] 
     [SerializeField] private float interactDistance;
@@ -104,7 +104,8 @@ public class PlayerController : MonoBehaviour, IDamage
     public bool _isLeaning;
     public bool _canInteract;
     public bool _isReloading;
-    
+    public bool _isPlayingSprintAudio = false;
+
     private Camera _mainCam;
 
     private float horizInput;
@@ -131,6 +132,8 @@ public class PlayerController : MonoBehaviour, IDamage
         HP = HPMax;
         GameManager.instance.healthBar.fillAmount = (float)HP / HPMax;
         SpawnPlayer();
+        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
     }
 
     public void SpawnPlayer()
@@ -162,7 +165,6 @@ public class PlayerController : MonoBehaviour, IDamage
         dropCurrentWeapon();
         swapWeapon();
         SetNightVision();
-        prevPos = GameManager.instance.player.transform.position;
     }
 
     public void swapFire()
@@ -218,17 +220,23 @@ public class PlayerController : MonoBehaviour, IDamage
         charController.Move(_moveDir * (speed * Time.deltaTime));
 
         //Player has moved
-        if (prevPos != GameManager.instance.player.transform.position && !_isSprinting && !_isWalking && charController.isGrounded)
+        if (charController.isGrounded && _moveDir.magnitude > 0.3f && !_isWalking)
         {
-            StartCoroutine(walking());
+            StartCoroutine(playFootSteps());
         }
 
         if (Input.GetButtonDown("Jump") && _jumpCount < jumpMax)
         {
-            AudioManager.instance.playSFX(AudioManager.instance.jump);
-
+            AudioManager.instance.playMove(AudioManager.instance.jump[Random.Range(0, AudioManager.instance.jump.Length)], AudioManager.instance.jumpVol);
+           
             _jumpCount++;
             _playerVelocity.y = jumpSpeed;
+
+            if (_isSprinting)
+            { 
+                AudioManager.instance.stopMoveLoop();
+                _isPlayingSprintAudio = false;
+            }
         }
 
         charController.Move(_playerVelocity * Time.deltaTime);
@@ -248,32 +256,40 @@ public class PlayerController : MonoBehaviour, IDamage
         } 
     }
 
-    IEnumerator walking()
+    IEnumerator playFootSteps()
     {
+        Debug.Log("Walking");
         _isWalking = true;
-        AudioManager.instance.playMove(AudioManager.instance.footStepWalking);
-        yield return new WaitForSeconds(AudioManager.instance.footStepWalking.length);
+        AudioClip footstepClip = AudioManager.instance.footStepsForest[Random.Range(0, AudioManager.instance.footStepsForest.Length)];
+        AudioManager.instance.playMove(footstepClip, AudioManager.instance.footStepsVol);
+
+        if (!_isSprinting)
+        {
+            yield return new WaitForSeconds(AudioManager.instance.walkSpeedMod);
+        } else
+        {
+            yield return new WaitForSeconds(AudioManager.instance.sprintSpeedMod);
+        }
         _isWalking = false;
     }
 
     // handles player sprinting
     void sprint()
     {
-        
+
         if (Input.GetButtonDown("Sprint") && !_isCrouching)
         {
-            //Play sprint loop
-            AudioManager.instance.playMove(AudioManager.instance.footStepRunning, true);
-
-
             speed *= sprintMod;
             _isSprinting = true;
-        } else if (Input.GetButtonUp("Sprint") && !_isCrouching)
+            _isPlayingSprintAudio = true;
+        } 
+        else if (Input.GetButtonUp("Sprint") && !_isCrouching)
         {
             AudioManager.instance.stopMoveLoop();
 
             speed = originalSpeed;
             _isSprinting = false;
+            _isPlayingSprintAudio = false;
         }
     }
 
@@ -282,7 +298,7 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         if (Input.GetButtonDown("Crouch") && !_isSprinting)
         {
-            AudioManager.instance.playMove(AudioManager.instance.crouchDown);
+            AudioManager.instance.playMove(AudioManager.instance.crouchDown, AudioManager.instance.crouchVol);
 
             speed *= crouchMod;
             newHeight = crouchHeight;
@@ -290,7 +306,7 @@ public class PlayerController : MonoBehaviour, IDamage
         }
         else if (Input.GetButtonUp("Crouch") && !_isSprinting)
         {
-            AudioManager.instance.playMove(AudioManager.instance.crouchUp);
+            AudioManager.instance.playMove(AudioManager.instance.crouchUp, AudioManager.instance.crouchVol);
 
             speed = originalSpeed;
             newHeight = originalHeight;
@@ -384,6 +400,11 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void checkForInteractable()
     {
+        if (!_canInteract)
+        {
+            GameManager.instance.ToggleInteractionUI(false, "");
+        }
+        
         RaycastHit hit;
 
         if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, interactDistance, ~interactMask))
@@ -398,7 +419,9 @@ public class PlayerController : MonoBehaviour, IDamage
             _canInteract = false;
             currentHoveredInteractable = null;
             GameManager.instance.ToggleInteractionUI(false, "");
+            Debug.Log("No Longer Interacting");
         }
+
     }
     void grappleEnemy()
     {
@@ -416,7 +439,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void addNewWeapon()
     {
-
+        if (weaponsInInventory.Count >= 3) return;
         if (currentHoveredInteractable == null) return;
         WeaponObject newWeapon;
         if(currentHoveredInteractable.GetComponent<Weapon>() )
@@ -427,6 +450,7 @@ public class PlayerController : MonoBehaviour, IDamage
         
         if (Input.GetButtonDown("Interact"))
         {
+
             if (weaponsInInventory.Contains(newWeapon)) return;
             if (gun != null)
             {
@@ -440,10 +464,24 @@ public class PlayerController : MonoBehaviour, IDamage
             currentWeapon = gun.GetComponent<Weapon>();
             bulletsLeft = currentWeapon.GetCurrentAmmo();
             equippedWeapon = newWeapon;
+            animator = gun.GetComponent<Animator>();
             weaponsObjects.Add(clone);
             SendPickupDataToPlayerWeapon();
             setGunValuesToPlayerValues(equippedWeapon);
             Destroy(currentHoveredInteractable);
+            currentHoveredInteractable = null;
+            _canInteract = false;
+            GameManager.instance.ToggleInteractionUI(false, "");
+
+            for (int i = 0; i < weaponsInInventory.Count; i++)
+            {
+                if (weaponsInInventory[i] == newWeapon)
+                {
+                    swap(i);
+                }
+            }
+            
+
         }
         
     }
@@ -481,7 +519,10 @@ public class PlayerController : MonoBehaviour, IDamage
         gun = weaponsObjects[weaponIndex];
         currentWeapon = gun.GetComponent<Weapon>();
         gun.SetActive(true);
+        animator = gun.GetComponent<Animator>();
         setGunValuesToPlayerValues(equippedWeapon);
+        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
+        GameManager.instance.ammoText.text = bulletsLeft + "/" + ammoTotal;
 
     }
 
@@ -517,10 +558,13 @@ public class PlayerController : MonoBehaviour, IDamage
             if (weaponsInInventory.Count == 0)
             {
                 equippedWeapon = null;
+                animator = null;
             }
             else
             {
                 equippedWeapon = weaponsInInventory[0];
+                currentWeapon = weaponsObjects[0].GetComponent<Weapon>();
+                animator = weaponsObjects[0].GetComponent<Animator>();
                 gun = weaponsObjects[0];
                 gun.SetActive(true);
             }
@@ -536,10 +580,12 @@ public class PlayerController : MonoBehaviour, IDamage
         bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
         if (bulletsLeft > 0)
         {
-
+            Debug.Log("Shooting");
             gun.GetComponent<Weapon>().UpdateCurrentClip(-1);
             animator.SetTrigger("shoot");
             _isShooting = true;
+            
+            GameManager.instance.ammoText.text = bulletsLeft + "/" + ammoTotal;
 
             // for returning damage on what was hit
             RaycastHit hit;
@@ -548,7 +594,8 @@ public class PlayerController : MonoBehaviour, IDamage
             if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, shootDist, ~ignoreMask))
             {
                 bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
-                
+                ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
+
                 IDamage dmg = hit.collider.GetComponent<IDamage>();
 
                 if (dmg != null)
@@ -562,7 +609,9 @@ public class PlayerController : MonoBehaviour, IDamage
             //Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 
             // Play bullet sound
-            AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+            AudioClip shootClip = gun.GetComponent<Weapon>().GetShootClip()[Random.Range(0, gun.GetComponent<Weapon>().GetShootClip().Length)];
+            float shootVol = gun.GetComponent<Weapon>().GetShootVol();
+            AudioManager.instance.playSFX(shootClip, shootVol);
 
             // Instantiate muzzle flash
             GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, firePoint.position, firePoint.rotation);
@@ -577,16 +626,19 @@ public class PlayerController : MonoBehaviour, IDamage
     {
         _isReloading = true;
         animator.SetTrigger("reload");
-        
+
+        AudioManager.instance.playSFX(gun.GetComponent<Weapon>().GetReloadClip()[Random.Range(0, gun.GetComponent<Weapon>().GetReloadClip().Length)], gun.GetComponent<Weapon>().GetReloadVol());
         yield return new WaitForSeconds(gun.GetComponent<Weapon>().GetReloadTime());
         
         gun.GetComponent<Weapon>().ReloadAmmo();
         _isReloading = false;
+        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
     }
 
     public void TakeDamage(int amount, Vector3 origin)
     {
-        AudioManager.instance.playSFX(AudioManager.instance.playerHurt);
+        AudioManager.instance.playSFX(AudioManager.instance.hurt[Random.Range(0, AudioManager.instance.hurt.Length)], AudioManager.instance.hurtVol);
 
         HP -= amount;
         StartCoroutine(damageFlash());
@@ -613,6 +665,12 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             grenadeRb.AddForce(firePoint.forward * grenadeForce, ForceMode.Impulse);
         }
+    }
+
+    public void UpdateTotalAmmo(int amount)
+    {
+        gun.GetComponent<Weapon>().UpdateCurrentAmmo(amount);
+        ammoTotal = gun.GetComponent<Weapon>().GetCurrentAmmo();
     }
     #endregion
 

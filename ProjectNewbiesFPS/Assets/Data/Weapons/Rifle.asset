@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   prefab: {fileID: 1928452394054720770, guid: e292228d02d253e4883ffdb7f3386c21, type: 3}
-  prefab_rb: {fileID: 0}
+  prefab_rb: {fileID: 758661195487006975, guid: efbd71de5ef88384da38381586c76ae0, type: 3}
   sprite: {fileID: 0}
   name: Rifle
-  dmg: 20
+  dmg: 5
   dist: 1000
-  rate: 2
+  rate: 0.9
   fireSpeed: 2
   magazineCount: 8
   reloadTime: 5
-  shootSFX: []
-  shootVol: 0
+  shootSFX:
+  - {fileID: 8300000, guid: 25bc8c7c04ed81844b4f9140e70213dd, type: 3}
+  reloadSFX: []
+  shootVol: 0.5
+  reloadVol: 0

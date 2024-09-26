@@ -18,21 +18,21 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void resume()
     {
-        audioManagerScript.playSFX(audioManagerScript.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick, audioManagerScript.menuVol);
         GameManager.instance.stateUnpause();
         GameManager.instance.ToggleEnemyHealthBar();
     }
 
     public void restart()
     {
-        audioManagerScript.playSFX(audioManagerScript.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick, audioManagerScript.menuVol);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         GameManager.instance.stateUnpause();
     }
 
     public void quit()
     {
-        audioManagerScript.playSFX(audioManagerScript.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick, audioManagerScript.menuVol);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -45,20 +45,20 @@ public class ButtonFunctions : MonoBehaviour
 
     public void Cancel()
     {
-        audioManagerScript.playSFX(audioManagerScript.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick, audioManagerScript.menuVol);
         GameManager.instance.BuyMenu();
         
     }
 
     public void OptionsButton()
     {
-        audioManagerScript.playSFX(audioManagerScript.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick, audioManagerScript.menuVol);
         GameManager.instance.Options();
     }
 
     public void OrderConfirm()
     {
-        audioManagerScript.playSFX(audioManagerScript.menuClick);
+        audioManagerScript.playSFX(audioManagerScript.menuClick, audioManagerScript.menuVol);
         GameManager.instance.StoreOrder();
     }
 

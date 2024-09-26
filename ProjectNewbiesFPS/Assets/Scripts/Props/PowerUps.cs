@@ -18,6 +18,7 @@ public class PowerUps : MonoBehaviour, IPowerUps
    // [SerializeField] bool blackKey;
     [SerializeField] bool greenKey;
 
+    [SerializeField] WeaponObject weaponObject;
     //[SerializeField] GameObject greenKeyPrefab;
     //[SerializeField] QuestMarkers greenKeyMarker;
 
@@ -28,7 +29,8 @@ public class PowerUps : MonoBehaviour, IPowerUps
     public int healthUpgradeUpAmount;
     public int magezineUpgradeUpAmount;
     int refillUpgradeUpAmount;
-    
+
+   
 
     // Start is called before the first frame update
     void Start()
@@ -47,17 +49,17 @@ public class PowerUps : MonoBehaviour, IPowerUps
     public void OnTriggerEnter(Collider other)
     {
          
-         if (other.CompareTag("Player") && doubleDamageUpgrade)
+         if (other.CompareTag("Player") && doubleDamageUpgrade && GameManager.instance.playerScript.equippedWeapon.dmg <= 6)
         {
 
-            GameManager.instance.playerScript.shootDamage *= doubleDamageUpgradeAmount;
+            GameManager.instance.playerScript.equippedWeapon.dmg *= doubleDamageUpgradeAmount;
 
             Destroy(gameObject);
 
         }
-        else if (other.CompareTag("Player") && shootRateUpgrade)
+        else if (other.CompareTag("Player") && shootRateUpgrade && GameManager.instance.playerScript.equippedWeapon.rate > 0)
         {
-            GameManager.instance.playerScript.shootRate -= shootRateUpgradeAmount;
+            GameManager.instance.playerScript.equippedWeapon.rate -= shootRateUpgradeAmount;
             
             Destroy(gameObject);
 
@@ -72,9 +74,9 @@ public class PowerUps : MonoBehaviour, IPowerUps
         }
         else if(other.CompareTag("Player") && magazineUpgrade)
         {
-            
-            GameManager.instance.playerScript.magazineSize += 30;
-            GameManager.instance.playerScript.bulletsLeft = GameManager.instance.playerScript.magazineSize;
+            int _magSize = GameManager.instance.playerScript.magazineSize;
+            GameManager.instance.playerScript.UpdateTotalAmmo(_magSize * 3);
+
             
             Destroy(gameObject);
         }
@@ -105,8 +107,9 @@ public class PowerUps : MonoBehaviour, IPowerUps
             GameManager.instance.redKeyFound = true;
             GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
             GameManager.instance.redkeySpriteImage.SetActive(true);
-            QuestManager.instance.AddForestGateMarker();
+            
             QuestManager.instance.RemoveRedKeyMarker();
+            QuestManager.instance.AddForestGateMarker();
             Destroy(gameObject);
         }
         else if (other.CompareTag("Player") && greenKey)
@@ -114,6 +117,8 @@ public class PowerUps : MonoBehaviour, IPowerUps
             GameManager.instance.greenKeyFound = true;
             GameManager.instance.objectivesText.text = "OBJECTIVE: UNLOCK GATE";
             GameManager.instance.greenkeySpriteImage.SetActive(true);
+            
+            
             QuestManager.instance.RemoveGreenKeyMarker();
             QuestManager.instance.AddIndustrialGateMarker();
             Destroy(gameObject);

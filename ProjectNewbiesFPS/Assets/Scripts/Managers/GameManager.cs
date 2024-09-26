@@ -52,7 +52,9 @@ public class GameManager : MonoBehaviour
     public GameObject blackkeySpriteImage;
     public GameObject greenkeySpriteImage;
 
-
+    [Header("Tower Bools")]
+    public bool isTower1Dead;
+    public bool isTower2Dead;
 
     [Header("Checkpoint UI")]
     public GameObject checkpointPopUp;
@@ -184,7 +186,7 @@ public class GameManager : MonoBehaviour
         storeMoneyText.text = "" + playerScript.money;
 
         //Initializing Objectives Text
-        objectivesText.text = "OBJECTIVE: Find Red Key";
+        objectivesText.text = "OBJECTIVE: Destory Communication Tower 1";
 
         //Initializing shop icons as not checked
          healthUpgrageToggle.isOn = false;
@@ -192,7 +194,7 @@ public class GameManager : MonoBehaviour
          shootRateUpgrageToggle.isOn = false;
          doubleDamageUpgrageToggle.isOn = false;
          killEnemiesUpgrageToggle.isOn = false;
-        // refillUpgradeToggle.isOn = false;
+         refillUpgradeToggle.isOn = false;
 
         //Initializing Slider values on Options menu to a default
         sensitivitySlider.value = 300f;
@@ -209,7 +211,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         compassUnit = compassImage.rectTransform.rect.width / 360f;
-    //    QuestManager.instance.AddRedKeyMarker();
+        QuestManager.instance.AddTower1Marker();
     }
 
     public void ToggleInteractionUI(bool toggle, string text)
@@ -236,7 +238,7 @@ public class GameManager : MonoBehaviour
             //pausing the game
             if (menuActive == null)
             {
-                AudioManager.instance.playSFX(AudioManager.instance.menuUp);
+                AudioManager.instance.playSFX(AudioManager.instance.menuUp, AudioManager.instance.menuVol);
 
                 statePause();
                 menuActive = menuPause;
@@ -245,7 +247,7 @@ public class GameManager : MonoBehaviour
             //Unpausing the game
             else if (menuActive == menuPause)
             {
-                AudioManager.instance.playSFX(AudioManager.instance.menuDown);
+                AudioManager.instance.playSFX(AudioManager.instance.menuDown, AudioManager.instance.menuVol);
 
                 stateUnpause();
             }
@@ -266,12 +268,12 @@ public class GameManager : MonoBehaviour
         }
 
         //Updating UI items during game
-        ammoText.text = playerScript.bulletsLeft + "/" + playerScript.magazineSize;
+        ammoText.text = playerScript.bulletsLeft + "/" + playerScript.ammoTotal;
       //  waveText.text = "" + wave;
         moneyText.text = "$" + playerScript.money;
        // enemyCountText.text = "" + enemyCount;
         healthBarText.text = "" + playerScript.HP + "/" + playerScript.HPMax;
-        visText.text = playerScript.getPlayerVisibility().ToString("F0") + "%";
+        //visText.text = playerScript.getPlayerVisibility().ToString("F0") + "%";
 
 
         //closing out of tutorial screen
@@ -286,20 +288,23 @@ public class GameManager : MonoBehaviour
 
         //Compass UI
         compassImage.uvRect = new Rect(player.transform.localEulerAngles.y / 360, 0f, 1f, 1f);
-        
-        foreach(QuestMarkers marker in questMarkers)
+        if (questMarkers.Count > 0)
         {
-            marker.image.rectTransform.anchoredPosition = GetPosOnCompass(marker);
-
-            float dst = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), marker.position);
-            float scale = 0f;
-
-            if(dst < maxDistance)
+            foreach (QuestMarkers marker in questMarkers)
             {
-                scale = 1f - (dst / maxDistance);
-            }
+               // if (marker == null) break;
+                marker.image.rectTransform.anchoredPosition = GetPosOnCompass(marker);
 
-            marker.image.rectTransform.localScale = Vector3.one * scale;
+                float dst = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), marker.position);
+                float scale = 0f;
+
+                if (dst < maxDistance)
+                {
+                    scale = 1f - (dst / maxDistance);
+                }
+
+                marker.image.rectTransform.localScale = Vector3.one * scale;
+            }
         }
     }
 
@@ -347,12 +352,11 @@ public class GameManager : MonoBehaviour
     //Winning Game Method
     public void WinGame()
     {
-        //if (wave == 10)
-        //{
-        //    statePause();
-        //    menuActive = menuWin;
-        //    menuWin.SetActive(true);
-        //}
+        
+          statePause();
+           menuActive = menuWin;
+           menuWin.SetActive(true);
+       
     }
 
     //public void NextWave()

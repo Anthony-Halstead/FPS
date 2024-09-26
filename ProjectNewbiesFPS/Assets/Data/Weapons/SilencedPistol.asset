@@ -17,10 +17,13 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: d274a7b066199344cb5b6858974c3da2, type: 3}
   name: Silenced Pistol
   dmg: 2
-  dist: 12
+  dist: 40
   rate: 0.5
   fireSpeed: 5
   magazineCount: 12
   reloadTime: 1
-  shootSFX: []
-  shootVol: 0
+  shootSFX:
+  - {fileID: 8300000, guid: 25bc8c7c04ed81844b4f9140e70213dd, type: 3}
+  reloadSFX: []
+  shootVol: 0.5
+  reloadVol: 0

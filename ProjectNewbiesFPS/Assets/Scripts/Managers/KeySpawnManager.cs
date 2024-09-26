@@ -10,9 +10,11 @@ public class KeySpawnManager : MonoBehaviour
     [SerializeField] GameObject[] keySpawnPoints;
     //[SerializeField] GameObject spawnPos;
     [SerializeField] GameObject key;
+    
    
     [SerializeField] int randomSpawnPoints;
     [SerializeField] int MaxSpawnPoints;
+    
     
 
     // Start is called before the first frame update
@@ -21,8 +23,12 @@ public class KeySpawnManager : MonoBehaviour
         
         randomSpawnPoints = Random.Range(0, MaxSpawnPoints);
 
-        Instantiate(key, keySpawnPoints[randomSpawnPoints].transform.position + new Vector3(0, 1, 4), keySpawnPoints[randomSpawnPoints].transform.localRotation);
+        Instantiate(key, keySpawnPoints[randomSpawnPoints].transform.position + new Vector3(0, 1, 0), keySpawnPoints[randomSpawnPoints].transform.localRotation);
+
+        
+
     }
+
    
 
 }

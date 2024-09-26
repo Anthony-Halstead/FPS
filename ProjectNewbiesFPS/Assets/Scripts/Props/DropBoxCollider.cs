@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DropBoxCollider : MonoBehaviour
 {
+    [SerializeField] LayerMask layer;
     public AudioManager audioManager;
    
 
@@ -17,9 +18,9 @@ public class DropBoxCollider : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        if (other.gameObject.layer != ~layer)
         {
-            audioManager.playSFX(audioManager.dropBox);
+            audioManager.playSFX(audioManager.dropBox[Random.Range(0,audioManager.dropBox.Length)], audioManager.pickUpVol);
             Debug.Log("Collided");
 
             //Activate Animation

@@ -23,6 +23,8 @@ TagManager:
   - ForestGate
   - BossGate
   - IndustrialGate
+  - Tower1
+  - Tower2
   layers:
   - Default
   - TransparentFX
