@@ -42,6 +42,7 @@ public class IdleState : State
         }
         if (attackState != null && controller.TargetIsVisible() && controller.TargetInShootRange() && !controller.IsShooting)
         {
+            controller.PreviousState = this; 
             controller.TransitionToState(attackState);
         }
         if (spawnReinforcement != null && controller.IsTakingDamage && controller.SpawnReinforcementCooldownTimer <= 0)

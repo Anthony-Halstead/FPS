@@ -21,7 +21,7 @@ public class HoldGroundState : State
 
         if (controller.PathFound == true)
         {
-            controller.lookTarget = controller.playerPos;
+            //controller.lookTarget = controller.playerPos;
             controller.PathFound = false;      
             controller.HoldCoverCooldownTimer = holdCoverCooldown;
             controller.TransitionToState(idleState);

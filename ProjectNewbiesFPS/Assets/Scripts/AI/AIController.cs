@@ -124,19 +124,19 @@ public class AIController : Spawnable, IDamage
             lArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         }
 
-        weapon ??= GetComponentInChildren<Weapon>();
+        //weapon ??= GetComponentInChildren<Weapon>();
       
-        if (weapon != null)
-        {
-            bullet.TryGetComponent(out damage component);
-            if (component != null)
-            {
-                component.damageAmount = weapon.GetGunDamage();
-            }
-            shootPos = weapon.GetFirePoint();
-            shootRate = weapon.GetShootRate();
-            shootRange = weapon.GetShootDist();
-        }
+        //if (weapon != null)
+        //{
+        //    bullet.TryGetComponent(out damage component);
+        //    if (component != null)
+        //    {
+        //        component.damageAmount = weapon.GetGunDamage();
+        //    }
+        //    shootPos = weapon.GetFirePoint();
+        //    shootRate = weapon.GetShootRate();
+        //    shootRange = weapon.GetShootDist();
+        //}
 
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
@@ -219,24 +219,24 @@ public class AIController : Spawnable, IDamage
     }
     void faceTarget(Vector3 lookTarget)
     {
-        
+
         Vector3 directionToLookTarget = (lookTarget - transform.position);
         Quaternion targetRotation = Quaternion.LookRotation(directionToLookTarget);
-        Quaternion currentRotation = transform.rotation;
-        Quaternion finalRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);  
+        // Quaternion currentRotation = transform.rotation;
+        //Quaternion finalRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * faceTargetSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * faceTargetSpeed);
     }
-   /* void faceMovementDirection()
-    {
-        // Only update rotation if the agent has some velocity
-        if (agent.velocity.sqrMagnitude > 0.01f)
-        {
-            Vector3 direction = agent.velocity.normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * faceTargetSpeed);
-        }
-    }*/
+    /* void faceMovementDirection()
+     {
+         // Only update rotation if the agent has some velocity
+         if (agent.velocity.sqrMagnitude > 0.01f)
+         {
+             Vector3 direction = agent.velocity.normalized;
+             Quaternion targetRotation = Quaternion.LookRotation(direction);
+             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * faceTargetSpeed);
+         }
+     }*/
 
     public void SetDodgeFalse()
     {
@@ -674,7 +674,7 @@ public class AIController : Spawnable, IDamage
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
-        AudioManager.instance.playEnemy(AudioManager.instance.hurt[UnityEngine.Random.Range(0, AudioManager.instance.footStepsForest.Length)], AudioManager.instance.hurtVol);
+        AudioManager.instance.playEnemy(AudioManager.instance.hurt[UnityEngine.Random.Range(0, AudioManager.instance.hurt.Length)], AudioManager.instance.hurtVol);
 
         yield return new WaitForSeconds(0.1f);
         
