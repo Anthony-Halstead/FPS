@@ -26,6 +26,7 @@ public class ChaseState : State
         }
         if (controller.TargetIsVisible() && controller.TargetInShootRange() && !controller.IsShooting) 
         {
+            controller.PreviousState = this;
             controller.TransitionToState(attackState);
         }
         if (!controller.TargetIsVisible() && !controller.TargetInShootRange() && Vector3.Distance(controller.transform.position, controller.playerPos) >= giveUpChaseDistance)

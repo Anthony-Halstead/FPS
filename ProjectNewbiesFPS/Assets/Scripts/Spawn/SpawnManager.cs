@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
 /// <summary>
@@ -13,6 +14,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] LayerMask spawnLayerMask;
     [Tooltip("Used to determine the max distance to the navmesh each spawner should be in order for the spawn points to be moved to the navmesh")
    , SerializeField] float maxDistanceToNavMesh = 7f;
+    [SerializeField] GameObject[] SpawnAreas;
 
     SpawnerHandler[] sceneSpawnHandlers;
 
@@ -71,5 +73,9 @@ public class SpawnManager : MonoBehaviour
         {
             spawner.TriggerTimer();
         }
+    }
+    public void TriggerSpawnArea(int index)
+    {
+        SpawnAreas[index].SetActive(true);
     }
 }

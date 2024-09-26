@@ -24,10 +24,10 @@ public class SpawnerHandler : MonoBehaviour
     int counter;
     [SerializeField] int  numberOfWaves = 0;
 
-    private void OnEnable()
+   /* private void OnEnable()
     {
         GameManager.WaveCount += SetWaveCount;
-    }
+    }*/
     private void OnDisable()
     {
         GameManager.WaveCount -= SetWaveCount;
@@ -40,10 +40,41 @@ public class SpawnerHandler : MonoBehaviour
 
     public void Awake()
     {
+        SpawnStrategy instance = Instantiate(strategyTemplate);
+        instance.SetPoints(spawnPoints);
+        spawner = new Spawner<Spawnable>(new Factory<Spawnable>(objsData), instance);
+        timerInstance = Instantiate(timerTemplate);
 
+        timerInstance.OnStopTimer += () =>
+        {
+
+            if (counter++ >= spawnPoints.Length)
+            {
+                --numberOfWaves;
+                if (numberOfWaves <= 0)
+                {
+                    timerInstance.StopTimer(this);
+                    counter = 0;
+                    return;
+                }
+                else
+                {
+
+                    counter = 0;
+                }
+            }
+            Spawn();
+            timerInstance.StartTimer(this, spawnInterval);
+
+
+        };
+
+
+        if (spawnPositionType == SpawnPositionType.NavMesh)
+            OnSendSpawner.Invoke(spawnPoints);
     }
 
-    public void OnTriggerEnter(Collider other)
+    /*public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -83,9 +114,9 @@ public class SpawnerHandler : MonoBehaviour
                     OnSendSpawner.Invoke(spawnPoints);
             }
         }
-    }
+    }*/
 
-    private void Start() => timerInstance.StartTimer(this,spawnInterval);
+    private void OnEnable() => timerInstance.StartTimer(this,spawnInterval);
     /// <summary>
     /// Spawns an instance of an object
     /// </summary>
