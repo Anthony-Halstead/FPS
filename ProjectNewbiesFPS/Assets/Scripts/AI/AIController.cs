@@ -121,9 +121,18 @@ public class AIController : Spawnable, IDamage
 
 
     void Update()
-    {       
-        _currentState.UpdateState(this);
-        TrackedStats();
+    {
+        if (weapon != null)
+        {
+            bullet.TryGetComponent(out damage component);
+            if (component != null)
+            {
+                component.damageAmount = weapon.GetGunDamage();
+            }
+            shootPos = weapon.GetFirePoint();
+            shootRate = weapon.GetShootRate();
+            shootRange = weapon.GetShootDist();
+        }
     }
 
     void TrackedStats()
