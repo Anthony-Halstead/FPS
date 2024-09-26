@@ -258,6 +258,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     IEnumerator playFootSteps()
     {
+        Debug.Log("Walking");
         _isWalking = true;
         AudioClip footstepClip = AudioManager.instance.footStepsForest[Random.Range(0, AudioManager.instance.footStepsForest.Length)];
         AudioManager.instance.playMove(footstepClip, AudioManager.instance.footStepsVol);
@@ -399,6 +400,11 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void checkForInteractable()
     {
+        if (!_canInteract)
+        {
+            GameManager.instance.ToggleInteractionUI(false, "");
+        }
+        
         RaycastHit hit;
 
         if (Physics.Raycast(_mainCam.transform.position, _mainCam.transform.forward, out hit, interactDistance, ~interactMask))
@@ -413,7 +419,9 @@ public class PlayerController : MonoBehaviour, IDamage
             _canInteract = false;
             currentHoveredInteractable = null;
             GameManager.instance.ToggleInteractionUI(false, "");
+            Debug.Log("No Longer Interacting");
         }
+
     }
     void grappleEnemy()
     {
@@ -431,7 +439,7 @@ public class PlayerController : MonoBehaviour, IDamage
 
     void addNewWeapon()
     {
-
+        if (weaponsInInventory.Count >= 2) return;
         if (currentHoveredInteractable == null) return;
         WeaponObject newWeapon;
         if(currentHoveredInteractable.GetComponent<Weapon>() )
@@ -442,6 +450,7 @@ public class PlayerController : MonoBehaviour, IDamage
         
         if (Input.GetButtonDown("Interact"))
         {
+
             if (weaponsInInventory.Contains(newWeapon)) return;
             if (gun != null)
             {
@@ -460,6 +469,19 @@ public class PlayerController : MonoBehaviour, IDamage
             SendPickupDataToPlayerWeapon();
             setGunValuesToPlayerValues(equippedWeapon);
             Destroy(currentHoveredInteractable);
+            currentHoveredInteractable = null;
+            _canInteract = false;
+            GameManager.instance.ToggleInteractionUI(false, "");
+
+            for (int i = 0; i < weaponsInInventory.Count; i++)
+            {
+                if (weaponsInInventory[i] == newWeapon)
+                {
+                    swap(i);
+                }
+            }
+            
+
         }
         
     }
@@ -499,6 +521,8 @@ public class PlayerController : MonoBehaviour, IDamage
         gun.SetActive(true);
         animator = gun.GetComponent<Animator>();
         setGunValuesToPlayerValues(equippedWeapon);
+        bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
+        GameManager.instance.ammoText.text = bulletsLeft + "/" + ammoTotal;
 
     }
 
@@ -539,6 +563,8 @@ public class PlayerController : MonoBehaviour, IDamage
             else
             {
                 equippedWeapon = weaponsInInventory[0];
+                currentWeapon = weaponsObjects[0].GetComponent<Weapon>();
+                animator = weaponsObjects[0].GetComponent<Animator>();
                 gun = weaponsObjects[0];
                 gun.SetActive(true);
             }
@@ -554,10 +580,12 @@ public class PlayerController : MonoBehaviour, IDamage
         bulletsLeft = gun.GetComponent<Weapon>().GetCurrentClip();
         if (bulletsLeft > 0)
         {
-
+            Debug.Log("Shooting");
             gun.GetComponent<Weapon>().UpdateCurrentClip(-1);
             animator.SetTrigger("shoot");
             _isShooting = true;
+            
+            GameManager.instance.ammoText.text = bulletsLeft + "/" + ammoTotal;
 
             // for returning damage on what was hit
             RaycastHit hit;
