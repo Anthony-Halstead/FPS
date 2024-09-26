@@ -450,7 +450,7 @@ Transform:
   m_GameObject: {fileID: 1043493562105292996}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.153, z: 0.265}
+  m_LocalPosition: {x: -0, y: 0.153, z: 0.3047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3031,7 +3031,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7438732002543733590}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.54915744, y: -0.0022201827, z: 0.030684024, w: 0.83515257}
+  m_LocalRotation: {x: 0.5491544, y: -0.002218794, z: 0.030682256, w: 0.8351546}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3079,7 +3079,7 @@ Transform:
   - {fileID: 5095571464498700484}
   - {fileID: 8379929027689073107}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 66.548, y: 4.322, z: 7.045}
 --- !u!114 &7090907386512730131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3103,6 +3103,7 @@ MonoBehaviour:
   startingAmmo: 0
   currentAmmo: 0
   currentClip: 0
+  maxAmmo: 0
   interactionText: 
 --- !u!1 &7508210628567005994
 GameObject:

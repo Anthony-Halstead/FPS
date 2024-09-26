@@ -9,10 +9,10 @@ public class CoverAttackState : State
     [SerializeField] AttackType type = AttackType.Default;
     public override void EnterState(AIController controller)
     {
-        if (type is AttackType.DualWield)
+        /*if (type is AttackType.DualWield)
             controller.SetDualWieldRig();
         else
-            controller.StartRig();
+            controller.StartRig();*/
         controller.StartCoroutine(controller.ShootFromCover(shootingLength,coverPositionOffsetDistance));
     }
     public override void UpdateState(AIController controller)
@@ -21,7 +21,7 @@ public class CoverAttackState : State
             controller.TransitionToState(controller.PreviousState);
     }
     public override void ExitState(AIController controller){ 
-        controller.StopRig(); }
+        /*controller.StopRig(); */}
 
  
 }

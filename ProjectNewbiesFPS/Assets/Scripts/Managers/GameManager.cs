@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
     [Header("Script References")]
     //Player and script references
     public GameObject player;
+    public Transform playerHitTransform;
     public PlayerController playerScript;
     public GameObject projectiles;
     public List<GameObject> enemyAI;
@@ -176,6 +177,7 @@ public class GameManager : MonoBehaviour
         timeScaleOG = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<PlayerController>();
+        playerHitTransform = player.GetComponentInChildren<PlayerTarget>().gameObject.transform;
         mainCamera = GameObject.FindWithTag("MainCamera");
         mainCameraController = mainCamera.GetComponent<CameraController>();
         playerSpawnPos = GameObject.FindWithTag("PlayerSpawnPos");

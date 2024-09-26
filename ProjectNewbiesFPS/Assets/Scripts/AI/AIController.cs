@@ -20,7 +20,7 @@ public class AIController : Spawnable, IDamage
         Minion,
     }
 
-    [Header("AnimationRig")]
+   /* [Header("AnimationRig")]
     [SerializeField] Rig rig;
     [SerializeField] Transform defaultRigTarget;
     public Transform DefaultRigTarget => defaultRigTarget;
@@ -28,7 +28,7 @@ public class AIController : Spawnable, IDamage
     [SerializeField] MultiAimConstraint body;
     [SerializeField] MultiAimConstraint rArm;
     [Tooltip("For dual wield use only"), SerializeField] MultiAimConstraint lArm;
-
+*/
 
     [Header("AI")]
     [SerializeField] private EnemyType enemyType = EnemyType.Minion;
@@ -50,6 +50,7 @@ public class AIController : Spawnable, IDamage
     [SerializeField] private float shootRate;
     [SerializeField] float shootRange;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private float playerPositionOffsetHeight = -.4f;
     private bool isTakingDamage = false;
     public bool IsTakingDamage { get => isTakingDamage; set => isTakingDamage = value; }
     [SerializeField] private Weapon weapon;
@@ -97,14 +98,15 @@ public class AIController : Spawnable, IDamage
     [Range(1,10),SerializeField] int maxCoverHistory = 5;
     private Queue<Collider> coverColliders = new Queue<Collider>();
     Vector3 areaPosition;
+
     void Awake()
     {
-        rig ??= GetComponentInChildren<Rig>();
+       // rig ??= GetComponentInChildren<Rig>();
         model ??= GetComponentInChildren<Renderer>();
         agent ??= GetComponent<NavMeshAgent>();
 
 
-        StopRig();
+        //StopRig();
         originalStopDistance = agent.stoppingDistance;
         HP = HPMax;
     }
@@ -116,14 +118,14 @@ public class AIController : Spawnable, IDamage
         GameManager.instance.enemyAIScript.Add(this);
         GameManager.instance.enemyHealthBar.Add(healthBar);
         GameManager.instance.enemyHealthBarVisibility.Add(healthBarVisibility);
-        head.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
+      /*  head.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         body.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         rArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         if (lArm != null)
         {
             lArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         }
-
+*/
         weapon ??= GetComponentInChildren<Weapon>();
       
         if (weapon != null)
@@ -140,7 +142,7 @@ public class AIController : Spawnable, IDamage
 
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
-        StopRig();
+       // StopRig();
         TransitionToState(_defaultState);
     }
 
@@ -169,7 +171,9 @@ public class AIController : Spawnable, IDamage
         {
             HoldCoverCooldownTimer -= Time.deltaTime;
         }    
-        playerPos = GameManager.instance.player.transform.position;
+       // Vector3 storedPosition = GameManager.instance.player.transform.position;
+       // storedPosition.y += playerPositionOffsetHeight;
+        playerPos = GameManager.instance.playerHitTransform.position;
         playerDir = playerPos - headPos.position;
         agent.SetDestination(target);
         /*if(lookTarget != Vector3.zero)*/faceTarget(lookTarget);
@@ -219,13 +223,11 @@ public class AIController : Spawnable, IDamage
     }
     void faceTarget(Vector3 lookTarget)
     {
-        
-        Vector3 directionToLookTarget = (lookTarget - transform.position);
-        Quaternion targetRotation = Quaternion.LookRotation(directionToLookTarget);
-        Quaternion currentRotation = transform.rotation;
-        Quaternion finalRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);  
+        Vector3 directionToTarget = lookTarget - transform.position;
+        directionToTarget.y = 0; // Keep the rotation in the horizontal plane
+        Quaternion lookRotation = Quaternion.LookRotation(directionToTarget.normalized, Vector3.up);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * faceTargetSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
     }
    /* void faceMovementDirection()
     {
@@ -497,7 +499,7 @@ public class AIController : Spawnable, IDamage
     {
      
         IsShooting = true;
-        lookTarget = playerPos;
+     
         _animator.SetTrigger("Shoot");
        // AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
         yield return new WaitForSeconds(shootRate);
@@ -680,47 +682,52 @@ public class AIController : Spawnable, IDamage
         
         model.material.color = colorOriginal;
     }
-    public void StartRig()
-    {
-        head.data.sourceObjects.SetWeight(0, 0);
-        head.data.sourceObjects.SetWeight(1, 1);
-        body.data.sourceObjects.SetWeight(0, 0);
-        body.data.sourceObjects.SetWeight(1, 1);
-        rArm.data.sourceObjects.SetWeight(0, 0);
-        rArm.data.sourceObjects.SetWeight(1, 1);
-        if(lArm != null)
+    /*    public void StartRig()
         {
-            lArm.data.sourceObjects.SetWeight(0, 0);
-            lArm.data.sourceObjects.SetWeight(1, 1);
+            head.data.sourceObjects.SetWeight(0, 0);
+            head.data.sourceObjects.SetWeight(1, 1);
+            body.data.sourceObjects.SetWeight(0, 0);
+            body.data.sourceObjects.SetWeight(1, 1);
+            rArm.data.sourceObjects.SetWeight(0, 0);
+            rArm.data.sourceObjects.SetWeight(1, 1);
+            if(lArm != null)
+            {
+                lArm.data.sourceObjects.SetWeight(0, 0);
+                lArm.data.sourceObjects.SetWeight(1, 1);
+            }
+            rig.weight = 1.0f;
         }
-        rig.weight = 1.0f;
-    }
-    public void StopRig()
-    {
-        head.data.sourceObjects.SetWeight(0, 1);
-        head.data.sourceObjects.SetWeight(1, 0);
-        body.data.sourceObjects.SetWeight(0, 1);
-        body.data.sourceObjects.SetWeight(1, 0);
-        rArm.data.sourceObjects.SetWeight(0, 1);
-        rArm.data.sourceObjects.SetWeight(1, 0);
-        if (lArm != null)
+        public void StopRig()
         {
+            head.data.sourceObjects.SetWeight(0, 1);
+            head.data.sourceObjects.SetWeight(1, 0);
+            body.data.sourceObjects.SetWeight(0, 1);
+            body.data.sourceObjects.SetWeight(1, 0);
+            rArm.data.sourceObjects.SetWeight(0, 1);
+            rArm.data.sourceObjects.SetWeight(1, 0);
+            if (lArm != null)
+            {
+                lArm.data.sourceObjects.SetWeight(0, 1);
+                lArm.data.sourceObjects.SetWeight(1, 0);
+            }
+            rig.weight = 0f;
+        }
+        public void SetDualWieldRig()
+        {
+            head.data.sourceObjects.SetWeight(0, 1);
+            head.data.sourceObjects.SetWeight(1, 0);
+            body.data.sourceObjects.SetWeight(0, 1);
+            body.data.sourceObjects.SetWeight(1, 0);
+            rArm.data.sourceObjects.SetWeight(0, 1);
+            rArm.data.sourceObjects.SetWeight(1, 0);
             lArm.data.sourceObjects.SetWeight(0, 1);
             lArm.data.sourceObjects.SetWeight(1, 0);
-        }
-        rig.weight = 0f;
-    }
-    public void SetDualWieldRig()
+            rig.weight = 1.0f;
+        }*/
+    void OnDrawGizmos()
     {
-        head.data.sourceObjects.SetWeight(0, 1);
-        head.data.sourceObjects.SetWeight(1, 0);
-        body.data.sourceObjects.SetWeight(0, 1);
-        body.data.sourceObjects.SetWeight(1, 0);
-        rArm.data.sourceObjects.SetWeight(0, 1);
-        rArm.data.sourceObjects.SetWeight(1, 0);
-        lArm.data.sourceObjects.SetWeight(0, 1);
-        lArm.data.sourceObjects.SetWeight(1, 0);
-        rig.weight = 1.0f;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, playerPos); // Line from AI to player
     }
-   
+
 }
