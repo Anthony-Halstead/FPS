@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -31,6 +32,7 @@ public class AIController : Spawnable, IDamage
 
     [Header("AI")]
     [SerializeField] private EnemyType enemyType = EnemyType.Minion;
+    [SerializeField] private List<Transform> patrolPoints = new List<Transform>();
     [SerializeField] private Renderer model;
     private Color colorOriginal;
     [SerializeField] private NavMeshAgent agent;
@@ -61,6 +63,11 @@ public class AIController : Spawnable, IDamage
     public float SweepCooldownTimer { get { return sweepCooldownTimer; } set { if (value < 0) sweepCooldownTimer = 0; else sweepCooldownTimer = value; } }
     [SerializeField] private float holdCoverCooldownTimer = 0f;
     public float HoldCoverCooldownTimer { get { return holdCoverCooldownTimer; } set { if (value < 0) holdCoverCooldownTimer = 0; else holdCoverCooldownTimer = value; } }
+
+
+    [SerializeField] private float spawnReinforcementCooldownTimer = 0f;
+    public float SpawnReinforcementCooldownTimer { get { return spawnReinforcementCooldownTimer; } set { if (value < 0) spawnReinforcementCooldownTimer = 0; else spawnReinforcementCooldownTimer = value; } }
+
     public bool IsDodging { get; set; }
     public bool IsShooting { get; set; }
     public bool IsSearching { get; set; }
@@ -154,6 +161,10 @@ public class AIController : Spawnable, IDamage
         {
             SweepCooldownTimer -= Time.deltaTime;
         }
+        if (SpawnReinforcementCooldownTimer > 0)
+        {
+            SpawnReinforcementCooldownTimer -= Time.deltaTime;
+        }
         if (HoldCoverCooldownTimer > 0)
         {
             HoldCoverCooldownTimer -= Time.deltaTime;
@@ -208,13 +219,13 @@ public class AIController : Spawnable, IDamage
     }
     void faceTarget(Vector3 lookTarget)
     {
-        //Vector3 directionToLookTarget = (lookTarget - transform.position);
+        
         Vector3 directionToLookTarget = (lookTarget - transform.position);
         Quaternion targetRotation = Quaternion.LookRotation(directionToLookTarget);
-/*        Quaternion currentRotation = transform.rotation;
-        Quaternion finalRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);  */
+        Quaternion currentRotation = transform.rotation;
+        Quaternion finalRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);  
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * faceTargetSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, finalRotation, Time.deltaTime * faceTargetSpeed);
     }
    /* void faceMovementDirection()
     {
@@ -452,6 +463,36 @@ public class AIController : Spawnable, IDamage
         agent.stoppingDistance = originalStopDistance;
         PositionRoutine = null;
     }
+    public IEnumerator Patrol()
+    {
+        int currentPointIndex = 0;
+      
+
+        //int walkableMask = NavMesh.GetAreaFromName("Walkable");
+        while (true) {
+            target = patrolPoints[currentPointIndex].position;
+            lookTarget = patrolPoints[currentPointIndex].position;
+            // NavMeshHit hit;
+            /*     if(NavMesh.SamplePosition(patrolPoints[currentPointIndex].position, out hit, 10f, walkableMask))
+                 {
+                     target = hit.position;
+                     lookTarget = hit.position;*/
+            while (Vector3.Distance(transform.position, patrolPoints[currentPointIndex].position) > agent.stoppingDistance)
+                {
+                    yield return null;
+                }
+          //  }
+           
+
+            currentPointIndex++;
+            if (currentPointIndex >= patrolPoints.Count)
+            {
+                currentPointIndex = 0;
+            }
+            yield return null;
+
+        }      
+    }
     public IEnumerator Shoot()
     {
      
@@ -585,6 +626,10 @@ public class AIController : Spawnable, IDamage
         isTakingDamage = true;
         yield return new WaitForSeconds(notificationLength);
         isTakingDamage = false;
+    }
+    public void CallReinforcements(float distanceCheck)
+    {
+        SpawnManager.instance.TriggerEnemySpawn(transform.position,distanceCheck);
     }
     public void CreateBullet()
     {

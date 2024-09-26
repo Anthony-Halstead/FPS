@@ -22,14 +22,10 @@ public class HoldGroundState : State
         if (controller.PathFound == true)
         {
             controller.lookTarget = controller.playerPos;
-            controller.PathFound = false;
-
-      
+            controller.PathFound = false;      
             controller.HoldCoverCooldownTimer = holdCoverCooldown;
             controller.TransitionToState(idleState);
         }
-    
-
     }
     public override void ExitState(AIController controller)
     {

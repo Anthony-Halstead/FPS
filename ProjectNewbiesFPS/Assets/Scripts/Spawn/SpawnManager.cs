@@ -52,9 +52,9 @@ public class SpawnManager : MonoBehaviour
     /// Call this trigger from any code to have the spawn points timers to start
     /// selected spawnpoints are based off of players position
     /// </summary>
-    public void TriggerEnemySpawn()
+    public void TriggerEnemySpawn(Vector3 position,float radius)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(GameManager.instance.player.transform.position, checkRadius, spawnLayerMask,QueryTriggerInteraction.Collide);
+        Collider[] hitColliders = Physics.OverlapSphere(position, radius, spawnLayerMask,QueryTriggerInteraction.Collide);
         foreach(var col in hitColliders)
         {
             col.TryGetComponent(out SpawnerHandler spawner);

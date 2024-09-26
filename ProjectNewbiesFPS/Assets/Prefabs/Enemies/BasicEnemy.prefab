@@ -529,7 +529,7 @@ Transform:
   m_GameObject: {fileID: 2129715127015828923}
   serializedVersion: 2
   m_LocalRotation: {x: -0.58147556, y: -0.70165235, z: 0.16500315, w: 0.37728536}
-  m_LocalPosition: {x: -0.0878, y: 0.2829, z: 0.113}
+  m_LocalPosition: {x: 0.002, y: 0.025, z: -0.01}
   m_LocalScale: {x: 0.09090909, y: 0.09090911, z: 0.09090911}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2887,6 +2887,11 @@ MonoBehaviour:
   rArm: {fileID: 7042288535295444253}
   lArm: {fileID: 0}
   enemyType: 1
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   model: {fileID: 3546219067477559232}
   agent: {fileID: 7314199239144694577}
   _animator: {fileID: 1616148811330995109}
@@ -2911,7 +2916,7 @@ MonoBehaviour:
   sweepCooldownTimer: 0
   holdCoverCooldownTimer: 0
   PathFound: 0
-  _defaultState: {fileID: 11400000, guid: 66792749e2d095f42a586564ffa87f38, type: 2}
+  _defaultState: {fileID: 11400000, guid: c2a7be56c8205b74bbc01cf687b0079e, type: 2}
   _currentState: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
   lookTarget: {x: 0, y: 0, z: 0}

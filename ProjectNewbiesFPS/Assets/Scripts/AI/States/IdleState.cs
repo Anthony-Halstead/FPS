@@ -10,10 +10,10 @@ public class IdleState : State
     public State sweepState;
     public State holdGroundState;
     public State attackState;
-  
+    public State spawnReinforcement;
     public override void EnterState(AIController controller)
     {
-        controller.Agent.stoppingDistance = 0f;
+        controller.Agent.stoppingDistance = 0.2f;
         // controller.Agent.angularSpeed = 0f;
         /*controller.target = controller.transform.position;
         controller.lookTarget = controller.transform.forward;*/
@@ -44,7 +44,11 @@ public class IdleState : State
         {
             controller.TransitionToState(attackState);
         }
-
+        if (spawnReinforcement != null && controller.IsTakingDamage && controller.SpawnReinforcementCooldownTimer <= 0)
+        {
+            controller.PreviousState = this;
+            controller.TransitionToState(spawnReinforcement);
+        }
     }
     public override void ExitState(AIController controller)
     {
