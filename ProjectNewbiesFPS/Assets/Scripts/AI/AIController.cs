@@ -3,25 +3,34 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.UI;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
+
 
 public class AIController : Spawnable, IDamage
 {
+    private enum EnemyType
+    {
+        Boss,
+        Minion,
+    }
+
     [Header("AnimationRig")]
     [SerializeField] Rig rig;
     [SerializeField] Transform defaultRigTarget;
-    public Transform DefaultRigTarget => defaultRigTarget;  
+    public Transform DefaultRigTarget => defaultRigTarget;
     [SerializeField] MultiAimConstraint head;
     [SerializeField] MultiAimConstraint body;
     [SerializeField] MultiAimConstraint rArm;
-    [Tooltip("For dual weild use only"),SerializeField] MultiAimConstraint lArm;
+    [Tooltip("For dual wield use only"), SerializeField] MultiAimConstraint lArm;
 
 
     [Header("AI")]
+    [SerializeField] private EnemyType enemyType = EnemyType.Minion;
     [SerializeField] private Renderer model;
     private Color colorOriginal;
     [SerializeField] private NavMeshAgent agent;
@@ -41,60 +50,61 @@ public class AIController : Spawnable, IDamage
     [SerializeField] private GameObject bullet;
     private bool isTakingDamage = false;
     public bool IsTakingDamage { get => isTakingDamage; set => isTakingDamage = value; }
-    private bool canTransition = false;
-    public bool CanTransition { get => canTransition; set => canTransition = value;}
     [SerializeField] private Weapon weapon;
-
-    [SerializeField, Tooltip("How long the AI should wait at each point when searching?")] private float timeToWait = 3;
-    public Coroutine searchRoutine = null;
-    public Coroutine positionRoutine = null;
-    [SerializeField, Tooltip("How long should the AI stay in the search state?")] private float searchLength = 20;
+ 
     [Header("Cooldown Timers")]
     [SerializeField] private float dodgeCooldownTimer = 0f;
-
-    public float DodgeCooldownTimer { get { return dodgeCooldownTimer; } set { if (value < 0) dodgeCooldownTimer = 0; else dodgeCooldownTimer = value; } }
-    [SerializeField] private float sweepCooldownTimer = 0f;
     [SerializeField] float notificationLength = .5f;
-    public float SweepCooldownTimer { get { return sweepCooldownTimer; } set { if (value < 0) sweepCooldownTimer = 0; else sweepCooldownTimer = value; } }
+    public float DodgeCooldownTimer { get { return dodgeCooldownTimer; } set { if (value < 0) dodgeCooldownTimer = 0; else dodgeCooldownTimer = value; } }
 
-    public float SearchLength => searchLength;
-    private float currentTime;
-    public float CurrentTime {  get { return currentTime; } set { currentTime = value; } }
+    [SerializeField] private float sweepCooldownTimer = 0f;
+    public float SweepCooldownTimer { get { return sweepCooldownTimer; } set { if (value < 0) sweepCooldownTimer = 0; else sweepCooldownTimer = value; } }
+    [SerializeField] private float holdCoverCooldownTimer = 0f;
+    public float HoldCoverCooldownTimer { get { return holdCoverCooldownTimer; } set { if (value < 0) holdCoverCooldownTimer = 0; else holdCoverCooldownTimer = value; } }
+    public bool IsDodging { get; set; }
     public bool IsShooting { get; set; }
+    public bool IsSearching { get; set; }
+    public bool HasDodged { get; set; } = false;
 
     private Vector3 playerDir;
     public Vector3 PlayerDirection => playerDir;
-    public Vector3 playerPos { get; set; }
+    public Vector3 playerPos { get; private set; }
     public Vector3 lastSeenPlayerPos { get; set; }
    
-    public bool PathFound { get; set; } = false;
+    private Vector3 startPosition;
+    private Collider currentCover;
+    public Vector3 StartPosition => startPosition;
+    public bool PathFound = false;
     public NavMeshAgent Agent => agent;
     public Animator Anim => _animator;
-    [SerializeField] float animSpeedTransition;
+
     [SerializeField] private State _defaultState;
     public State DefaultState => _defaultState;
-    //[SerializeField] private State _chaseState;
-    [SerializeField,Tooltip("Do not add a state here from the inspector!")] private State _currentState;
-    public State PreviousState { get;  set; }
-
-    public Vector3 target = Vector3.zero;
+    [SerializeField, Tooltip("Do not add a state here from the inspector!")] private State _currentState;
+    public State PreviousState { get; set; }
+    public Coroutine PositionRoutine { get; set; }
+    public Vector3 target;
     public Vector3 lookTarget = Vector3.zero;
     private float originalStopDistance;
-    public float duration;
+    private float duration;
+    [Range(1,10),SerializeField] int maxCoverHistory = 5;
+    private Queue<Collider> coverColliders = new Queue<Collider>();
+    Vector3 areaPosition;
     void Awake()
     {
         rig ??= GetComponentInChildren<Rig>();
         model ??= GetComponentInChildren<Renderer>();
         agent ??= GetComponent<NavMeshAgent>();
-        
+
 
         StopRig();
         originalStopDistance = agent.stoppingDistance;
         HP = HPMax;
-        CurrentTime = 0;
     }
     void Start()
     {
+
+        startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         GameManager.instance.enemyAI.Add(gameObject);
         GameManager.instance.enemyAIScript.Add(this);
         GameManager.instance.enemyHealthBar.Add(healthBar);
@@ -102,33 +112,41 @@ public class AIController : Spawnable, IDamage
         head.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         body.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         rArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
-        if(lArm != null)
+        if (lArm != null)
         {
             lArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
         }
-        
-        weapon = GetComponentInChildren<Weapon>();
-        shootPos = weapon.GetFirePoint();
-        shootRate = weapon.GetShootRate();
-        shootRange = weapon.GetShootDist(); 
 
-              
+        weapon ??= GetComponentInChildren<Weapon>();
+      
+        if (weapon != null)
+        {
+            bullet.TryGetComponent(out damage component);
+            if (component != null)
+            {
+                component.damageAmount = weapon.GetGunDamage();
+            }
+            shootPos = weapon.GetFirePoint();
+            shootRate = weapon.GetShootRate();
+            shootRange = weapon.GetShootDist();
+        }
+
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
         StopRig();
         TransitionToState(_defaultState);
     }
 
-
     void Update()
-    {       
+    {     
+        
         _currentState.UpdateState(this);
         TrackedStats();
     }
 
     void TrackedStats()
-    {
-        if(DodgeCooldownTimer > 0)
+    {      
+        if (DodgeCooldownTimer > 0)
         {
             DodgeCooldownTimer -= Time.deltaTime;
         }
@@ -136,34 +154,39 @@ public class AIController : Spawnable, IDamage
         {
             SweepCooldownTimer -= Time.deltaTime;
         }
-        float agentSpeed = agent.velocity.normalized.magnitude;
-        float animSpeed = _animator.GetFloat("AgentSpeed");
-
-        _animator.SetFloat("AgentSpeed", Mathf.Lerp(animSpeed, agentSpeed, Time.deltaTime * animSpeedTransition));
-        playerDir = GameManager.instance.player.transform.position - headPos.position;
-        agent.SetDestination(target);        
-        faceTarget(lookTarget - headPos.position);  
+        if (HoldCoverCooldownTimer > 0)
+        {
+            HoldCoverCooldownTimer -= Time.deltaTime;
+        }    
+        playerPos = GameManager.instance.player.transform.position;
+        playerDir = playerPos - headPos.position;
+        agent.SetDestination(target);
+        /*if(lookTarget != Vector3.zero)*/faceTarget(lookTarget);
+      /*  else
+        faceMovementDirection();*/
+        float agentSpeed = Mathf.Clamp(agent.velocity.magnitude, 0f, 1); 
+        float currentAnimSpeed = _animator.GetFloat("AgentSpeed");
+        float smoothSpeed = Mathf.Lerp(currentAnimSpeed, agentSpeed, Time.deltaTime * 5f);  
+        _animator.SetFloat("AgentSpeed", smoothSpeed);
+ 
     }
-   public void TransitionToState(State state)
+    public void TransitionToState(State state)
     {
-        
         _currentState?.ExitState(this);
         _currentState = state;
         _currentState?.EnterState(this);
     }
     public bool TargetIsVisible()
     {
-        
-            Vector3 enemyForward = headPos.transform.forward;
-            float angle = Vector3.Angle(enemyForward, playerDir);
-            float fov = 180f / 2;
 
-
+        Vector3 enemyForward = headPos.transform.forward;
+        float angle = Vector3.Angle(enemyForward, playerDir);
+        float fov = 180f / 2;
 
         if (angle < fov)
         {
             RaycastHit hit;
-            if (Physics.Raycast(headPos.position, playerDir, out hit,sightRange,playerLayerMask))
+            if (Physics.Raycast(headPos.position, playerDir, out hit, sightRange, playerLayerMask))
             {
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -171,9 +194,9 @@ public class AIController : Spawnable, IDamage
                 }
             }
         }
-         return false;
+        return false;
     }
-   public bool TargetInShootRange()
+    public bool TargetInShootRange()
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, sightRange, playerLayerMask, QueryTriggerInteraction.Collide);
         if (cols.Count() > 0)
@@ -183,18 +206,43 @@ public class AIController : Spawnable, IDamage
         else
             return false;
     }
-
-    public IEnumerator SearchSpot()
+    void faceTarget(Vector3 lookTarget)
     {
-        Vector3 final = Vector3.zero;
+        //Vector3 directionToLookTarget = (lookTarget - transform.position);
+        Vector3 directionToLookTarget = (lookTarget - transform.position);
+        Quaternion targetRotation = Quaternion.LookRotation(directionToLookTarget);
+/*        Quaternion currentRotation = transform.rotation;
+        Quaternion finalRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);  */
 
-    
-        int walkableMask = NavMesh.GetAreaFromName("Walkable");
-        float searchRadius = UnityEngine.Random.Range(3f, shootRange);  
-
-        while (final == Vector3.zero)
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * faceTargetSpeed);
+    }
+   /* void faceMovementDirection()
+    {
+        // Only update rotation if the agent has some velocity
+        if (agent.velocity.sqrMagnitude > 0.01f)
         {
+            Vector3 direction = agent.velocity.normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * faceTargetSpeed);
+        }
+    }*/
 
+    public void SetDodgeFalse()
+    {
+        if(IsDodging)IsDodging = false;
+    }
+    public IEnumerator SearchSpot(float timeToWait, float searchTime)
+    {
+        do { yield return null; } while (GameManager.instance.isPaused);
+        Vector3 final = Vector3.zero;
+        IsSearching = true;
+        float currentTime = 0;
+        int walkableMask = NavMesh.GetAreaFromName("Walkable");
+        float searchRadius = UnityEngine.Random.Range(3f, shootRange);
+      
+        while (final == Vector3.zero && currentTime < searchTime)
+        {
+            currentTime += Time.deltaTime;
             Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * searchRadius;
             randomDirection += transform.position;  
            
@@ -206,7 +254,13 @@ public class AIController : Spawnable, IDamage
                 final = hit.position;
                 agent.stoppingDistance = 2f;
                 target = hit.position;
-                lookTarget = hit.position;
+                lookTarget = new Vector3(agent.steeringTarget.x, agent.steeringTarget.y, agent.steeringTarget.z + .9f);
+                while (agent.remainingDistance > agent.stoppingDistance)
+                {
+                    lookTarget = new Vector3(agent.steeringTarget.x, agent.steeringTarget.y, agent.steeringTarget.z + .9f);
+                    yield return null;
+                }
+                yield return new WaitForSeconds(timeToWait);
             }
             else
             {
@@ -214,15 +268,51 @@ public class AIController : Spawnable, IDamage
             }
 
             yield return null;  
-        }
-
-        yield return new WaitForSeconds(timeToWait);  
+        }      
         agent.stoppingDistance = originalStopDistance;
-        searchRoutine = null;
+        IsSearching = false;      
+        PositionRoutine = null;
+    }
+    public IEnumerator GetDodgePositionInRange(float range)
+    {
+        do { yield return null; } while (GameManager.instance.isPaused);
+        Vector3 final = Vector3.zero;
+        int walkableMask = NavMesh.GetAreaFromName("Walkable");
+
+
+        while (final == Vector3.zero)
+        {
+
+            Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * range;
+            randomDirection += transform.position;
+            NavMeshPath path = new NavMeshPath();
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomDirection, out hit, range, 1 << walkableMask))
+            {
+                agent.CalculatePath(hit.position, path);
+                float distance = Vector3.Distance(transform.position, hit.position);
+                if (path.status == NavMeshPathStatus.PathComplete && distance <= range && distance >= 4 && path.corners.Length <= 3)
+                {
+                    final = hit.position;
+                    target = hit.position;
+                    lookTarget = hit.position;
+                    break;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("No valid NavMesh position found.");
+            }
+            yield return null;
+        }
+        PathFound = true;
+        agent.stoppingDistance = originalStopDistance;
+       
     }
     public IEnumerator GetRandomClearPositionInRange(float range)
     {
-      
+        do { yield return null; } while (GameManager.instance.isPaused);
+        Debug.Log(PathFound);
         Vector3 final = Vector3.zero;
         int walkableMask = NavMesh.GetAreaFromName("Walkable");
       
@@ -241,10 +331,9 @@ public class AIController : Spawnable, IDamage
                 if (path.status == NavMeshPathStatus.PathComplete && distance <= range && distance >= 4 && path.corners.Length <= 3)
                 {
                     final = hit.position;
-                    agent.stoppingDistance = 0f;
                     target = hit.position;
-                    lookTarget = hit.position;
-                    PathFound = true;
+                    lookTarget = new Vector3(agent.steeringTarget.x, agent.steeringTarget.y, agent.steeringTarget.z * 1f); 
+                    break;
                 }
             }
             else
@@ -253,35 +342,130 @@ public class AIController : Spawnable, IDamage
             }
             yield return null;  
         }
-
-        yield return new WaitForSeconds(.5f);
+        while (Vector3.Distance(transform.position, target) > agent.stoppingDistance)
+        {
+            lookTarget = new Vector3(agent.steeringTarget.x, agent.steeringTarget.y, agent.steeringTarget.z * 1f);
+            yield return null;
+        }
+  
+        PathFound = true;
+        Debug.Log(PathFound);
+      
         agent.stoppingDistance = originalStopDistance;
-        positionRoutine = null;
+        PositionRoutine = null;
     }
-    public IEnumerator GetOpenCoverPosition()
+    public IEnumerator GetOpenCoverPosition(float range, LayerMask mask, int attempts, AreaType type)
     {
-        yield return new WaitForSeconds(1f);
-    }
-    void faceTarget(Vector3 lookTarget)
-    {    
-            Quaternion rot = Quaternion.LookRotation(lookTarget);
-        Quaternion currentRotation = transform.rotation;
-        Quaternion targetRotation = Quaternion.Euler(0, rot.eulerAngles.y, 0);
-            transform.rotation = Quaternion.Lerp(currentRotation, targetRotation,Time.deltaTime * faceTargetSpeed);
-    }
+        do { yield return null; } while (GameManager.instance.isPaused);
+        lookTarget = Vector3.zero;
+        PathFound = false;
+        if (type is AreaType.Player)
+        {
+            areaPosition = playerPos;
+        }else if (type is AreaType.Defensive)
+        {
+            areaPosition = startPosition;
+        }
+        else
+        {
+            areaPosition = transform.position;
+        }
+    
+        Vector3 final = Vector3.zero;
+        int walkableMask = NavMesh.GetAreaFromName("Walkable");
+        Collider[] covers = Physics.OverlapSphere(areaPosition, range, mask);
+        if (covers.Count() <= 0)
+        {
+            yield return StartCoroutine(GetRandomClearPositionInRange(range));
+            yield break;
+        }
+        int currentAttempt = attempts;
+       
+        while (final==Vector3.zero && currentAttempt > 0)
+        {
 
-    public IEnumerator shoot()
+            currentAttempt--;
+
+            foreach (Collider col in covers)
+            {
+            
+                Vector3 coverPosition = col.bounds.center;
+                Vector3 coverToPlayerDir = (playerPos - coverPosition).normalized;
+
+                float coverX = col.bounds.extents.x;
+                float coverZ = col.bounds.extents.z;
+
+                Vector3 oppositeCoverPosition = Vector3.zero;
+                if (Mathf.Abs(coverToPlayerDir.x) > Mathf.Abs(coverToPlayerDir.z))
+                {
+                    oppositeCoverPosition = coverPosition - Mathf.Sign(coverToPlayerDir.x) * col.transform.right;
+                }
+                else
+                {
+                    oppositeCoverPosition = coverPosition - Mathf.Sign(coverToPlayerDir.z) * col.transform.forward;
+                }
+              
+                NavMeshHit hit;
+                NavMeshPath path = new NavMeshPath();
+                if (NavMesh.SamplePosition(oppositeCoverPosition, out hit, 1f, 1 << walkableMask))
+                {
+                    agent.CalculatePath(hit.position, path);
+                    if (!coverColliders.Contains(col)&&path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        coverColliders.Enqueue(col);
+                        if (coverColliders.Count > maxCoverHistory)
+                        {
+                            coverColliders.Dequeue();
+                        }
+
+                        Debug.DrawLine(coverPosition, oppositeCoverPosition, Color.red, 2f);
+                        Debug.Log("valid NavMesh position found.");
+                        final = hit.position;
+                        target = hit.position;
+                        lookTarget = new Vector3(agent.steeringTarget.x, agent.steeringTarget.y, agent.steeringTarget.z *1f);
+                        currentCover = col;
+                        break;
+                    }
+
+                }
+                else
+                {
+                    Debug.Log("No valid NavMesh position found.");
+                }
+                yield return null;
+            }
+        }
+    
+
+        if(final == Vector3.zero)
+        {
+            yield return StartCoroutine(GetRandomClearPositionInRange(range));
+            yield break;
+        }
+        while ( Vector3.Distance(transform.position, target) > agent.stoppingDistance)
+        {
+            lookTarget = new Vector3(agent.steeringTarget.x, agent.steeringTarget.y, agent.steeringTarget.z * 1f);
+            yield return null;
+        }       
+        PathFound = true;   
+        lookTarget = playerPos;
+        agent.stoppingDistance = originalStopDistance;
+        PositionRoutine = null;
+    }
+    public IEnumerator Shoot()
     {
-        IsShooting = true;   
+     
+        IsShooting = true;
+        lookTarget = playerPos;
         _animator.SetTrigger("Shoot");
-        GameObject clone = Instantiate(bullet, shootPos.position, transform.rotation);
-        clone.GetComponent<damage>().damageAmount = weapon.GetGunDamage();
-        AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+       // AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
         yield return new WaitForSeconds(shootRate);
+      //  _animator.SetBool("IsAttacking", false);
         IsShooting = false;
     }
     public IEnumerator SweepAttack(Vector3[] sweepPoints, float sweepSpeed)
     {
+ 
         IsShooting = true;
         if(sweepPoints.Length < 2)
         {
@@ -298,7 +482,7 @@ public class AIController : Spawnable, IDamage
        
         GameObject followObj = new GameObject("FollowTarget");
         followObj.transform.position = startPoint;
-       
+    
       
         float elapsedTime = 0f;
         float totalDistance = Vector3.Distance(startPoint,finishPoint);
@@ -318,9 +502,83 @@ public class AIController : Spawnable, IDamage
         }
         _animator.SetBool("IsAttacking", false);
       
-        lookTarget = Vector3.zero;
+
         Destroy(followObj);
         IsShooting = false;
+    }
+    public IEnumerator ShootFromCover(float shootTime, float rangeFromCoverOffset)
+    {
+        if (currentCover == null) yield break;
+        do { yield return null; } while (GameManager.instance.isPaused);
+        IsShooting = true;
+        Vector3 originalPosition = transform.position;
+        RaycastHit hit;
+        if(Physics.Raycast(new Vector3(originalPosition.x, originalPosition.y + agent.height, originalPosition.z), playerDir,out hit, float.MaxValue, playerLayerMask))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                _animator.SetBool("IsCrouching", false);
+                do
+                {
+                    _animator.SetTrigger("Shoot");
+                    AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+                    yield return new WaitForSeconds(shootRate);
+                    shootTime -= Time.deltaTime;
+                } while (shootTime > 0);
+                _animator.SetBool("IsCrouching", true);
+                IsShooting = false;
+            }
+        }
+        else
+        {
+            Vector3 final = Vector3.zero;
+            int walkableMask = NavMesh.GetAreaFromName("Walkable");
+
+            Bounds coverBounds = currentCover.bounds;
+            Vector3[] potentialPosition = new Vector3[] { 
+                coverBounds.center +( coverBounds.extents+Vector3.right*rangeFromCoverOffset),
+                coverBounds.center +( coverBounds.extents+Vector3.left*rangeFromCoverOffset),
+                coverBounds.center +( coverBounds.extents+Vector3.forward*rangeFromCoverOffset),
+                coverBounds.center +( coverBounds.extents+Vector3.back*rangeFromCoverOffset),
+            };
+            NavMeshHit navHit;
+            foreach(var pos in potentialPosition)
+            {
+                if (NavMesh.SamplePosition(pos, out navHit, rangeFromCoverOffset, 1 << walkableMask))
+                {
+                    if(Physics.Raycast(new Vector3(pos.x, pos.y + agent.height/2, pos.z), playerDir, out hit, float.MaxValue, playerLayerMask))
+                    {
+                        final = navHit.position;
+                        target = navHit.position;
+                        agent.stoppingDistance = .1f;
+                        break;
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("No valid NavMesh position found.");
+                }
+                yield return null;
+            }
+            if(final == Vector3.zero)
+            {
+                IsShooting = false;
+                yield break;
+            }
+            while (agent.remainingDistance > agent.stoppingDistance)
+            {
+                yield return null;
+            }
+            do
+            {
+                _animator.SetTrigger("Shoot");
+                AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
+                yield return new WaitForSeconds(shootRate);
+                shootTime -= Time.deltaTime;
+            } while (shootTime > 0);
+            agent.stoppingDistance = originalStopDistance;
+            IsShooting = false;
+        }
     }
     public IEnumerator TookDamageTimer()
     {
@@ -330,7 +588,7 @@ public class AIController : Spawnable, IDamage
     }
     public void CreateBullet()
     {
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        Instantiate(bullet, shootPos.position, shootPos.rotation);
     }
     public void CreateBullets()
     {
@@ -341,12 +599,20 @@ public class AIController : Spawnable, IDamage
     {
         StartCoroutine(flashColor());
         StartCoroutine(TookDamageTimer());
-        
+        if (!IsShooting)
+        {
+            lookTarget = playerPos;
+        }
+
         HP -= amount;
         healthBar.fillAmount = (float)HP / HPMax;
         
         if (HP <= 0)
         {
+            if(enemyType is EnemyType.Boss)
+            {
+                GameManager.instance.WinGame();
+            }
             healthBar.fillAmount = (float)HP / HPMax;
             GameManager.instance.playerScript.money += 5;
             GameManager.instance.enemyAIScript.Remove(this);
@@ -356,12 +622,10 @@ public class AIController : Spawnable, IDamage
             Destroy(gameObject);
         }
     }
-
     void enemyFootSteps()
     {
         AudioManager.instance.playEnemy(AudioManager.instance.footStepWalking);
     }
-
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
@@ -371,7 +635,6 @@ public class AIController : Spawnable, IDamage
         
         model.material.color = colorOriginal;
     }
-
     public void StartRig()
     {
         head.data.sourceObjects.SetWeight(0, 0);
@@ -402,7 +665,7 @@ public class AIController : Spawnable, IDamage
         }
         rig.weight = 0f;
     }
-    public void SetDualWeildRig()
+    public void SetDualWieldRig()
     {
         head.data.sourceObjects.SetWeight(0, 1);
         head.data.sourceObjects.SetWeight(1, 0);
@@ -413,11 +676,6 @@ public class AIController : Spawnable, IDamage
         lArm.data.sourceObjects.SetWeight(0, 1);
         lArm.data.sourceObjects.SetWeight(1, 0);
         rig.weight = 1.0f;
-    }
-    public void AwaitAnimation()
-    {
-        if(canTransition == false)
-            canTransition = true;
     }
    
 }

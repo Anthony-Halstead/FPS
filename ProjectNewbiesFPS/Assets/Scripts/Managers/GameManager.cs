@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         compassUnit = compassImage.rectTransform.rect.width / 360f;
-        QuestManager.instance.AddRedKeyMarker();
+    //    QuestManager.instance.AddRedKeyMarker();
     }
 
     public void ToggleInteractionUI(bool toggle, string text)

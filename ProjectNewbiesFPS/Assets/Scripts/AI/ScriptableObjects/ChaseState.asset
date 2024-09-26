@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2fa9613574776419c548d0eab77fa6, type: 3}
   m_Name: ChaseState
   m_EditorClassIdentifier: 
-  searchState: {fileID: 11400000, guid: 4d7cd26e1a03e814cb55296a5e63773c, type: 2}
-  attackState: {fileID: 11400000, guid: d6e9e90353f0740418a79d623551bebd, type: 2}
+  searchState: {fileID: 11400000, guid: d7037676d41315b4baad314bac524b99, type: 2}
+  attackState: {fileID: 11400000, guid: 22bcc487703ed0e4a8c29d61debd5bf4, type: 2}

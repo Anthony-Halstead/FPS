@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60945595369e8ea49a273fa00b118863, type: 3}
   m_Name: SearchState
   m_EditorClassIdentifier: 
-  chaseState: {fileID: 11400000, guid: 50d97d50a58a83a4093474dd2a1daa03, type: 2}
-  guardState: {fileID: 11400000, guid: 10b0998c19422184e8a2ff56e0a66f8d, type: 2}
+  timeToWait: 1
+  searchLength: 20

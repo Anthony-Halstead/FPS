@@ -743,8 +743,8 @@ ModelImporter:
       name: Pistol-Attack-Dual3
       takeName: Take 001
       internalID: 7400000
-      firstFrame: 0
-      lastFrame: 36
+      firstFrame: 6
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
