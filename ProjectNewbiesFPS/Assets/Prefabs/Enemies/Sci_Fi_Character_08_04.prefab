@@ -2214,13 +2214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46329a0062d5d2e49b3a5175cbb07379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rig: {fileID: 6667995782900948092}
-  defaultRigTarget: {fileID: 7260053649006885452}
-  head: {fileID: 5935569471995860450}
-  body: {fileID: 7591781348192399299}
-  rArm: {fileID: 6251991281784926839}
-  lArm: {fileID: 2296073987840987031}
   enemyType: 0
+  patrolPoints: []
   model: {fileID: 6070063362892904375}
   agent: {fileID: 4029196499052306181}
   _animator: {fileID: 2298758664588911121}
@@ -2230,8 +2225,8 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  HP: 98
-  HPMax: 122
+  HP: 400
+  HPMax: 400
   healthBar: {fileID: 6790901489838473538}
   healthBarVisibility: {fileID: 6436454293211710528}
   faceTargetSpeed: 8
@@ -2239,17 +2234,19 @@ MonoBehaviour:
   shootRate: 0.2
   shootRange: 30
   bullet: {fileID: 8737397164380214915, guid: 05a7fb2e1b1b0d24682e1d576411d9ba, type: 3}
+  playerPositionOffsetHeight: -0.4
   weapon: {fileID: 0}
   dodgeCooldownTimer: 1
   notificationLength: 0.5
   sweepCooldownTimer: 0
   holdCoverCooldownTimer: 0
-  animSpeedTransition: 0
+  spawnReinforcementCooldownTimer: 0
+  PathFound: 0
   _defaultState: {fileID: 11400000, guid: aa10f1d198606a141b1581bc305b44f2, type: 2}
   _currentState: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
   lookTarget: {x: 0, y: 0, z: 0}
-  duration: 0
+  maxCoverHistory: 5
 --- !u!95 &2298758664588911121
 Animator:
   serializedVersion: 7

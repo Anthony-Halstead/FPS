@@ -13,7 +13,7 @@ public class PatrolState : State
     public override void UpdateState(AIController controller)
     {
      
-        if (chaseState != null && (controller.IsTakingDamage || controller.TargetIsVisible()))
+        if (chaseState != null && controller.TargetIsVisible())
         {
             controller.TransitionToState(chaseState);
         }

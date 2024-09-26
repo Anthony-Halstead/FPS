@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6329159500446715323, guid: 35dc51f061b4af940af55f8b12285e6c, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8251186814012561020, guid: 35dc51f061b4af940af55f8b12285e6c, type: 3}
       propertyPath: shootRange
       value: 20

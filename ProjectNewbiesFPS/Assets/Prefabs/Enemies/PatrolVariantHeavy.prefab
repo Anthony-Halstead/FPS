@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: _defaultState
       value: 
       objectReference: {fileID: 11400000, guid: 82ae896eda3545c439c65c0b3a4cd6bf, type: 2}
+    - target: {fileID: 1343710889463537543, guid: 2be60d27459621140ac675fefd5a8c8f, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5756855842679249298, guid: 2be60d27459621140ac675fefd5a8c8f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 129.07619

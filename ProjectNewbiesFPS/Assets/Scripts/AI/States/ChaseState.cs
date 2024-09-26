@@ -11,6 +11,7 @@ public class ChaseState : State
         controller.lastSeenPlayerPos = controller.playerPos;
         controller.target = controller.playerPos;
         controller.lookTarget = controller.playerPos;
+       // controller.Agent.stoppingDistance = controller.Agent.O
     }
     public override void UpdateState(AIController controller)
     {

@@ -16,7 +16,7 @@ MonoBehaviour:
   prefab_rb: {fileID: 758661195487006975, guid: efbd71de5ef88384da38381586c76ae0, type: 3}
   sprite: {fileID: 0}
   name: Rifle
-  dmg: 5
+  dmg: 18
   dist: 1000
   rate: 0.9
   fireSpeed: 2
