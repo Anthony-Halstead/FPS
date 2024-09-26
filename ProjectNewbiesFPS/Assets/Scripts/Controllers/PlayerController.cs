@@ -411,7 +411,14 @@ public class PlayerController : MonoBehaviour, IDamage
         {
             _canInteract = true;
             currentHoveredInteractable = hit.transform.gameObject;
-            GameManager.instance.ToggleInteractionUI(true, currentHoveredInteractable.GetComponent<Weapon>().interactionText);
+            if (currentHoveredInteractable != null)
+            {
+                if (currentHoveredInteractable.GetComponent<Weapon>() != null)
+                {
+                    GameManager.instance.ToggleInteractionUI(true, currentHoveredInteractable.GetComponent<Weapon>().interactionText);
+                }
+            }
+            
             //Debug.Log(hit.transform.name);
         }
         else
