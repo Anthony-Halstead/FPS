@@ -20,16 +20,6 @@ public class AIController : Spawnable, IDamage
         Minion,
     }
 
-   /* [Header("AnimationRig")]
-    [SerializeField] Rig rig;
-    [SerializeField] Transform defaultRigTarget;
-    public Transform DefaultRigTarget => defaultRigTarget;
-    [SerializeField] MultiAimConstraint head;
-    [SerializeField] MultiAimConstraint body;
-    [SerializeField] MultiAimConstraint rArm;
-    [Tooltip("For dual wield use only"), SerializeField] MultiAimConstraint lArm;
-*/
-
     [Header("AI")]
     [SerializeField] private EnemyType enemyType = EnemyType.Minion;
     [SerializeField] private List<Transform> patrolPoints = new List<Transform>();
@@ -91,7 +81,7 @@ public class AIController : Spawnable, IDamage
     [SerializeField, Tooltip("Do not add a state here from the inspector!")] private State _currentState;
     public State PreviousState { get; set; }
     public Coroutine PositionRoutine { get; set; }
-    public Vector3 target;
+    public Vector3 target = Vector3.zero;
     public Vector3 lookTarget = Vector3.zero;
     private float originalStopDistance;
     private float duration;
@@ -101,12 +91,8 @@ public class AIController : Spawnable, IDamage
 
     void Awake()
     {
-       // rig ??= GetComponentInChildren<Rig>();
         model ??= GetComponentInChildren<Renderer>();
         agent ??= GetComponent<NavMeshAgent>();
-
-
-        //StopRig();
         originalStopDistance = agent.stoppingDistance;
         HP = HPMax;
     }
@@ -118,14 +104,7 @@ public class AIController : Spawnable, IDamage
         GameManager.instance.enemyAIScript.Add(this);
         GameManager.instance.enemyHealthBar.Add(healthBar);
         GameManager.instance.enemyHealthBarVisibility.Add(healthBarVisibility);
-      /*  head.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
-        body.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
-        rArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
-        if (lArm != null)
-        {
-            lArm.data.sourceObjects.Add(new WeightedTransform(GameManager.instance.player.transform, 0));
-        }
-*/
+
         weapon ??= GetComponentInChildren<Weapon>();
       
         if (weapon != null)
@@ -142,7 +121,6 @@ public class AIController : Spawnable, IDamage
 
         colorOriginal = model.material.color;
         healthBar.fillAmount = (float)HP;
-       // StopRig();
         TransitionToState(_defaultState);
     }
 
@@ -171,14 +149,11 @@ public class AIController : Spawnable, IDamage
         {
             HoldCoverCooldownTimer -= Time.deltaTime;
         }    
-       // Vector3 storedPosition = GameManager.instance.player.transform.position;
-       // storedPosition.y += playerPositionOffsetHeight;
         playerPos = GameManager.instance.player.transform.position;
         playerDir = playerPos - headPos.position;
         agent.SetDestination(target);
-        /*if(lookTarget != Vector3.zero)*/faceTarget(lookTarget);
-      /*  else
-        faceMovementDirection();*/
+        faceTarget(lookTarget);
+
         float agentSpeed = Mathf.Clamp(agent.velocity.magnitude, 0f, 1); 
         float currentAnimSpeed = _animator.GetFloat("AgentSpeed");
         float smoothSpeed = Mathf.Lerp(currentAnimSpeed, agentSpeed, Time.deltaTime * 5f);  
@@ -224,22 +199,12 @@ public class AIController : Spawnable, IDamage
     void faceTarget(Vector3 lookTarget)
     {
         Vector3 directionToTarget = lookTarget - transform.position;
-        directionToTarget.y = 0; // Keep the rotation in the horizontal plane
+        directionToTarget.y = 0;
         Quaternion lookRotation = Quaternion.LookRotation(directionToTarget.normalized, Vector3.up);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
     }
-   /* void faceMovementDirection()
-    {
-        // Only update rotation if the agent has some velocity
-        if (agent.velocity.sqrMagnitude > 0.01f)
-        {
-            Vector3 direction = agent.velocity.normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * faceTargetSpeed);
-        }
-    }*/
-
+ 
     public void SetDodgeFalse()
     {
         if(IsDodging)IsDodging = false;
@@ -498,12 +463,10 @@ public class AIController : Spawnable, IDamage
     public IEnumerator Shoot()
     {
      
-        IsShooting = true;
-     
+        IsShooting = true;     
         _animator.SetTrigger("Shoot");
        // AudioManager.instance.playSFX(AudioManager.instance.shootPistol);
         yield return new WaitForSeconds(shootRate);
-      //  _animator.SetBool("IsAttacking", false);
         IsShooting = false;
     }
     public IEnumerator SweepAttack(Vector3[] sweepPoints, float sweepSpeed)
@@ -635,12 +598,12 @@ public class AIController : Spawnable, IDamage
     }
     public void CreateBullet()
     {
-        Instantiate(bullet, shootPos.position, shootPos.rotation);
+        Instantiate(bullet, shootPos.position, transform.rotation);
     }
     public void CreateBullets()
     {
-        Instantiate(bullet, shootPos.position, shootPos.rotation);
-        Instantiate(bullet, shootPosTwo.position, shootPos.rotation);
+        Instantiate(bullet, shootPos.position, transform.rotation);
+        Instantiate(bullet, shootPosTwo.position, transform.rotation);
     }
     public void TakeDamage(int amount, Vector3 shooterPos)
     {
@@ -681,49 +644,5 @@ public class AIController : Spawnable, IDamage
         yield return new WaitForSeconds(0.1f);
         
         model.material.color = colorOriginal;
-    }
-    /*    public void StartRig()
-        {
-            head.data.sourceObjects.SetWeight(0, 0);
-            head.data.sourceObjects.SetWeight(1, 1);
-            body.data.sourceObjects.SetWeight(0, 0);
-            body.data.sourceObjects.SetWeight(1, 1);
-            rArm.data.sourceObjects.SetWeight(0, 0);
-            rArm.data.sourceObjects.SetWeight(1, 1);
-            if(lArm != null)
-            {
-                lArm.data.sourceObjects.SetWeight(0, 0);
-                lArm.data.sourceObjects.SetWeight(1, 1);
-            }
-            rig.weight = 1.0f;
-        }
-        public void StopRig()
-        {
-            head.data.sourceObjects.SetWeight(0, 1);
-            head.data.sourceObjects.SetWeight(1, 0);
-            body.data.sourceObjects.SetWeight(0, 1);
-            body.data.sourceObjects.SetWeight(1, 0);
-            rArm.data.sourceObjects.SetWeight(0, 1);
-            rArm.data.sourceObjects.SetWeight(1, 0);
-            if (lArm != null)
-            {
-                lArm.data.sourceObjects.SetWeight(0, 1);
-                lArm.data.sourceObjects.SetWeight(1, 0);
-            }
-            rig.weight = 0f;
-        }
-        public void SetDualWieldRig()
-        {
-            head.data.sourceObjects.SetWeight(0, 1);
-            head.data.sourceObjects.SetWeight(1, 0);
-            body.data.sourceObjects.SetWeight(0, 1);
-            body.data.sourceObjects.SetWeight(1, 0);
-            rArm.data.sourceObjects.SetWeight(0, 1);
-            rArm.data.sourceObjects.SetWeight(1, 0);
-            lArm.data.sourceObjects.SetWeight(0, 1);
-            lArm.data.sourceObjects.SetWeight(1, 0);
-            rig.weight = 1.0f;
-        }*/
- 
-
+    }    
 }

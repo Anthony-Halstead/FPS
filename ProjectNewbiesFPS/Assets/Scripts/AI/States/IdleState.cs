@@ -13,11 +13,14 @@ public class IdleState : State
     public State spawnReinforcement;
     public override void EnterState(AIController controller)
     {
+        
         controller.Agent.stoppingDistance = 0.2f;
         // controller.Agent.angularSpeed = 0f;
         /*controller.target = controller.transform.position;
         controller.lookTarget = controller.transform.forward;*/
-
+        
+           // controller.StartRig();
+       
     }
     public override void UpdateState(AIController controller)
     {
