@@ -34,7 +34,3 @@ Feel free to reach out to us with any questions or feedback!
 
 📝 License
 This project is licensed under the MIT License.
-
-📊 Additional Resources
-Our Team FigJam Board: https://www.figma.com/board/6wDtPnnRMXx2YYF19G828U/Prototype-1-Board?node-id=0-1&t=XcGyJdGrIlOJsc86-1
-Project Documentation: 
